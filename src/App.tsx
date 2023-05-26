@@ -3,6 +3,7 @@ import { Sidebar } from './components/Sidebar';
 import { Footer } from './components/Footer';
 import { TopBar, Link } from './components/TopBar';
 import { ContentBox } from './components/ContentBox';
+import { Card } from './components/Card';
 import './App.css';
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
         />
         <div className="container-fluid py-4">
           <ContentBox widthLg={12} widthMd={12} title="Project">
-            Hello world!
+            <Card type="feeling" name="cold" />
           </ContentBox>
           <Footer />
         </div>

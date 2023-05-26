@@ -1,0 +1,8 @@
+.card {
+  width: 300px;
+  text-align: center;
+  cursor: pointer;
+}
+.card img {
+  border-radius: 10px;
+}
