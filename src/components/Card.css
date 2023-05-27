@@ -1,26 +1,24 @@
+:root {
+  --card-ratio: 0.7;
+  --card-width: 300px;
+  --card-height: 420px;
+  --card-border: 1px;
+}
+
 .card {
-  width: 300px;
+  width: calc(var(--card-ratio) * var(--card-width));
+  height: calc(var(--card-ratio) * var(--card-height));
   text-align: center;
   cursor: pointer;
-  border-radius: 10px;
+
+  border-radius: 1em;
+  padding: var(--card-border);
+  background: linear-gradient(to right, #D4AF37 0%, #C6A734 50%, #B7952F 100%);
+
+  margin: 30px;
 }
 
 .card img {
-  border-radius: 10px;
-  width: 300px;
-}
-
-.card-border {
-  width: 306px;
-  border-radius: 10px;
-  padding: 3px;
-  background: linear-gradient(90deg, #FCF6BA 20%, #FBF5B7 40%, #ECD08C 50%, #ECD08C 55%, #FBF5B7 70%, #FCF6BA 100%);
-  background-size: 200% auto;
-  animation: shine 3s linear infinite;
-}
-
-@keyframes shine {
-  to {
-    background-position: 200% center;
-  }
+  border-radius: 1em;
+  width: calc(var(--card-ratio) * var(--card-width));
 }

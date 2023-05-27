@@ -32,14 +32,11 @@ export const Card = (props: CardProps) => {
   }
 
   return (
-    <div className="card-border">
-      <div className="card" onClick={flipCard}>
-        <img
-          alt={props.name}
-          src={cardUrl}
-        />
-      </div>
+    <div className="card" onClick={flipCard}>
+      <img
+        alt={props.name}
+        src={cardUrl}
+      />
     </div>
-
   )
 }
