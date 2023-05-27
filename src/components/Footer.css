@@ -1,0 +1,33 @@
+:root {
+  --dark-teal: #006a6a;
+  --light-teal: #00a0a0;
+  --footer-height: 50px;
+}
+
+body {
+  position: relative;
+}
+
+footer {
+  width: 100%;
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  height: var(--footer-height);
+
+  background-color: var(--dark-teal);
+  background-image: url('../../public/assets/img/felt.png');
+}
+
+footer a {
+  display: inline-block;
+  line-height: var(--footer-height);
+  margin-right: calc(var(--footer-height) / 2);
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+footer a:hover {
+  background-color: var(--light-teal);
+  background-image: url('../../public/assets/img/felt.png');
+}

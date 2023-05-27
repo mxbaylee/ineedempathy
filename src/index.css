@@ -1,11 +1,33 @@
+:root {
+  --teal: #008080;
+  --white: #e6f1ff;
+}
+
+#root {
+  width: 100%;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  color: var(--white);
+
+  background-color: var(--teal);
+  background-image: url('../public/assets/img/felt.png');
+
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
 }
+a {
+  color: var(--white);
+  font-weight: bold;
+  text-decoration: none;
+}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
