@@ -3,6 +3,10 @@
   --card-width: 300px;
   --card-height: 420px;
   --card-border: 1px;
+
+  --gold-one: #D4AF37;
+  --gold-two: #C6A734;
+  --gold-three: #B7952F;
 }
 
 .card {
@@ -13,11 +17,27 @@
 
   border-radius: 1em;
   padding: var(--card-border);
-  background: linear-gradient(to right, #D4AF37 0%, #C6A734 50%, #B7952F 100%);
+  background: linear-gradient(to right, var(--gold-one) 0%, var(--gold-two) 50%, var(--gold-three) 100%);
+  background-size: 300% 300%;
 
   margin: 30px;
 }
 
+.card:hover {
+  animation: shiny-gold 1s linear infinite;
+}
+
+@keyframes shiny-gold {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 .card img {
   border-radius: 1em;
   width: calc(var(--card-ratio) * var(--card-width));
