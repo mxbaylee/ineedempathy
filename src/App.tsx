@@ -1,21 +1,30 @@
-import React from 'react';
-import { Footer } from './components/Footer';
-import { CardCategory, CardType, Card } from './components/Card';
-import './App.css';
+import React from 'react'
+import { Footer } from './components/Footer'
+import { CardTable } from './components/CardTable'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd'
+import { CardCategory, CardType } from './components/Card'
+import './App.css'
 
 function App() {
   return (
-    <>
-      <Card
-        type={CardType.Feeling}
-        category={CardCategory.Meow}
-        name="cold"
-        definition="Lacking affection or warmth of feeling; unemotional."
-        source="https://www.lexico.com/en/definition/cold"
-      />
+    <div className="App">
+      <DndProvider backend={HTML5Backend}>
+        <CardTable
+          initialCards={[
+            {
+              type: CardType.Feeling,
+              category: CardCategory.Meow,
+              name: 'cold',
+              definition: 'Lacking affection or warmth of feeling; unemotional.',
+              source: 'https://www.lexico.com/en/definition/cold',
+            }
+          ]}
+        />
+      </DndProvider>
       <Footer />
-    </>
-  );
+    </div>
+  )
 }
 
-export default App;
+export default App

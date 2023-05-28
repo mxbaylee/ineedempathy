@@ -14,6 +14,7 @@
   height: calc(var(--card-ratio) * var(--card-height));
   text-align: center;
   cursor: pointer;
+  display: inline-block;
 
   border-radius: 1em;
   padding: var(--card-border);
