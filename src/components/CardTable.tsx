@@ -23,7 +23,7 @@ export const CardTable = ({ initialCards }: CardTableProps) => {
       [id]: {
         id, card,
         left: 215 * idx, top: 10,
-        zindex: (zIndexCounter++),
+        zIndex: (zIndexCounter++),
       }
     }
   }, {}))
@@ -33,10 +33,11 @@ export const CardTable = ({ initialCards }: CardTableProps) => {
       ...tableItems,
       [id]: {
         id, left, top,
-        zindex: (zIndexCounter++),
+        zIndex: (zIndexCounter++),
         card: tableItems[id].card
       }
     })
+    console.log({zIndexCounter})
   }, [tableItems, setTableItems])
 
   const [, drop] = useDrop(() => {
