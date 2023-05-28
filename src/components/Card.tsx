@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react'
+import { Howl } from 'howler';
 import './Card.css'
 
 export enum CardCategory {
@@ -21,6 +22,11 @@ export interface CardProps {
   initialFlipped?: boolean
 }
 
+const sound = new Howl({
+  src: ['/ineedempathy/assets/audio/toggle-card.mp3'],
+  volume: 0.2,
+});
+
 export const Card = (props: CardProps) => {
   console.log('unused', props.category, props.definition, props.source)
   const [flipped, setFlipped] = useState<boolean>(!!props.initialFlipped)
@@ -35,8 +41,24 @@ export const Card = (props: CardProps) => {
     setFlipped(!flipped)
   }, [flipped, setFlipped])
 
+  const handleDoubleClick = () => {
+    console.log('double click')
+  }
+
+  const handleMouseDown = (event: any) => {
+    sound.play()
+    if (event.button === 2) {
+      console.log('handle right click')
+    }
+  };
+
   return (
-    <div className={"card " + (flipped ? 'back' : 'front')} onClick={flipCard}>
+    <div
+      className={"card " + (flipped ? 'back' : 'front')}
+      onDoubleClick={handleDoubleClick}
+      onMouseDown={handleMouseDown}
+      onClick={flipCard}
+    >
       <img
         alt={name}
         src={cardUrl}
