@@ -14,19 +14,21 @@ export enum CardType {
 export interface CardProps {
   type: CardType
   name: string
+  display?: string
   category: CardCategory
   definition: string
   source: string
+  initialFlipped?: boolean
 }
 
 export const Card = (props: CardProps) => {
   console.log('unused', props.category, props.definition, props.source)
-  const [flipped, setFlipped] = useState<boolean>(Math.random() >= 0.5)
-  const { type, name } = props
+  const [flipped, setFlipped] = useState<boolean>(!!props.initialFlipped)
+  const { type, name, display } = props
   const cardUrl = flipped ? (
     `/ineedempathy/assets/cards/${CardType[type].toLowerCase()}_back.jpg`
   ) : (
-    `/ineedempathy/assets/cards/${name}.jpg`
+    `/ineedempathy/assets/cards/md/${name}.jpg`
   )
 
   const flipCard = useCallback(() => {
@@ -34,11 +36,12 @@ export const Card = (props: CardProps) => {
   }, [flipped, setFlipped])
 
   return (
-    <div className="card" onClick={flipCard}>
+    <div className={"card " + (flipped ? 'back' : 'front')} onClick={flipCard}>
       <img
         alt={name}
         src={cardUrl}
       />
+      <span className="title">{(display || name).toUpperCase()}</span>
     </div>
   )
 }

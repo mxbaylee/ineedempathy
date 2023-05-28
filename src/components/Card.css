@@ -14,6 +14,7 @@
   height: calc(var(--card-ratio) * var(--card-height));
   text-align: center;
   display: inline-block;
+  position: relative;
 
   border-radius: 1em;
   padding: var(--card-border);
@@ -36,6 +37,21 @@
     background-position: 0% 50%;
   }
 }
+.card.back .title {
+  display: none;
+}
+.card .title {
+  display: block;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 24px;
+  width: 100%;
+  position: absolute;
+  line-height: calc(0.22 * var(--card-ratio) * var(--card-height));
+  top: 0;
+  left: 0;
+  text-align: center;
+}
+
 .card img {
   border-radius: 1em;
   width: calc(var(--card-ratio) * var(--card-width));
