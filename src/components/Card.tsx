@@ -1,10 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import './Card.css'
 
-export const ItemTypes = {
-  BOX: 'box',
-}
-
 export enum CardCategory {
   Ruff,
   Meow,
@@ -16,17 +12,16 @@ export enum CardType {
 }
 
 export interface CardProps {
-  top?: number
-  left?: number
   type: CardType
   name: string
-  category?: CardCategory
-  definition?: string
-  source?: string
+  category: CardCategory
+  definition: string
+  source: string
 }
 
 export const Card = (props: CardProps) => {
-  const [flipped, setFlipped] = useState<boolean>(false)
+  console.log('unused', props.category, props.definition, props.source)
+  const [flipped, setFlipped] = useState<boolean>(Math.random() >= 0.5)
   const { type, name } = props
   const cardUrl = flipped ? (
     `/ineedempathy/assets/cards/${CardType[type].toLowerCase()}_back.jpg`

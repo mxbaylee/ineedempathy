@@ -18,7 +18,14 @@ function App() {
               name: 'cold',
               definition: 'Lacking affection or warmth of feeling; unemotional.',
               source: 'https://www.lexico.com/en/definition/cold',
-            }
+            },
+            {
+              type: CardType.Need,
+              category: CardCategory.Meow,
+              name: 'acceptance',
+              definition: 'The action or process of being received as adequate or suitable, typically to be admitted into a group.',
+              source: 'https://www.lexico.com/en/definition/acceptance',
+            },
           ]}
         />
       </DndProvider>

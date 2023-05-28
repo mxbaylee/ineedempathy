@@ -1,8 +1,9 @@
 import React, { useCallback, useState } from 'react'
-import { ItemTypes, CardProps, Card } from './Card'
+import { CardProps, Card } from './Card'
 import { useDrop } from 'react-dnd'
 import type { XYCoord } from 'react-dnd'
 import { TableItem } from './TableItem'
+import './CardTable.css'
 
 export interface CardTableProps {
   initialCards: CardProps[]
@@ -12,25 +13,35 @@ export interface DragItem {
   id: string
 }
 
+let zIndexCounter = 0
+
 export const CardTable = ({ initialCards }: CardTableProps) => {
-  const [tableItems, setTableItems] = useState<any>(initialCards.reduce((memo, card: CardProps) => {
+  const [tableItems, setTableItems] = useState<any>(initialCards.reduce((memo, card: CardProps, idx: number) => {
     const id = card.type + card.name
     return {
       ...memo,
-      [id]: { id, left: 20, top: 80, card }
+      [id]: {
+        id, card,
+        left: 215 * idx, top: 10,
+        zindex: (zIndexCounter++),
+      }
     }
   }, {}))
 
   const moveBox = useCallback((id: string, left: number, top: number) => {
     setTableItems({
       ...tableItems,
-      [id]: { id, left, top, card: tableItems[id].card }
+      [id]: {
+        id, left, top,
+        zindex: (zIndexCounter++),
+        card: tableItems[id].card
+      }
     })
   }, [tableItems, setTableItems])
 
   const [, drop] = useDrop(() => {
     return {
-      accept: ItemTypes.BOX,
+      accept: 'CardTableItem',
       drop({ id }: DragItem, monitor) {
         const item = tableItems[id]
         const delta = monitor.getDifferenceFromInitialOffset() as XYCoord
@@ -42,11 +53,12 @@ export const CardTable = ({ initialCards }: CardTableProps) => {
   }, [moveBox])
 
   return (
-    <div ref={drop} className="board">
+    <div ref={drop} className="card-table">
       {Object.keys(tableItems).map((key) => {
-        const { left, top, card } = tableItems[key]
+        const { zIndex, left, top, card } = tableItems[key]
         return (
           <TableItem
+            zIndex={zIndex}
             key={key}
             id={key}
             left={left}

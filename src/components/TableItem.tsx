@@ -1,35 +1,33 @@
 import { useDrag } from 'react-dnd'
 import React from 'react'
-import { ItemTypes } from './Card'
+import './TableItem.css'
 
 export interface TableItemProps {
   id: any
   left: number
   top: number
+  zIndex: number
   children?: any
 }
 
-export const TableItem = ({ id, left = 0, top = 0, children }: TableItemProps) => {
-  const [{ isDragging }, drag] = useDrag(
-    () => ({
-      type: ItemTypes.BOX,
-      item: { id, left, top },
-      collect: (monitor: any) => ({
-        isDragging: monitor.isDragging(),
-      }),
+export const TableItem = ({ id, zIndex = 0, left = 0, top = 0, children }: TableItemProps) => {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'CardTableItem',
+    item: { id, left, top, zIndex },
+    collect: (monitor: any) => ({
+      isDragging: monitor.isDragging(),
     }),
-    [id, left, top],
-  )
+  }), [id, left, top])
 
   if (isDragging) {
     return <div ref={drag} />
   }
+
   return (
     <div
-      className="box"
+      className="table-item"
       ref={drag}
-      style={{ left, top }}
-      data-testid="box"
+      style={{ zIndex, left, top }}
     >
       {children}
     </div>

@@ -13,15 +13,12 @@
   width: calc(var(--card-ratio) * var(--card-width));
   height: calc(var(--card-ratio) * var(--card-height));
   text-align: center;
-  cursor: pointer;
   display: inline-block;
 
   border-radius: 1em;
   padding: var(--card-border);
   background: linear-gradient(to right, var(--gold-one) 0%, var(--gold-two) 50%, var(--gold-three) 100%);
   background-size: 300% 300%;
-
-  margin: 30px;
 }
 
 .card:hover {
