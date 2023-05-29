@@ -2,17 +2,17 @@ import React from 'react';
 import './Footer.css';
 
 export interface FooterProps {
-  setPreferences: (key: string, value: any) => void
+  setSettings: (key: string, value: any) => void
 }
 
 export const Footer = (props: FooterProps) => {
   const openHelp = (e: any) => {
     e.preventDefault()
-    props.setPreferences('helpVisible', true)
+    props.setSettings('helpVisible', true)
   }
   const openSettings = (e: any) => {
     e.preventDefault()
-    props.setPreferences('settingsVisible', true)
+    props.setSettings('settingsVisible', true)
   }
   return (
     <footer className="footer">

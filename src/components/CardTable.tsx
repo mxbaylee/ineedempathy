@@ -4,18 +4,18 @@ import { useDrop } from 'react-dnd'
 import type { XYCoord } from 'react-dnd'
 import { TableItem } from './TableItem'
 import { DragItem, DragCard, PrettyFormatter } from './formatters/PrettyFormatter'
-import { PreferenceItems } from '../hooks/preferences'
+import { SettingsItems } from '../hooks/settings'
 import './CardTable.css'
 
 export interface CardTableProps {
   initialCards: CardProps[]
   windows: ReactElement[]
-  preferences: PreferenceItems
+  settings: SettingsItems
 }
 
 let zIndexCounter = 0
 
-export const CardTable = ({ windows, initialCards, preferences }: CardTableProps) => {
+export const CardTable = ({ windows, initialCards, settings }: CardTableProps) => {
   const [tableCards, setTableCards] = useState<Record<string, DragCard>>(
     initialCards.reduce(PrettyFormatter , {})
   )
@@ -75,7 +75,7 @@ export const CardTable = ({ windows, initialCards, preferences }: CardTableProps
     <div ref={drop} className="card-table">
       {windows.map((WindowItem: ReactElement, idx: number) => {
         const { zIndex, id, left, top } = windowPos[idx]
-        const isVisible = preferences[WindowItem.key as keyof PreferenceItems]
+        const isVisible = settings[WindowItem.key as keyof SettingsItems]
         if (!isVisible) return <></>
         return (
           <TableItem
