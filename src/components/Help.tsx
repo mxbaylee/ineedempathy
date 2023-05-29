@@ -2,19 +2,16 @@ import React from 'react'
 import './Help.css'
 
 export interface HelpProps {
-  setHelpVisible: (value: boolean) => void
+  hideHelp: () => void
 }
 
 export const Help = (props: HelpProps) => {
-  const setClosed = () => {
-    props.setHelpVisible(false)
-  }
   return (
     <div className="help">
       <div className="title">
         <h3>I Need HELP 😢</h3>
       </div>
-      <div onClick={setClosed} className="close">
+      <div onClick={props.hideHelp} className="close">
         ❌
       </div>
       <div className="content">

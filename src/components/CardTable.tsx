@@ -1,99 +1,67 @@
-import React, { useCallback, useState } from 'react'
-import { CardType, CardProps, Card } from './Card'
+import React, { ReactElement, useCallback, useState } from 'react'
+import { CardProps, Card } from './Card'
 import { useDrop } from 'react-dnd'
 import type { XYCoord } from 'react-dnd'
 import { TableItem } from './TableItem'
-import { Help } from './Help'
+import { DragItem, DragCard, PrettyFormatter } from './formatters/PrettyFormatter'
+import { PreferenceItems } from '../hooks/preferences'
 import './CardTable.css'
 
 export interface CardTableProps {
-  helpVisible: boolean
-  setHelpVisible: (value: boolean) => void
   initialCards: CardProps[]
-}
-
-export interface DragItem {
-  id: string
+  windows: ReactElement[]
+  preferences: PreferenceItems
 }
 
 let zIndexCounter = 0
 
-export const CardTable = ({ helpVisible, setHelpVisible, initialCards }: CardTableProps) => {
-  const [tableItems, setTableItems] = useState<any>(initialCards.reduce((memo, card: CardProps, idx: number) => {
-    const id = card.type + card.name
+export const CardTable = ({ windows, initialCards, preferences }: CardTableProps) => {
+  const [tableCards, setTableCards] = useState<Record<string, DragCard>>(
+    initialCards.reduce(PrettyFormatter , {})
+  )
 
-    const firstOfItsType = () => {
-      return !Object.values(memo).find((previousCard: any) => {
-        return previousCard.card.type === card.type
+  const [windowPos, setWindowPos] = useState<DragItem[]>(
+    windows.reduce((memo: DragItem[], WindowItem: ReactElement, idx: number): DragItem[] => { 
+      memo.push({
+        id: 'window-' + idx,
+        zIndex: 99999,
+        left: 0,
+        top: 0
       })
-    }
-
-    const top = (() => {
-      return firstOfItsType() ? (
-        30
-      ) : (
-        400 - (idx * 0.5)
-      )
-    })()
-
-    const left = (() => {
-      const columnWidth = window.innerWidth / 2
-      const cardWidth = 210
-      const sidePadding = (columnWidth-cardWidth)/2
-      const columnPadding = columnWidth * (
-        card.type === CardType.Feeling ? 0 : 1
-      )
-      return firstOfItsType() ? (
-        card.type === CardType.Feeling ? (
-          columnWidth - cardWidth
-        ) : (
-          columnWidth + 1
-        )
-      ) : (
-        sidePadding + columnPadding + idx
-      )
-    })()
-
-    return {
-      ...memo,
-      [id]: {
-        id, top, left,
-        zIndex: (zIndexCounter++),
-        card: {
-          initialFlipped: firstOfItsType,
-          ...card,
-        },
-      }
-    }
-  }, {}))
-
-  const [[helpLeft, helpTop], setHelpLeftTop] = useState<[number, number]>([0,0])
+      return memo
+    }, [])
+  )
 
   const moveBox = useCallback((id: string, left: number, top: number) => {
-    console.log({id})
-    if (id === 'help-menu') {
-      setHelpLeftTop([left, top])
-      return
+    if (id.match(/window/)) {
+      setWindowPos([...windowPos].map((item: DragItem) => {
+        if (item.id !== id) {
+          return item
+        }
+        return {
+          ...item,
+          left, top,
+        }
+      }))
+    } else {
+      setTableCards({
+        ...tableCards,
+        [id]: {
+          ...tableCards[id],
+          left, top,
+          zIndex: (zIndexCounter++),
+        }
+      })
     }
-    setTableItems({
-      ...tableItems,
-      [id]: {
-        card: tableItems[id].card,
-        id, left, top,
-        zIndex: (zIndexCounter++),
-      }
-    })
-    console.log({zIndexCounter})
-  }, [setHelpLeftTop, tableItems, setTableItems])
+  }, [windowPos, setWindowPos, tableCards, setTableCards])
 
   const [, drop] = useDrop(() => {
     return {
       accept: 'CardTableItem',
       drop({ id }: DragItem, monitor) {
-        const item = tableItems[id] || {
-          id,
-          left: helpLeft,
-          top: helpTop,
+        const item = tableCards[id] || windowPos.find(pos => pos.id === id) || {
+          left: 0,
+          top: 0,
         }
         const delta = monitor.getDifferenceFromInitialOffset() as XYCoord
         const left = Math.round(item.left + delta.x)
@@ -101,22 +69,28 @@ export const CardTable = ({ helpVisible, setHelpVisible, initialCards }: CardTab
         moveBox(item.id, left, top)
       },
     }
-  }, [helpLeft, helpTop, moveBox])
+  }, [moveBox])
 
   return (
     <div ref={drop} className="card-table">
-      {helpVisible && (
-        <TableItem
-          zIndex={999999}
-          id={'help-menu'}
-          left={helpLeft}
-          top={helpTop}
-        >
-          <Help setHelpVisible={setHelpVisible} />
-        </TableItem>
-      )}
-      {Object.keys(tableItems).map((key) => {
-        const { zIndex, left, top, card } = tableItems[key]
+      {windows.map((WindowItem: ReactElement, idx: number) => {
+        const { zIndex, id, left, top } = windowPos[idx]
+        const isVisible = preferences[WindowItem.key as keyof PreferenceItems]
+        if (!isVisible) return <></>
+        return (
+          <TableItem
+            key={idx}
+            zIndex={zIndex}
+            id={id}
+            left={left}
+            top={top}
+          >
+            {WindowItem}
+          </TableItem>
+        )
+      })}
+      {Object.keys(tableCards).map((key) => {
+        const { zIndex, left, top, card } = tableCards[key]
         return (
           <TableItem
             zIndex={zIndex}
