@@ -1,0 +1,41 @@
+:root {
+  --card-ratio: 0.7;
+  --card-width: 300px;
+  --card-height: 420px;
+  --card-border: 1px;
+}
+
+.help {
+  background: rgba(255, 255, 255, 0.9);
+  color: black;
+  border-radius: 0.5em;
+  width: calc(var(--card-width) * 2 * var(--card-ratio));
+  height: calc(var(--card-height) * 2 * var(--card-ratio));
+}
+.help .title {
+  border-radius: 0.5em 0.5em 0 0;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 3px;
+}
+.help .content {
+  text-align: left;
+  padding: 5px 10px;
+}
+.help .content h4 {
+}
+.help .content p {
+  margin-top: 0;
+}
+.help .content li,
+.help .content p {
+  font-family: sans-serif;
+  font-weight: normal;
+}
+.close {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 10px;
+}

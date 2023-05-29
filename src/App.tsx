@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Footer } from './components/Footer'
 import { CardTable } from './components/CardTable'
 import { HTML5Backend } from 'react-dnd-html5-backend'
@@ -8,15 +8,18 @@ import { CardDefinition } from './CardDefinition'
 import './App.css'
 
 function App() {
+  const [helpVisible, setHelpVisible] = useState<boolean>(false)
   const isTouchDevice = (('ontouchstart' in window) || (navigator.maxTouchPoints > 0))
   return (
     <div className="App">
       <DndProvider backend={isTouchDevice ? TouchBackend : HTML5Backend}>
         <CardTable
+          helpVisible={helpVisible}
+          setHelpVisible={setHelpVisible}
           initialCards={CardDefinition}
         />
       </DndProvider>
-      <Footer />
+      <Footer setHelpVisible={setHelpVisible} />
     </div>
   )
 }
