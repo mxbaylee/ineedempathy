@@ -1,6 +1,9 @@
 Known Bugs
   Dragging can flip cards to the original state
 
+Settings
+  Save/read in local storage
+
 Groups
 
 Move
