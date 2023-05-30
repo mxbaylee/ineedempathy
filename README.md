@@ -1,44 +1,12 @@
-# 🤪 Baylee's Open Source Template
+![I Need Empathy](./public/logo.png)
 
-This template allows you to build TypeScript React applications that compile to
-gh-pages easily!
+# 🌈 I Need Empathy
 
-# 💫 Using this template
+Ap app designed to guide you through consciously discovering your needs.
 
-Clone the template
+A re-iteration of the previous [I Need Empathy][empathy.old]
 
-```
-git clone git@github.com:mxbaylee/github-page-template.git PROJECT_NAME
-cd PROJECT_NAME
-```
-
-Update the port
-
-```
-npm run reroll-port
-npm pkg set 'homepage'='/'$(basename "$PWD")
-```
-
-Update git
-
-```
-rm -rf .git
-git init
-git add --all
-git commit -m '🥳 Initial commit'
-git remote add origin PROJECT_ORIGIN
-git push
-```
-
-Initial deploy
-
-```
-npm install
-npm run deploy
-```
-
-
-# 💻 Logistically
+# 💻 Running Locally
 
 🤖 To run
 
@@ -52,3 +20,5 @@ npm start
 ```
 npm run deploy
 ```
+
+[empathy.old]: https://github.com/itsybits-xyz/ineedempathy
