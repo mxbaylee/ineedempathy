@@ -1,10 +1,3 @@
-:root {
-  --card-ratio: 0.7;
-  --card-width: 300px;
-  --card-height: 420px;
-  --card-border: 1px;
-}
-
 .help {
   background: rgba(255, 255, 255, 0.9);
   color: black;
@@ -31,7 +24,7 @@
   font-family: sans-serif;
   font-weight: normal;
 }
-.close {
+.help .close {
   position: absolute;
   top: 0;
   left: 0;

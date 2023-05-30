@@ -99,7 +99,10 @@ export const CardTable = ({ windows, initialCards, settings }: CardTableProps) =
             left={left}
             top={top}
           >
-            <Card {...card} />
+            <Card
+              volume={settings.volume}
+              {...card}
+            />
           </TableItem>
         )
       })}

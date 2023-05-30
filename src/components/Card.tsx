@@ -20,15 +20,11 @@ export interface CardProps {
   definition: string
   source: string
   initialFlipped?: boolean
+  volume?: number
 }
 
-const sound = new Howl({
-  src: ['/ineedempathy/assets/audio/toggle-card.mp3'],
-  volume: 0.2,
-});
-
 export const Card = (props: CardProps) => {
-  console.log('unused', props.category, props.definition, props.source)
+
   const [flipped, setFlipped] = useState<boolean>(!!props.initialFlipped)
   const { type, name, display } = props
   const cardUrl = flipped ? (
@@ -36,6 +32,10 @@ export const Card = (props: CardProps) => {
   ) : (
     `/ineedempathy/assets/cards/md/${name}.jpg`
   )
+  const sound = new Howl({
+    volume: (props.volume || 4) / 10,
+    src: ['/ineedempathy/assets/audio/toggle-card.mp3'],
+  });
 
   const flipCard = useCallback(() => {
     setFlipped(!flipped)
