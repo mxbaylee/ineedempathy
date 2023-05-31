@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { useDraggable } from '@neodrag/react';
+import { throttle } from '../utils'
 import './css/Draggable.css'
 
 export interface DraggableProps {
@@ -25,20 +26,21 @@ export const Draggable = ({
     defaultPosition: { x: initialLeft, y: initialTop }
   })
 
-  const incrementIndex = () => {
+  const incrementIndex = throttle(() => {
     if (zIndex) {
       setZeeIndex(zeeIndex + 1)
     } else if (zIndexRef) {
       zIndexRef.current += 1
       setZeeIndex(zIndexRef.current)
     }
-  }
+  })
 
   return (
     <div
       style={{zIndex: zeeIndex}}
       ref={cardDragRef}
       onMouseDown={incrementIndex}
+      onTouchStart={incrementIndex}
       className={"draggable-item"}
     >
       {children}
