@@ -1,14 +1,5 @@
-Known Bugs
-  Dragging can flip cards to the original state
-
-Settings
-  Save/read in local storage
-
 Groups
-
-Move
-  Snap to group
-
+  Snap to groups
 
 Click
   CardGroup (facing down)
