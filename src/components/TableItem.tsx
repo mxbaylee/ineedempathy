@@ -11,17 +11,13 @@ export interface TableItemProps {
 }
 
 export const TableItem = ({ id, zIndex, left, top, children }: TableItemProps) => {
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [, drag] = useDrag(() => ({
     type: 'CardTableItem',
     item: { id, left, top, zIndex },
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging(),
     }),
   }), [id, left, top, zIndex])
-
-  if (isDragging) {
-    return <div ref={drag} />
-  }
 
   return (
     <div
