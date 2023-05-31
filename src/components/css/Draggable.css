@@ -1,0 +1,7 @@
+.draggable-item {
+  cursor: grab;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

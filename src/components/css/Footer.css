@@ -16,7 +16,7 @@ footer {
   height: var(--footer-height);
 
   background-color: var(--dark-teal);
-  background-image: url('../../public/assets/img/felt.png');
+  background-image: url('../../../public/assets/img/felt.png');
 }
 
 footer a {
@@ -29,5 +29,5 @@ footer a {
 
 footer a:hover {
   background-color: var(--light-teal);
-  background-image: url('../../public/assets/img/felt.png');
+  background-image: url('../../../public/assets/img/felt.png');
 }

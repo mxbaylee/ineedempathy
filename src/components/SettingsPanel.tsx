@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useState, useCallback } from 'react'
-import { SettingsItems } from '../hooks/settings'
+import { SettingsItems } from '../hooks/useSettings'
 import { Howl } from 'howler';
-import './SettingsPanel.css'
+import './css/SettingsPanel.css'
 
 export interface SettingsPanelProps {
   hideSettings: () => void

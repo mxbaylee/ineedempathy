@@ -1,49 +1,57 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Footer } from './components/Footer'
-import { CardTable } from './components/CardTable'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { TouchBackend } from 'react-dnd-touch-backend'
-import { DndProvider } from 'react-dnd'
 import { CardDefinitions } from './CardDefinitions'
 import { Help } from './components/Help'
-import { useSettings } from './hooks/settings'
+import { useSettings } from './hooks/useSettings'
 import { SettingsPanel } from './components/SettingsPanel'
+import { Card } from './components/Card'
+import { Draggable } from './components/Draggable'
+import { WrappedCardProps, PrettyFormatter } from './formatters/PrettyFormatter'
 import './App.css'
 
 function App() {
-  const [settings, setSettings] = useSettings({
-    volume: 2,
-    isTouchDevice: (
-      ('ontouchstart' in window) || (navigator.maxTouchPoints > 0)
-    ),
-    settingsVisible: false,
-    helpVisible: false,
-  })
+  const zIndexRef = useRef(1)
+  const [settings, setSettings] = useSettings()
 
   return (
     <div className="App">
-      <DndProvider backend={settings.isTouchDevice ? TouchBackend : HTML5Backend}>
-        <CardTable
-          settings={settings}
-          initialCards={CardDefinitions}
-          windows={[
-            <Help
-              key={'helpVisible'}
-              hideHelp={() => {
-                setSettings('helpVisible', false)
-              }}
-            />,
+      <div className="card-table">
+        { settings.settingsVisible && (
+          <Draggable zIndex={999999}>
             <SettingsPanel
-              key={'settingsVisible'}
               settings={settings}
               setSettings={setSettings}
               hideSettings={() => {
                 setSettings('settingsVisible', false)
               }}
             />
-          ]}
-        />
-      </DndProvider>
+          </Draggable>
+        )}
+        { settings.helpVisible && (
+          <Draggable zIndex={999999}>
+            <Help
+              hideHelp={() => {
+                setSettings('helpVisible', false)
+              }}
+            />
+          </Draggable>
+        )}
+        {PrettyFormatter(CardDefinitions).map(([card, pos]: WrappedCardProps, idx: number) => {
+          return (
+            <Draggable
+              zIndexRef={zIndexRef}
+              initialTop={pos.top}
+              initialLeft={pos.left}
+            >
+              <Card
+                {...card}
+                volume={settings.volume}
+                initialFlipped={false}
+              />
+            </Draggable>
+          )
+        })}
+      </div>
       <Footer setSettings={setSettings} />
     </div>
   )

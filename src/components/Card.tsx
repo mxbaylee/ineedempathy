@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from 'react'
+import React, { useRef, useCallback, useState } from 'react'
+import { throttle } from '../utils'
 import { Howl } from 'howler';
-import './Card.css'
+import './css/Card.css'
 
 export enum CardCategory {
   Ruff,
@@ -12,21 +13,24 @@ export enum CardType {
   Need,
 }
 
-export interface CardProps {
+export interface CardPropsBase {
   type: CardType
   name: string
   display?: string
   category: CardCategory
   definition: string
   source: string
-  initialFlipped?: boolean
-  volume?: number
+}
+
+export interface CardProps extends CardPropsBase {
+  initialFlipped: boolean
+  volume: number
 }
 
 export const Card = (props: CardProps) => {
-
   const [flipped, setFlipped] = useState<boolean>(!!props.initialFlipped)
   const { type, name, display } = props
+  const dragStartRef = useRef([0,0])
   const cardUrl = flipped ? (
     `/ineedempathy/assets/cards/${CardType[type].toLowerCase()}_back.jpg`
   ) : (
@@ -36,27 +40,36 @@ export const Card = (props: CardProps) => {
     volume: (props.volume || 4) / 10,
     src: ['/ineedempathy/assets/audio/toggle-card.mp3'],
   });
+  const playSound = throttle(() => { sound.play() })
 
-  const flipCard = useCallback(() => {
-    setFlipped(!flipped)
-  }, [flipped, setFlipped])
-
-  const handleDoubleClick = () => {
-    console.log('double click')
-  }
+  const flipCard = useCallback((event: any) => {
+    const xMatches = event.clientX === dragStartRef.current[0]
+    const yMatches = event.clientY === dragStartRef.current[1]
+    // Only flip if it didn't move between mouseDown and click
+    if (xMatches && yMatches) {
+      setFlipped(!flipped)
+      playSound()
+    }
+  }, [playSound, flipped, setFlipped])
 
   const handleMouseDown = (event: any) => {
-    sound.play()
+    dragStartRef.current = [event.clientX, event.clientY]
+    playSound()
     if (event.button === 2) {
       console.log('handle right click')
     }
   };
 
+  const handleDrag = (event: any) => {
+    event.preventDefault()
+  }
+
   return (
     <div
       className={"card " + (flipped ? 'back' : 'front')}
-      onDoubleClick={handleDoubleClick}
       onMouseDown={handleMouseDown}
+      onTouchStart={playSound}
+      onDrag={handleDrag}
       onClick={flipCard}
     >
       <img

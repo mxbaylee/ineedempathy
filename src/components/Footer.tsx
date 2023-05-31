@@ -1,5 +1,5 @@
 import React from 'react';
-import './Footer.css';
+import './css/Footer.css';
 
 export interface FooterProps {
   setSettings: (key: string, value: any) => void

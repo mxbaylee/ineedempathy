@@ -1,5 +1,5 @@
 import React from 'react'
-import './Help.css'
+import './css/Help.css'
 
 export interface HelpProps {
   hideHelp: () => void

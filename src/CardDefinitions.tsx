@@ -1,6 +1,6 @@
-import { CardType, CardCategory, CardProps } from './components/Card'
+import { CardType, CardCategory, CardPropsBase } from './components/Card'
 
-export const CardDefinitions: CardProps[] = [
+export const CardDefinitions: CardPropsBase[] = [
   {
     type: CardType.Feeling,
     category: CardCategory.Meow,
