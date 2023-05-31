@@ -46,7 +46,7 @@ function App() {
               <Card
                 {...card}
                 volume={settings.volume}
-                initialFlipped={false}
+                initialFlipped={card.initialFlipped || false}
               />
             </Draggable>
           )

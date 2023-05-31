@@ -20,6 +20,7 @@ export interface CardPropsBase {
   category: CardCategory
   definition: string
   source: string
+  initialFlipped?: boolean
 }
 
 export interface CardProps extends CardPropsBase {

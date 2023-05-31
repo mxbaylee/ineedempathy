@@ -6,9 +6,9 @@ export type WrappedCardProps = [CardPropsBase, {
 }]
 
 export const PrettyFormatter = (cards: CardPropsBase[]): WrappedCardProps[] => {
-  const typeSet = new Set();
+  const typeSet = new Set()
 
-  return cards.map((card: CardPropsBase, idx: number) => {
+  return cards.map((card: CardPropsBase, idx: number): WrappedCardProps => {
     const firstOfItsType = !typeSet.has(card.type)
     typeSet.add(card.type)
     const top = (() => {
@@ -38,7 +38,10 @@ export const PrettyFormatter = (cards: CardPropsBase[]): WrappedCardProps[] => {
     })()
 
     return [
-      card,
+      {
+        ...card,
+        initialFlipped: firstOfItsType,
+      },
       {left, top}
     ]
   })
