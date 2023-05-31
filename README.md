@@ -2,7 +2,7 @@
 
 # 🌈 I Need Empathy
 
-Ap app designed to guide you through consciously discovering your needs.
+Embark on a unique self-discovery journey, and gain greater awareness of your needs.
 
 A re-iteration of the previous [I Need Empathy][empathy.old]
 
