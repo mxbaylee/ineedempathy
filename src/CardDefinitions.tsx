@@ -1,5 +1,54 @@
 import { CardType, CardCategory, CardPropsBase } from './components/Card'
 
+/*
+ * TODO: Add new cards:
+  {
+    type: CardType.Need,
+    category: CardCategory.Meow,
+    name: 'authenticity',
+    definition: 'Unable to understand; perplexed.',
+    source: 'https://www.lexico.com/en/definition/puzzled',
+  },
+  {
+    type: CardType.Need,
+    category: CardCategory.Meow,
+    name: 'companionship',
+    definition: 'Unable to understand; perplexed.',
+    source: 'https://www.lexico.com/en/definition/puzzled',
+  },
+  {
+    type: CardType.Need,
+    category: CardCategory.Meow,
+    name: 'shared-reality',
+    definition: 'Unable to understand; perplexed.',
+    source: 'https://www.lexico.com/en/definition/puzzled',
+  },
+*/
+/*
+ * TODO: Add new cards:
+  {
+    type: CardType.Feeling,
+    category: CardCategory.Meow,
+    name: 'defensive',
+    definition: 'Unable to understand; perplexed.',
+    source: 'https://www.lexico.com/en/definition/puzzled',
+  },
+  {
+    type: CardType.Feeling,
+    category: CardCategory.Meow,
+    name: 'energetic',
+    definition: 'Unable to understand; perplexed.',
+    source: 'https://www.lexico.com/en/definition/puzzled',
+  },
+  {
+    type: CardType.Feeling,
+    category: CardCategory.Meow,
+    name: 'friendly',
+    definition: 'Unable to understand; perplexed.',
+    source: 'https://www.lexico.com/en/definition/puzzled',
+  },
+*/
+
 export const CardDefinitions: CardPropsBase[] = [
   {
     type: CardType.Feeling,
