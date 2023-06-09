@@ -28,7 +28,7 @@
   border-radius: 0.25em;
 }
 .settings .content p {
-  font-family: sans-serif;
+  font-family: var(--font-family);
   font-weight: normal;
 }
 .settings .item {

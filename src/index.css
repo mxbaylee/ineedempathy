@@ -1,6 +1,7 @@
 :root {
   --teal: #008080;
   --white: #e6f1ff;
+  --font-family: 'Gill Sans', sans-serif;
 }
 
 #root {
@@ -8,9 +9,15 @@
   display: block;
 }
 
+
+@font-face {
+  font-family: 'Gill Sans';
+  src: url('https://fonts.googleapis.com/css2?family=Gill+Sans:wght@400;700&display=swap');
+}
+
 body {
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-family);
   color: var(--white);
 
   background-color: var(--teal);

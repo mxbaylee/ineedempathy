@@ -20,7 +20,7 @@
 }
 .help .content li,
 .help .content p {
-  font-family: sans-serif;
+  font-family: var(--font-family);
   font-weight: normal;
 }
 .help .close {
