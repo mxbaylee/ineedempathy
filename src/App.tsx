@@ -1,17 +1,22 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Footer } from './components/Footer'
 import { CardDefinitions } from './CardDefinitions'
 import { Help } from './components/Help'
 import { useSettings } from './hooks/useSettings'
 import { SettingsPanel } from './components/SettingsPanel'
-import { Card } from './components/Card'
+import { Card, CardPropsBase } from './components/Card'
 import { Draggable } from './components/Draggable'
-import { WrappedCardProps, PrettyFormatter } from './formatters/PrettyFormatter'
+import { CardGroup, PrettyFormatter } from './formatters/PrettyFormatter'
 import './App.css'
 
 function App() {
   const zIndexRef = useRef(1)
+  const [cardGroups, setCardGroups] = useState(
+    PrettyFormatter(CardDefinitions)
+  )
   const [settings, setSettings] = useSettings()
+
+  console.log(cardGroups)
 
   return (
     <div className="App">
@@ -36,18 +41,24 @@ function App() {
             />
           </Draggable>
         )}
-        {PrettyFormatter(CardDefinitions).map(([card, pos]: WrappedCardProps, idx: number) => {
+        {cardGroups.map((cardGroup: CardGroup) => {
           return (
             <Draggable
               zIndexRef={zIndexRef}
-              initialTop={pos.top}
-              initialLeft={pos.left}
+              initialTop={cardGroup.top}
+              initialLeft={cardGroup.left}
             >
-              <Card
-                {...card}
-                volume={settings.volume}
-                initialFlipped={card.initialFlipped || false}
-              />
+              { cardGroup.cards.map((card: CardPropsBase, idx: number) => {
+                return (
+                  <Card
+                    key={idx}
+                    dataIdx={idx}
+                    {...card}
+                    volume={settings.volume}
+                    initialFlipped={cardGroup.flipped || false}
+                  />
+                )
+              }) }
             </Draggable>
           )
         })}

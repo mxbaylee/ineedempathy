@@ -1,48 +1,57 @@
 import { CardType, CardPropsBase } from '../components/Card'
 
-export type WrappedCardProps = [CardPropsBase, {
-  left: number
+export type CardGroup = {
+  id: string
   top: number
-}]
+  left: number
+  flipped: boolean
+  cards: CardPropsBase[]
+}
 
-export const PrettyFormatter = (cards: CardPropsBase[]): WrappedCardProps[] => {
-  const typeSet = new Set()
+const columnWidth = window.innerWidth / 2
+const cardWidth = 210
+const cardHeight = 294
+// const sidePadding = (columnWidth-cardWidth)/2
 
-  return cards.map((card: CardPropsBase, idx: number): WrappedCardProps => {
-    const firstOfItsType = !typeSet.has(card.type)
-    typeSet.add(card.type)
-    const top = (() => {
-      return firstOfItsType ? (
-        30
-      ) : (
-        400 - (idx * 0.5)
-      )
-    })()
-
-    const left = (() => {
-      const columnWidth = window.innerWidth / 2
-      const cardWidth = 210
-      const sidePadding = (columnWidth-cardWidth)/2
-      const columnPadding = columnWidth * (
-        card.type === CardType.Feeling ? 0 : 1
-      )
-      return firstOfItsType ? (
-        card.type === CardType.Feeling ? (
-          columnWidth - cardWidth
-        ) : (
-          columnWidth + 1
-        )
-      ) : (
-        sidePadding + columnPadding + idx
-      )
-    })()
-
-    return [
-      {
-        ...card,
-        initialFlipped: firstOfItsType,
-      },
-      {left, top}
-    ]
-  })
+export const PrettyFormatter = (cards: CardPropsBase[]): CardGroup[] => {
+  return cards.reduce((memo: CardGroup[], card: CardPropsBase, idx: number): CardGroup[] => {
+    if (card.type === CardType.Feeling) {
+      if (memo[0].cards.length === 0) {
+        memo[0].cards.push(card)
+      } else {
+        memo[2].cards.push(card)
+      }
+    } else {
+      if (memo[1].cards.length === 0) {
+        memo[1].cards.push(card)
+      } else {
+        memo[3].cards.push(card)
+      }
+    }
+    return memo
+  }, [ {
+    id: 'Rainbow Feeling',
+    top: 300,
+    left: columnWidth - (cardWidth / 2),
+    flipped: true,
+    cards: [],
+  }, {
+    id: 'Rainbow Need',
+    top: 300,
+    left: columnWidth + (cardWidth / 2),
+    flipped: true,
+    cards: [],
+  }, {
+    id: 'Feelings',
+    top: 300 + (cardHeight * 1.2),
+    left: columnWidth - cardWidth,
+    flipped: false,
+    cards: [],
+  }, {
+    id: 'Needs',
+    top: 300 + (cardHeight * 1.2),
+    left: columnWidth + cardWidth,
+    flipped: false,
+    cards: [],
+  } ])
 }

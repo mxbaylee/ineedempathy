@@ -41,7 +41,7 @@ export const Draggable = ({
       ref={cardDragRef}
       onMouseDown={incrementIndex}
       onTouchStart={incrementIndex}
-      className={"draggable-item"}
+      className={"card-group draggable-item"}
     >
       {children}
     </div>

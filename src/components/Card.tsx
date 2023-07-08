@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useState } from 'react'
+import React, { CSSProperties, useRef, useCallback, useState } from 'react'
 import { throttle } from '../utils'
 import { Howl } from 'howler';
 import './css/Card.css'
@@ -26,11 +26,12 @@ export interface CardPropsBase {
 export interface CardProps extends CardPropsBase {
   initialFlipped: boolean
   volume: number
+  dataIdx: number
 }
 
 export const Card = (props: CardProps) => {
   const [flipped, setFlipped] = useState<boolean>(!!props.initialFlipped)
-  const { type, name, display } = props
+  const { type, name, display, dataIdx } = props
   const dragStartRef = useRef([0,0])
   const cardUrl = flipped ? (
     `/ineedempathy/assets/cards/${CardType[type].toLowerCase()}_back.jpg`
@@ -72,6 +73,9 @@ export const Card = (props: CardProps) => {
       onTouchStart={playSound}
       onDrag={handleDrag}
       onClick={flipCard}
+      style={{
+        '--idx': String(dataIdx),
+      } as CSSProperties}
     >
       <img
         alt={name}

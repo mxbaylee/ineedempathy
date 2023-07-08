@@ -5,3 +5,18 @@
   top: 0;
   left: 0;
 }
+
+.card-group {
+  position: absolute;
+}
+
+.card-group .card {
+  --idx: 999;
+  position: absolute;
+  bottom: calc(0.75px * var(--idx));
+  left: calc(0.8px * var(--idx));
+}
+
+.card-group .card:not(:last-child) img {
+  display: none;
+}
