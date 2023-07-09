@@ -1,5 +1,7 @@
 import React, { CSSProperties, useRef, useCallback, useState } from 'react'
 import { useSecondaryClick, useSound } from '../utils'
+import { CardGroupActions } from './CardGroup'
+import { SourceLink } from './SourceLink'
 import './css/Card.css'
 
 export enum CardCategory {
@@ -19,19 +21,28 @@ export interface CardPropsBase {
   category: CardCategory
   definition: string
   source: string
-  initialFlipped?: boolean
 }
 
 export interface CardProps extends CardPropsBase {
-  initialFlipped: boolean
+  showDefinition: boolean
+  flipped: boolean
   volume: number
   dataIdx: number
-  actions: Record<string, () => void>
+  actions: CardGroupActions
 }
 
 export const Card = (props: CardProps) => {
-  const [flipped, setFlipped] = useState<boolean>(!!props.initialFlipped)
-  const { type, name, display, dataIdx, actions } = props
+  const {
+    type,
+    name,
+    display,
+    definition,
+    source,
+    flipped,
+    showDefinition,
+    dataIdx,
+    actions
+  } = props
   const dragStartRef = useRef([0,0])
   const [playSound] = useSound(props.volume)
 
@@ -53,7 +64,7 @@ export const Card = (props: CardProps) => {
 
   const flipCard = ignoreWhileDragging(
     wrapSound(() => {
-      setFlipped(!flipped)
+      actions.flipOver()
     })
   )
 
@@ -77,9 +88,17 @@ export const Card = (props: CardProps) => {
     event.preventDefault()
   }
 
+  const cardClasses = ['card']
+  cardClasses.push(flipped ? 'back' : 'front')
+  cardClasses.push(showDefinition ? 'text' : 'graphic')
+
+  const classicNoop = (event: any) => {
+    event.stopPropagation()
+  }
+
   return (
     <div
-      className={"card " + (flipped ? 'back' : 'front')}
+      className={cardClasses.join(' ')}
       onMouseDown={handleMouseDown}
       onTouchStart={onTouchStart}
       onDrag={handleDrag}
@@ -101,6 +120,21 @@ export const Card = (props: CardProps) => {
         src={`/ineedempathy/assets/cards/md/${name}.jpg`}
       />
       <span className="title">{(display || name).toUpperCase()}</span>
+      <div
+        onMouseDown={classicNoop}
+        onTouchStart={classicNoop}
+        onClick={classicNoop}
+        className="definition"
+      >
+        <dl>
+          <dt>{(display || name).toUpperCase()}</dt>
+          <dd>{definition}</dd>
+          <dd><SourceLink url={source} /></dd>
+        </dl>
+        <ul>
+          <li onClick={actions.toggleDefineCard}>Dismiss</li>
+        </ul>
+      </div>
     </div>
   )
 }

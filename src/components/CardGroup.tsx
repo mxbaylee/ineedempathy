@@ -12,11 +12,24 @@ export interface CardGroupProps {
   settings: SettingsItems
 }
 
-export const CardGroup = (props: CardGroupProps) => {
-  const [ showOptions, setShowOptions ] = useState<boolean>(false)
-  const { cardGroup, setCards, settings, zIndexRef } = props
+export interface CardGroupActions {
+  cycleCardGroup: () => void
+  flipOver: () => void
+  handleSecondaryClick: () => void
+  closeOptions: () => void
+  splitTopCard: () => void
+  splitBySize: () => void
+  splitByType: () => void
+  toggleDefineCard: () => void
+}
 
-  const actions = {
+export const CardGroup = (props: CardGroupProps) => {
+  const { cardGroup, setCards, settings, zIndexRef } = props
+  const [ flipped, setFlipped ] = useState<boolean>(cardGroup.flipped || false)
+  const [ showDefinition, setShowDefinition ] = useState<boolean>(false)
+  const [ showOptions, setShowOptions ] = useState<boolean>(false)
+
+  const actions: CardGroupActions = {
     cycleCardGroup: useCallback(() => {
       const newCards = cardGroup.cards.slice()
       const last = newCards.pop()
@@ -25,9 +38,30 @@ export const CardGroup = (props: CardGroupProps) => {
       }
       setCards(newCards)
     }, [setCards, cardGroup]),
+    flipOver: useCallback(() => {
+      setFlipped(!flipped)
+    }, [setFlipped, flipped]),
     handleSecondaryClick: useCallback(() => {
       setShowOptions(!showOptions)
-    }, [showOptions, setShowOptions])
+    }, [showOptions, setShowOptions]),
+    closeOptions: useCallback(() => {
+      setShowOptions(false)
+    }, [setShowOptions]),
+    toggleDefineCard: useCallback(() => {
+      setShowDefinition(!showDefinition)
+    }, [setShowDefinition, showDefinition]),
+    splitTopCard: () => {
+      console.log('not yet implemented')
+      debugger
+    },
+    splitBySize: () => {
+      console.log('not yet implemented')
+      debugger
+    },
+    splitByType: () => {
+      console.log('not yet implemented')
+      debugger
+    },
   }
   return (
     <Draggable
@@ -43,9 +77,10 @@ export const CardGroup = (props: CardGroupProps) => {
               key={idx}
               dataIdx={idx}
               actions={actions}
+              showDefinition={showDefinition}
               {...card}
               volume={settings.volume}
-              initialFlipped={cardGroup.flipped || false}
+              flipped={flipped}
             />
           )
         }) }
