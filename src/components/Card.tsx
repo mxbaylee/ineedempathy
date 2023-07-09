@@ -1,5 +1,5 @@
 import React, { CSSProperties, useRef, useCallback, useState } from 'react'
-import { useSound } from '../utils'
+import { useSecondaryClick, useSound } from '../utils'
 import './css/Card.css'
 
 export enum CardCategory {
@@ -35,6 +35,13 @@ export const Card = (props: CardProps) => {
   const dragStartRef = useRef([0,0])
   const [playSound] = useSound(props.volume)
 
+  const wrapSound = useCallback((fn: () => void): () => void => {
+    return () => {
+      playSound()
+      fn()
+    }
+  }, [playSound])
+
   const ignoreWhileDragging = useCallback((fn: (...args: any[]) => any): (event: any) => Promise<void> => {
     return (event: any): Promise<void> => {
       const xMatches = event.clientX === dragStartRef.current[0]
@@ -44,30 +51,27 @@ export const Card = (props: CardProps) => {
     }
   }, [dragStartRef])
 
-  const flipCard = ignoreWhileDragging(useCallback((event: any) => {
-    setFlipped(!flipped)
-    playSound()
-  }, [playSound, flipped, setFlipped]))
+  const flipCard = ignoreWhileDragging(
+    wrapSound(() => {
+      setFlipped(!flipped)
+    })
+  )
 
-  const cycleCard = ignoreWhileDragging(useCallback((event: any) => {
-    actions.cycleCardGroup()
-    playSound()
-  }, [playSound, actions]))
+  const cycleCard = ignoreWhileDragging(
+    wrapSound(() => {
+      actions.cycleCardGroup()
+    })
+  )
+
+  const [onMouseDown, onTouchStart] = useSecondaryClick(
+    actions.handleSecondaryClick
+  )
 
   const handleMouseDown = useCallback((event: any) => {
     dragStartRef.current = [event.clientX, event.clientY]
     playSound()
-    if (event.button === 2) {
-      const preventRightClickMenu = (event: any) => {
-        event.preventDefault();
-      }
-      document.addEventListener('contextmenu', preventRightClickMenu);
-      setTimeout(() => {
-        document.removeEventListener("contextmenu", preventRightClickMenu);
-      }, 0)
-      actions.handleSecondaryClick()
-    }
-  }, [actions, playSound, dragStartRef])
+    return onMouseDown(event)
+  }, [onMouseDown, playSound, dragStartRef])
 
   const handleDrag = (event: any) => {
     event.preventDefault()
@@ -77,7 +81,7 @@ export const Card = (props: CardProps) => {
     <div
       className={"card " + (flipped ? 'back' : 'front')}
       onMouseDown={handleMouseDown}
-      onTouchStart={playSound}
+      onTouchStart={onTouchStart}
       onDrag={handleDrag}
       onClick={flipped || dataIdx === 0 ? flipCard : cycleCard}
       style={{

@@ -33,3 +33,29 @@ export const useSound = (volume: number): [() => void] => {
   });
   return [throttle(() => { sound.play() })]
 }
+
+export const useSecondaryClick = (handleSecondaryClick: () => void): [(event: any) => void, (event: any) => void]=> {
+  const handleMouseDown = (event: any) => {
+    if (event.button === 2) {
+      const preventRightClickMenu = (event: any) => {
+        event.preventDefault();
+      }
+      document.addEventListener('contextmenu', preventRightClickMenu);
+      setTimeout(() => {
+        // setTimeout(fn, 0) will execute after the current
+        // synchronous block
+        document.removeEventListener("contextmenu", preventRightClickMenu);
+      }, 0)
+      handleSecondaryClick()
+    }
+  }
+  const handleDoubleTouch = (event: any) => {
+    console.log('Double touch not yet implemented')
+    console.log(event)
+    debugger
+  }
+  return [
+    handleMouseDown,
+    handleDoubleTouch
+  ]
+}
