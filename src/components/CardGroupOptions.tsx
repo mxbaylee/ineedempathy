@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import { useSound } from '../utils'
+import { useSecondaryClick, useSound } from '../utils'
 import { CardPropsBase } from './Card'
 
 export interface CardGroupOptionsProps {
@@ -21,12 +21,17 @@ export const CardGroupOptions = ({
       return fn()
     }
   }
+  const [onMouseDown, onTouchStart] = useSecondaryClick(
+    actions.handleSecondaryClick
+  )
   return (
     <div
       style={{
         '--idx': String(dataIdx),
       } as CSSProperties}
       className="options"
+      onMouseDown={onMouseDown}
+      onTouchStart={onTouchStart}
     >
       <h3>Group Options</h3>
       <hr />
