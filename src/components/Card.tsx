@@ -27,32 +27,39 @@ export interface CardProps extends CardPropsBase {
   initialFlipped: boolean
   volume: number
   dataIdx: number
+  cycleCardGroup: () => void
 }
 
 export const Card = (props: CardProps) => {
   const [flipped, setFlipped] = useState<boolean>(!!props.initialFlipped)
-  const { type, name, display, dataIdx } = props
+  const { type, name, display, dataIdx, cycleCardGroup } = props
   const dragStartRef = useRef([0,0])
-  const cardUrl = flipped ? (
-    `/ineedempathy/assets/cards/${CardType[type].toLowerCase()}_back.jpg`
-  ) : (
-    `/ineedempathy/assets/cards/md/${name}.jpg`
-  )
   const sound = new Howl({
     volume: (props.volume || 4) / 10,
     src: ['/ineedempathy/assets/audio/toggle-card.mp3'],
   });
   const playSound = throttle(() => { sound.play() })
 
-  const flipCard = useCallback((event: any) => {
-    const xMatches = event.clientX === dragStartRef.current[0]
-    const yMatches = event.clientY === dragStartRef.current[1]
-    // Only flip if it didn't move between mouseDown and click
-    if (xMatches && yMatches) {
-      setFlipped(!flipped)
-      playSound()
+  const ignoreWhileDragging = useCallback((fn: (...args: any[]) => any): (event: any) => Promise<void> => {
+    return (event: any): Promise<void> => {
+      const xMatches = event.clientX === dragStartRef.current[0]
+      const yMatches = event.clientY === dragStartRef.current[1]
+      if (xMatches && yMatches) {
+        return Promise.resolve().then(fn)
+      }
+      return Promise.resolve()
     }
-  }, [playSound, flipped, setFlipped])
+  }, [dragStartRef])
+
+  const flipCard = ignoreWhileDragging(useCallback((event: any) => {
+    setFlipped(!flipped)
+    playSound()
+  }, [playSound, flipped, setFlipped]))
+
+  const cycleCard = ignoreWhileDragging(useCallback((event: any) => {
+    cycleCardGroup()
+    playSound()
+  }, [playSound, cycleCardGroup]))
 
   const handleMouseDown = (event: any) => {
     dragStartRef.current = [event.clientX, event.clientY]
@@ -72,14 +79,20 @@ export const Card = (props: CardProps) => {
       onMouseDown={handleMouseDown}
       onTouchStart={playSound}
       onDrag={handleDrag}
-      onClick={flipCard}
+      onClick={flipped || dataIdx === 0 ? flipCard : cycleCard}
       style={{
         '--idx': String(dataIdx),
       } as CSSProperties}
     >
       <img
+        className="card-back"
         alt={name}
-        src={cardUrl}
+        src={`/ineedempathy/assets/cards/${CardType[type].toLowerCase()}_back.jpg`}
+      />
+      <img
+        className="card-front"
+        alt={name}
+        src={`/ineedempathy/assets/cards/md/${name}.jpg`}
       />
       <span className="title">{(display || name).toUpperCase()}</span>
     </div>

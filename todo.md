@@ -1,3 +1,6 @@
+Card Size Setting
+
+
 HoverType
   None
   Nearby

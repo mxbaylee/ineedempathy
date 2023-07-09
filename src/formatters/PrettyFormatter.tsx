@@ -1,6 +1,6 @@
 import { CardType, CardPropsBase } from '../components/Card'
 
-export type CardGroup = {
+export type CardGroupItem = {
   id: string
   top: number
   left: number
@@ -11,10 +11,9 @@ export type CardGroup = {
 const columnWidth = window.innerWidth / 2
 const cardWidth = 210
 const cardHeight = 294
-// const sidePadding = (columnWidth-cardWidth)/2
 
-export const PrettyFormatter = (cards: CardPropsBase[]): CardGroup[] => {
-  return cards.reduce((memo: CardGroup[], card: CardPropsBase, idx: number): CardGroup[] => {
+export const PrettyFormatter = (cards: CardPropsBase[]): CardGroupItem[] => {
+  return cards.reduce((memo: CardGroupItem[], card: CardPropsBase, idx: number): CardGroupItem[] => {
     if (card.type === CardType.Feeling) {
       if (memo[0].cards.length === 0) {
         memo[0].cards.push(card)

@@ -4,14 +4,15 @@ import { CardDefinitions } from './CardDefinitions'
 import { Help } from './components/Help'
 import { useSettings } from './hooks/useSettings'
 import { SettingsPanel } from './components/SettingsPanel'
-import { Card, CardPropsBase } from './components/Card'
 import { Draggable } from './components/Draggable'
-import { CardGroup, PrettyFormatter } from './formatters/PrettyFormatter'
+import { CardGroupItem, PrettyFormatter } from './formatters/PrettyFormatter'
+import { CardGroup } from './components/CardGroup'
+import { CardPropsBase } from './components/Card'
 import './App.css'
 
 function App() {
   const zIndexRef = useRef(1)
-  const [cardGroups, setCardGroups] = useState(
+  const [cardGroups, setCardGroups] = useState<CardGroupItem[]>(
     PrettyFormatter(CardDefinitions)
   )
   const [settings, setSettings] = useSettings()
@@ -41,27 +42,26 @@ function App() {
             />
           </Draggable>
         )}
-        {cardGroups.map((cardGroup: CardGroup) => {
-          return (
-            <Draggable
-              zIndexRef={zIndexRef}
-              initialTop={cardGroup.top}
-              initialLeft={cardGroup.left}
-            >
-              { cardGroup.cards.map((card: CardPropsBase, idx: number) => {
-                return (
-                  <Card
-                    key={idx}
-                    dataIdx={idx}
-                    {...card}
-                    volume={settings.volume}
-                    initialFlipped={cardGroup.flipped || false}
-                  />
-                )
-              }) }
-            </Draggable>
-          )
-        })}
+        <>
+          {cardGroups.map((cardGroup: CardGroupItem, idx: number) => {
+            const setCards = (cards: CardPropsBase[]) => {
+              const newCardGroupItems = cardGroups.slice()
+              newCardGroupItems[idx] = {
+                ...newCardGroupItems[idx],
+                cards: cards,
+              }
+              setCardGroups(newCardGroupItems)
+            }
+            return (
+              <CardGroup
+                zIndexRef={zIndexRef}
+                cardGroup={cardGroup}
+                settings={settings}
+                setCards={setCards}
+              />
+            )
+          })}
+        </>
       </div>
       <Footer setSettings={setSettings} />
     </div>

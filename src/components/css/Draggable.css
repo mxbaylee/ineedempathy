@@ -16,7 +16,3 @@
   bottom: calc(0.75px * var(--idx));
   left: calc(0.8px * var(--idx));
 }
-
-.card-group .card:not(:last-child) img {
-  display: none;
-}
