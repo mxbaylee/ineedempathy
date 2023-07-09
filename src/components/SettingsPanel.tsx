@@ -1,6 +1,6 @@
-import React, { useMemo, useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { SettingsItems } from '../hooks/useSettings'
-import { Howl } from 'howler';
+import { useSound } from '../utils'
 import './css/SettingsPanel.css'
 
 export interface SettingsPanelProps {
@@ -11,28 +11,22 @@ export interface SettingsPanelProps {
 
 export const SettingsPanel = ({ settings, setSettings, hideSettings }: SettingsPanelProps) => {
   const [flash, setFlash] = useState<string|boolean>(false)
-
-  const sound = useMemo(() => {
-    return new Howl({
-      volume: (settings.volume || 4) / 10,
-      src: ['/ineedempathy/assets/audio/toggle-card.mp3'],
-    });
-  }, [settings.volume]);
+  const [playSound] = useSound(settings.volume)
 
   const handleRadioChange = useCallback((e: any) => {
     const { name, value } = e.target
-    sound.play()
+    playSound()
     setSettings(name, !!parseInt(value, 10))
     setFlash('Settings Saved 🧚🏼')
-  }, [sound, setFlash, setSettings])
+  }, [playSound, setFlash, setSettings])
 
   const handleVolumeDelta = useCallback((delta: number) => {
     return () => {
-      sound.play()
+      playSound()
       setSettings('volume', settings.volume + delta)
       setFlash('Settings Saved 🧚🏼')
     }
-  }, [sound, settings, setFlash, setSettings])
+  }, [playSound, settings, setFlash, setSettings])
 
   // Clear the flash after 3 seconds
   useEffect(() => {

@@ -1,6 +1,5 @@
 import React, { CSSProperties, useRef, useCallback, useState } from 'react'
-import { throttle } from '../utils'
-import { Howl } from 'howler';
+import { useSound } from '../utils'
 import './css/Card.css'
 
 export enum CardCategory {
@@ -27,26 +26,20 @@ export interface CardProps extends CardPropsBase {
   initialFlipped: boolean
   volume: number
   dataIdx: number
-  cycleCardGroup: () => void
+  actions: Record<string, () => void>
 }
 
 export const Card = (props: CardProps) => {
   const [flipped, setFlipped] = useState<boolean>(!!props.initialFlipped)
-  const { type, name, display, dataIdx, cycleCardGroup } = props
+  const { type, name, display, dataIdx, actions } = props
   const dragStartRef = useRef([0,0])
-  const sound = new Howl({
-    volume: (props.volume || 4) / 10,
-    src: ['/ineedempathy/assets/audio/toggle-card.mp3'],
-  });
-  const playSound = throttle(() => { sound.play() })
+  const [playSound] = useSound(props.volume)
 
   const ignoreWhileDragging = useCallback((fn: (...args: any[]) => any): (event: any) => Promise<void> => {
     return (event: any): Promise<void> => {
       const xMatches = event.clientX === dragStartRef.current[0]
       const yMatches = event.clientY === dragStartRef.current[1]
-      if (xMatches && yMatches) {
-        return Promise.resolve().then(fn)
-      }
+      if (xMatches && yMatches) { return Promise.resolve().then(fn) }
       return Promise.resolve()
     }
   }, [dragStartRef])
@@ -57,17 +50,24 @@ export const Card = (props: CardProps) => {
   }, [playSound, flipped, setFlipped]))
 
   const cycleCard = ignoreWhileDragging(useCallback((event: any) => {
-    cycleCardGroup()
+    actions.cycleCardGroup()
     playSound()
-  }, [playSound, cycleCardGroup]))
+  }, [playSound, actions]))
 
-  const handleMouseDown = (event: any) => {
+  const handleMouseDown = useCallback((event: any) => {
     dragStartRef.current = [event.clientX, event.clientY]
     playSound()
     if (event.button === 2) {
-      console.log('handle right click')
+      const preventRightClickMenu = (event: any) => {
+        event.preventDefault();
+      }
+      document.addEventListener('contextmenu', preventRightClickMenu);
+      setTimeout(() => {
+        document.removeEventListener("contextmenu", preventRightClickMenu);
+      }, 0)
+      actions.handleSecondaryClick()
     }
-  };
+  }, [actions, playSound, dragStartRef])
 
   const handleDrag = (event: any) => {
     event.preventDefault()
@@ -85,11 +85,13 @@ export const Card = (props: CardProps) => {
       } as CSSProperties}
     >
       <img
+        onMouseDown={handleMouseDown}
         className="card-back"
         alt={name}
         src={`/ineedempathy/assets/cards/${CardType[type].toLowerCase()}_back.jpg`}
       />
       <img
+        onMouseDown={handleMouseDown}
         className="card-front"
         alt={name}
         src={`/ineedempathy/assets/cards/md/${name}.jpg`}

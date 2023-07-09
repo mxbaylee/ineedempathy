@@ -4,12 +4,56 @@
   position: absolute;
   top: 0;
   left: 0;
+  width: calc(var(--card-ratio) * var(--card-width));
+  height: calc(var(--card-ratio) * var(--card-height));
+}
+
+
+.draggable-item.options .options {
+  display: inline-block;
+}
+
+.draggable-item .options {
+  position: relative;
+  display: none;
+  border-radius: 1em;
+  width: calc(var(--card-ratio) * var(--card-width));
+  height: calc(var(--card-ratio) * var(--card-height));
+  background-color: #76B4FF;
+}
+.draggable-item .options hr {
+  margin: 0;
+  border-top: 1px solid #61ABFF;
+  border-bottom: 1px solid #4073FF;
+}
+.draggable-item .options h3 {
+  padding: 10px 0;
+  margin: 0;
+  color: #000;
+}
+
+.draggable-item .options ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.draggable-item .options ul li:hover {
+  background-color: #91C7FF;
+}
+.draggable-item .options ul li {
+  cursor: pointer;
+  display: block;
+  padding: 10px 10px;
+  text-decoration: none;
+  color: #333333;
 }
 
 .card-group {
   position: absolute;
 }
 
+.card-group .options,
 .card-group .card {
   --idx: 999;
   position: absolute;

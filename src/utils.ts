@@ -1,3 +1,6 @@
+import { useCallback } from 'react'
+import { Howl } from 'howler';
+
 /**
  * Creates a throttled function that prevents execution when called too
  * frequently. The throttled function will only invoke the provided function
@@ -21,4 +24,12 @@ export const throttle = (fn: () => void, delay: number = 200): () => void => {
   }
 
   return throttled
+}
+
+export const useSound = (volume: number): [() => void] => {
+  const sound = new Howl({
+    volume: (volume || 4) / 10,
+    src: ['/ineedempathy/assets/audio/toggle-card.mp3'],
+  });
+  return [throttle(() => { sound.play() })]
 }

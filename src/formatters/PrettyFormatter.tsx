@@ -30,25 +30,25 @@ export const PrettyFormatter = (cards: CardPropsBase[]): CardGroupItem[] => {
     return memo
   }, [ {
     id: 'Rainbow Feeling',
-    top: 300,
+    top: 50,
     left: columnWidth - (cardWidth / 2),
     flipped: true,
     cards: [],
   }, {
     id: 'Rainbow Need',
-    top: 300,
+    top: 50,
     left: columnWidth + (cardWidth / 2),
     flipped: true,
     cards: [],
   }, {
     id: 'Feelings',
-    top: 300 + (cardHeight * 1.2),
+    top: 50 + (cardHeight * 1.2),
     left: columnWidth - cardWidth,
     flipped: false,
     cards: [],
   }, {
     id: 'Needs',
-    top: 300 + (cardHeight * 1.2),
+    top: 50 + (cardHeight * 1.2),
     left: columnWidth + cardWidth,
     flipped: false,
     cards: [],

@@ -8,13 +8,14 @@ export interface DraggableProps {
   zIndexRef?: React.MutableRefObject<number>
   initialLeft?: number
   initialTop?: number
+  className?: string
   children: string | JSX.Element | JSX.Element[];
 }
-
 export const Draggable = ({
   zIndex,
   zIndexRef,
   children,
+  className,
   initialLeft = 0,
   initialTop = 0
 }: DraggableProps) => {
@@ -41,7 +42,13 @@ export const Draggable = ({
       ref={cardDragRef}
       onMouseDown={incrementIndex}
       onTouchStart={incrementIndex}
-      className={"card-group draggable-item"}
+      className={
+        [
+          className,
+          "card-group",
+          "draggable-item"
+        ].join(' ')
+      }
     >
       {children}
     </div>

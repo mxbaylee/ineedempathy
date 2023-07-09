@@ -17,8 +17,6 @@ function App() {
   )
   const [settings, setSettings] = useSettings()
 
-  console.log(cardGroups)
-
   return (
     <div className="App">
       <div className="card-table">
