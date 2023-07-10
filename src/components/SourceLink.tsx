@@ -6,7 +6,7 @@ export interface SourceLinkProps {
 }
 
 export const SourceLink = ({ url }: SourceLinkProps) => {
-  const domainMatch = /^https?:\/\/(?:www\.)?([^/]+)/
+  const domainMatch = /^.*?([a-z]+\.[a-z]+)\//
   const match = url.match(domainMatch)
   const domain = match && match.length === 2 ? match[1] : 'Unknown'
   return (

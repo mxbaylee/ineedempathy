@@ -2,51 +2,9 @@ import { CardType, CardCategory, CardPropsBase } from './components/Card'
 
 /*
  * TODO: Add new cards:
-  {
-    type: CardType.Need,
-    category: CardCategory.Meow,
-    name: 'authenticity',
-    definition: 'Unable to understand; perplexed.',
-    source: 'https://www.lexico.com/en/definition/puzzled',
-  },
-  {
-    type: CardType.Need,
-    category: CardCategory.Meow,
-    name: 'companionship',
-    definition: 'Unable to understand; perplexed.',
-    source: 'https://www.lexico.com/en/definition/puzzled',
-  },
-  {
-    type: CardType.Need,
-    category: CardCategory.Meow,
-    name: 'shared-reality',
-    definition: 'Unable to understand; perplexed.',
-    source: 'https://www.lexico.com/en/definition/puzzled',
-  },
 */
 /*
  * TODO: Add new cards:
-  {
-    type: CardType.Feeling,
-    category: CardCategory.Meow,
-    name: 'defensive',
-    definition: 'Unable to understand; perplexed.',
-    source: 'https://www.lexico.com/en/definition/puzzled',
-  },
-  {
-    type: CardType.Feeling,
-    category: CardCategory.Meow,
-    name: 'energetic',
-    definition: 'Unable to understand; perplexed.',
-    source: 'https://www.lexico.com/en/definition/puzzled',
-  },
-  {
-    type: CardType.Feeling,
-    category: CardCategory.Meow,
-    name: 'friendly',
-    definition: 'Unable to understand; perplexed.',
-    source: 'https://www.lexico.com/en/definition/puzzled',
-  },
 */
 
 export const CardDefinitions: CardPropsBase[] = [
@@ -345,6 +303,27 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.dictionary.com/browse/hopeful',
   },
   {
+    type: CardType.Feeling,
+    category: CardCategory.Meow,
+    name: 'defensive',
+    definition: 'Very anxious to challenge or avoid criticism.',
+    source: 'https://www.encyclopedia.com/literature-and-arts/language-linguistics-and-literary-terms/english-vocabulary-d/defensive',
+  },
+  {
+    type: CardType.Feeling,
+    category: CardCategory.Meow,
+    name: 'energetic',
+    definition: 'Possessing or exerting or displaying energy.',
+    source: 'https://www.vocabulary.com/dictionary/energetic',
+  },
+  {
+    type: CardType.Feeling,
+    category: CardCategory.Meow,
+    name: 'friendly',
+    definition: 'Outgoing and pleasant in social relations.',
+    source: 'https://www.thefreedictionary.com/friendly',
+  },
+  {
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'empathy',
@@ -640,5 +619,26 @@ export const CardDefinitions: CardPropsBase[] = [
     name: 'trust',
     definition: 'Confident expectation of something.',
     source: 'https://www.lexico.com/en/definition/trust',
-  }
+  },
+  {
+    type: CardType.Need,
+    category: CardCategory.Meow,
+    name: 'authenticity',
+    definition: 'The quality of being real or true.',
+    source: 'https://dictionary.cambridge.org/us/dictionary/english/authenticity',
+  },
+  {
+    type: CardType.Need,
+    category: CardCategory.Meow,
+    name: 'companionship',
+    definition: 'Closeness with another person.',
+    source: 'https://www.vocabulary.com/dictionary/companionship',
+  },
+  {
+    type: CardType.Need,
+    category: CardCategory.Meow,
+    name: 'shared-reality',
+    definition: 'Experiencing commonality with others\' inner states about the world.',
+    source: 'https://pubmed.ncbi.nlm.nih.gov/26162223/',
+  },
 ]
