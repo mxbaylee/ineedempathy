@@ -23,10 +23,12 @@ export const CardBoard = (props: CardBoardProps) => {
           newCardGroupItems[idx] = {
             ...newCardGroupItems[idx],
             cards: cardsOne,
+            id: String(performance.now()),
           }
           newCardGroupItems.push({
             ...newCardGroupItems[idx],
             cards: cardsTwo,
+            id: String(performance.now()),
           })
           setCardGroups(newCardGroupItems)
         }
@@ -40,10 +42,19 @@ export const CardBoard = (props: CardBoardProps) => {
         }
         return (
           <Draggable
-            key={idx}
+            key={cardGroup.id}
             zIndexRef={zIndexRef}
-            initialTop={cardGroup.top}
-            initialLeft={cardGroup.left}
+            top={cardGroup.top}
+            left={cardGroup.left}
+            setPosition={(left: number, top: number) => {
+              const newCardGroups = cardGroups.slice()
+              newCardGroups[idx] = {
+                ...newCardGroups[idx],
+                left,
+                top,
+              }
+              setCardGroups(newCardGroups)
+            }}
           >
             <CardGroup
               flipped={cardGroup.flipped}

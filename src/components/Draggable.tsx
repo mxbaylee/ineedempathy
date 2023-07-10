@@ -6,8 +6,9 @@ import './css/Draggable.css'
 export interface DraggableProps {
   zIndex?: number
   zIndexRef?: React.MutableRefObject<number>
-  initialLeft?: number
-  initialTop?: number
+  left: number
+  top: number
+  setPosition: (left: number, top: number) => void
   className?: string
   children: string | JSX.Element | JSX.Element[];
 }
@@ -16,15 +17,19 @@ export const Draggable = ({
   zIndexRef,
   children,
   className,
-  initialLeft = 0,
-  initialTop = 0
+  left,
+  top,
+  setPosition,
 }: DraggableProps) => {
   const [zeeIndex, setZeeIndex] = useState(
     zIndex || (zIndexRef && zIndexRef.current) || 1
   )
   const cardDragRef = useRef(null)
   useDraggable(cardDragRef, {
-    defaultPosition: { x: initialLeft, y: initialTop }
+    position: { x: left, y: top },
+    onDrag: ({ offsetX, offsetY }) => {
+      setPosition(offsetX, offsetY)
+    },
   })
 
   const incrementIndex = throttle(() => {
