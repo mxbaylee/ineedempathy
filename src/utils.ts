@@ -1,4 +1,3 @@
-import { useCallback } from 'react'
 import { Howl } from 'howler';
 
 /**
@@ -48,8 +47,8 @@ export const useSecondaryClick = (handleSecondaryClick: () => void): [(event: an
       }
       document.addEventListener('contextmenu', preventRightClickMenu);
       setTimeout(() => {
-        // setTimeout(fn, 0) will execute after the current
-        // synchronous block
+        // setImmediate(fn) is only in node 😔
+        // setTimeout(fn, 0) will execute after the current synchronous block
         document.removeEventListener("contextmenu", preventRightClickMenu);
       }, 0)
       handleSecondaryClick()
