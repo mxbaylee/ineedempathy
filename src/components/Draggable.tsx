@@ -45,7 +45,6 @@ export const Draggable = ({
       className={
         [
           className,
-          "card-group",
           "draggable-item"
         ].join(' ')
       }

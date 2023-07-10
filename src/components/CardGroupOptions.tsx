@@ -2,20 +2,20 @@ import React, { CSSProperties } from 'react'
 import { useSecondaryClick, useSound } from '../utils'
 import { CardPropsBase } from './Card'
 import { CardGroupActions } from './CardGroup'
+import { useSettings } from '../hooks/useSettings'
 
 export interface CardGroupOptionsProps {
   cards: CardPropsBase[]
-  volume: number
   dataIdx: number
   actions: CardGroupActions
 }
 
 export const CardGroupOptions = ({
   cards,
-  volume,
   dataIdx,
   actions,
 }: CardGroupOptionsProps) => {
+  const [{ volume }] = useSettings()
   const [playSound] = useSound(volume)
   const hasMultipleCards = cards.length > 1
   const types = cards.reduce((types: string[], card: CardPropsBase): string[] => {
@@ -49,7 +49,7 @@ export const CardGroupOptions = ({
       onMouseDown={onMouseDown}
       onTouchStart={onTouchStart}
     >
-      <h3>Group Options</h3>
+      <h3>{ hasMultipleCards ? 'Group Options' : 'Card Options' }</h3>
       { hasMultipleCards ? (
         <>
           <hr />
@@ -71,10 +71,10 @@ export const CardGroupOptions = ({
       <hr />
       <ul>
         <li onClick={wrapClose(wrapSound(actions.toggleDefineCard))}>
-          { hasMultipleCards ? 'Define top Card' : 'Define Card' }
+          { hasMultipleCards ? 'Define Top Card' : 'Define Card' }
         </li>
         <li onClick={wrapClose(wrapSound(actions.flipOver))}>
-          { hasMultipleCards ? 'Flip group over' : 'Flip over' }
+          { hasMultipleCards ? 'Flip Group Over' : 'Flip Card Over' }
         </li>
       </ul>
       <hr />

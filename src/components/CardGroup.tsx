@@ -1,15 +1,12 @@
 import React, { useCallback, useState } from 'react'
-import { CardGroupItem } from '../formatters/PrettyFormatter'
-import { Draggable } from './Draggable'
 import { CardGroupOptions } from './CardGroupOptions'
-import { Card, CardPropsBase } from './Card'
-import { SettingsItems } from '../hooks/useSettings'
+import { Card, CardType, CardPropsBase } from './Card'
 
 export interface CardGroupProps {
-  zIndexRef: React.MutableRefObject<number>
-  cardGroup: CardGroupItem
   setCards: (cards: CardPropsBase[]) => void
-  settings: SettingsItems
+  splitCards: (cardsOne: CardPropsBase[], cardsTwo: CardPropsBase[]) => void
+  flipped: boolean
+  cards: CardPropsBase[]
 }
 
 export interface CardGroupActions {
@@ -24,20 +21,20 @@ export interface CardGroupActions {
 }
 
 export const CardGroup = (props: CardGroupProps) => {
-  const { cardGroup, setCards, settings, zIndexRef } = props
-  const [ flipped, setFlipped ] = useState<boolean>(cardGroup.flipped || false)
+  const { flipped: initialFlipped, cards, splitCards, setCards } = props
+  const [ flipped, setFlipped ] = useState<boolean>(initialFlipped || false)
   const [ showDefinition, setShowDefinition ] = useState<boolean>(false)
   const [ showOptions, setShowOptions ] = useState<boolean>(false)
 
   const actions: CardGroupActions = {
     cycleCardGroup: useCallback(() => {
-      const newCards = cardGroup.cards.slice()
+      const newCards = cards.slice()
       const last = newCards.pop()
       if (last) {
         newCards.unshift(last)
       }
       setCards(newCards)
-    }, [setCards, cardGroup]),
+    }, [setCards, cards]),
     flipOver: useCallback(() => {
       setFlipped(!flipped)
     }, [setFlipped, flipped]),
@@ -50,36 +47,42 @@ export const CardGroup = (props: CardGroupProps) => {
     toggleDefineCard: useCallback(() => {
       setShowDefinition(!showDefinition)
     }, [setShowDefinition, showDefinition]),
-    splitTopCard: () => {
-      console.log('not yet implemented')
-      debugger
-    },
-    splitBySize: () => {
-      console.log('not yet implemented')
-      debugger
-    },
-    splitByType: () => {
-      console.log('not yet implemented')
-      debugger
-    },
+    splitTopCard: useCallback(() => {
+      const newCards = cards.slice()
+      const topCard = newCards.pop()
+      if (topCard) {
+        splitCards(newCards, [topCard])
+      }
+    }, [cards, splitCards]),
+    splitBySize: useCallback(() => {
+      const newCards = cards.slice()
+      const firstSet = newCards.slice(0, Math.floor(newCards.length / 2))
+      const secondSet = newCards.slice(Math.floor(newCards.length / 2))
+      splitCards(firstSet, secondSet)
+    }, [cards, splitCards]),
+    splitByType: useCallback(() => {
+      const newCards = cards.slice()
+      const feelings = newCards.filter((card: CardPropsBase) => {
+        return card.type === CardType.Feeling
+      })
+      const needs = newCards.filter((card: CardPropsBase) => {
+        return card.type === CardType.Need
+      })
+      splitCards(feelings, needs)
+    }, [cards, splitCards]),
   }
+
   return (
-    <Draggable
-      className={showOptions ? 'card-group options' : 'card-group' }
-      zIndexRef={zIndexRef}
-      initialTop={cardGroup.top}
-      initialLeft={cardGroup.left}
-    >
+    <div className={showOptions ? 'card-group options' : 'card-group'}>
       <>
-        { cardGroup.cards.map((card: CardPropsBase, idx: number) => {
+        { cards.map((card: CardPropsBase, idx: number) => {
           return (
             <Card
               key={idx}
               dataIdx={idx}
               actions={actions}
               showDefinition={showDefinition}
-              {...card}
-              volume={settings.volume}
+              card={card}
               flipped={flipped}
             />
           )
@@ -87,12 +90,11 @@ export const CardGroup = (props: CardGroupProps) => {
       </>
       { showOptions ? (
         <CardGroupOptions
-          cards={cardGroup.cards}
-          dataIdx={cardGroup.cards.length}
-          volume={settings.volume}
+          cards={cards}
+          dataIdx={cards.length}
           actions={actions}
         />
       ) : <></>}
-    </Draggable>
+    </div>
   )
 }

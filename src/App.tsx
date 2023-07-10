@@ -1,20 +1,13 @@
-import React, { useRef, useState } from 'react'
+import React from 'react'
 import { Footer } from './components/Footer'
-import { CardDefinitions } from './CardDefinitions'
 import { Help } from './components/Help'
 import { useSettings } from './hooks/useSettings'
 import { SettingsPanel } from './components/SettingsPanel'
 import { Draggable } from './components/Draggable'
-import { CardGroupItem, PrettyFormatter } from './formatters/PrettyFormatter'
-import { CardGroup } from './components/CardGroup'
-import { CardPropsBase } from './components/Card'
+import { CardBoard } from './components/CardBoard'
 import './App.css'
 
 function App() {
-  const zIndexRef = useRef(1)
-  const [cardGroups, setCardGroups] = useState<CardGroupItem[]>(
-    PrettyFormatter(CardDefinitions)
-  )
   const [settings, setSettings] = useSettings()
 
   return (
@@ -40,26 +33,7 @@ function App() {
             />
           </Draggable>
         )}
-        <>
-          {cardGroups.map((cardGroup: CardGroupItem, idx: number) => {
-            const setCards = (cards: CardPropsBase[]) => {
-              const newCardGroupItems = cardGroups.slice()
-              newCardGroupItems[idx] = {
-                ...newCardGroupItems[idx],
-                cards: cards,
-              }
-              setCardGroups(newCardGroupItems)
-            }
-            return (
-              <CardGroup
-                zIndexRef={zIndexRef}
-                cardGroup={cardGroup}
-                settings={settings}
-                setCards={setCards}
-              />
-            )
-          })}
-        </>
+        <CardBoard />
       </div>
       <Footer setSettings={setSettings} />
     </div>

@@ -1,14 +1,13 @@
-import React, { CSSProperties, useRef, useCallback, useState } from 'react'
-import { useSecondaryClick, useSound } from '../utils'
+import React, { CSSProperties, useState, useCallback } from 'react'
+import { getDistance, useSecondaryClick, useSound } from '../utils'
 import { CardGroupActions } from './CardGroup'
 import { SourceLink } from './SourceLink'
+import { useSettings } from '../hooks/useSettings'
 import './css/Card.css'
 
 export enum CardCategory {
   Ruff,
-  Meow,
-}
-
+  Meow, }
 export enum CardType {
   Feeling,
   Need,
@@ -23,28 +22,25 @@ export interface CardPropsBase {
   source: string
 }
 
-export interface CardProps extends CardPropsBase {
+export interface CardProps {
   showDefinition: boolean
   flipped: boolean
-  volume: number
   dataIdx: number
   actions: CardGroupActions
+  card: CardPropsBase
 }
 
 export const Card = (props: CardProps) => {
   const {
-    type,
-    name,
-    display,
-    definition,
-    source,
+    card,
     flipped,
     showDefinition,
     dataIdx,
     actions
   } = props
-  const dragStartRef = useRef([0,0])
-  const [playSound] = useSound(props.volume)
+  const [lastPosition, setLastPosition] = useState<[number, number]>([0,0])
+  const [{volume}] = useSettings()
+  const [playSound] = useSound(volume)
 
   const wrapSound = useCallback((fn: () => void): () => void => {
     return () => {
@@ -55,12 +51,16 @@ export const Card = (props: CardProps) => {
 
   const ignoreWhileDragging = useCallback((fn: (...args: any[]) => any): (event: any) => Promise<void> => {
     return (event: any): Promise<void> => {
-      const xMatches = event.clientX === dragStartRef.current[0]
-      const yMatches = event.clientY === dragStartRef.current[1]
-      if (xMatches && yMatches) { return Promise.resolve().then(fn) }
+      const distance = getDistance(
+        event.clientX,
+        event.clientY,
+        lastPosition[0],
+        lastPosition[1]
+      )
+      if (distance < 10) { return Promise.resolve().then(fn) }
       return Promise.resolve()
     }
-  }, [dragStartRef])
+  }, [lastPosition])
 
   const flipCard = ignoreWhileDragging(
     wrapSound(() => {
@@ -79,10 +79,9 @@ export const Card = (props: CardProps) => {
   )
 
   const handleMouseDown = useCallback((event: any) => {
-    dragStartRef.current = [event.clientX, event.clientY]
-    playSound()
+    setLastPosition([event.clientX, event.clientY])
     return onMouseDown(event)
-  }, [onMouseDown, playSound, dragStartRef])
+  }, [onMouseDown, setLastPosition])
 
   const handleDrag = (event: any) => {
     event.preventDefault()
@@ -110,16 +109,16 @@ export const Card = (props: CardProps) => {
       <img
         onMouseDown={handleMouseDown}
         className="card-back"
-        alt={name}
-        src={`/ineedempathy/assets/cards/${CardType[type].toLowerCase()}_back.jpg`}
+        alt={card.name}
+        src={`/ineedempathy/assets/cards/${CardType[card.type].toLowerCase()}_back.jpg`}
       />
       <img
         onMouseDown={handleMouseDown}
         className="card-front"
-        alt={name}
-        src={`/ineedempathy/assets/cards/md/${name}.jpg`}
+        alt={card.name}
+        src={`/ineedempathy/assets/cards/md/${card.name}.jpg`}
       />
-      <span className="title">{(display || name).toUpperCase()}</span>
+      <span className="title">{(card.display || card.name).toUpperCase()}</span>
       <div
         onMouseDown={classicNoop}
         onTouchStart={classicNoop}
@@ -127,9 +126,9 @@ export const Card = (props: CardProps) => {
         className="definition"
       >
         <dl>
-          <dt>{(display || name).toUpperCase()}</dt>
-          <dd>{definition}</dd>
-          <dd><SourceLink url={source} /></dd>
+          <dt>{(card.display || card.name).toUpperCase()}</dt>
+          <dd>{card.definition}</dd>
+          <dd><SourceLink url={card.source} /></dd>
         </dl>
         <ul>
           <li onClick={actions.toggleDefineCard}>Dismiss</li>
