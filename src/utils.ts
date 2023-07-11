@@ -37,7 +37,7 @@ export const getDistance = (x1: number, y1: number, x2: number, y2: number): num
 export const useSound = (volume: number): [() => void] => {
   const sound = new Howl({
     volume: (volume || 4) / 10,
-    src: ['/ineedempathy/assets/audio/toggle-card.mp3'],
+    src: ['/assets/audio/toggle-card.mp3'],
   });
   return [throttle(() => { sound.play() })]
 }

@@ -110,13 +110,13 @@ export const Card = (props: CardProps) => {
         onMouseDown={handleMouseDown}
         className="card-back"
         alt={card.name}
-        src={`/ineedempathy/assets/cards/${CardType[card.type].toLowerCase()}_back.jpg`}
+        src={`/assets/cards/${CardType[card.type].toLowerCase()}_back.jpg`}
       />
       <img
         onMouseDown={handleMouseDown}
         className="card-front"
         alt={card.name}
-        src={`/ineedempathy/assets/cards/md/${card.name}.jpg`}
+        src={`/assets/cards/md/${card.name}.jpg`}
       />
       <span className="title">{(card.display || card.name).toUpperCase()}</span>
       <div
