@@ -4,7 +4,7 @@ import { Help } from './components/Help'
 import { useSettings } from './hooks/useSettings'
 import { SettingsPanel } from './components/SettingsPanel'
 import { ContainedDraggable } from './components/ContainedDraggable'
-import { CardBoard } from './components/CardBoard'
+import { CardTable } from './components/CardTable'
 import './App.css'
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
             />
           </ContainedDraggable>
         )}
-        <CardBoard />
+        <CardTable />
       </div>
       <Footer setSettings={setSettings} />
     </div>

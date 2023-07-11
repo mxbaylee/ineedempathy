@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react'
-import { CardGroupOptions } from './CardGroupOptions'
+import { CardPileOptions } from './CardPileOptions'
 import { Card, CardType, CardPropsBase } from './Card'
 
-export interface CardGroupProps {
+export interface CardPileProps {
   setCards: (cards: CardPropsBase[]) => void
   splitCards: (cardsOne: CardPropsBase[], cardsTwo: CardPropsBase[]) => void
   setFlipped: (value: boolean) => void
@@ -10,8 +10,8 @@ export interface CardGroupProps {
   cards: CardPropsBase[]
 }
 
-export interface CardGroupActions {
-  cycleCardGroup: () => void
+export interface CardPileActions {
+  cycleCardPile: () => void
   flipOver: () => void
   handleSecondaryClick: () => void
   closeOptions: () => void
@@ -21,13 +21,13 @@ export interface CardGroupActions {
   toggleDefineCard: () => void
 }
 
-export const CardGroup = (props: CardGroupProps) => {
+export const CardPile = (props: CardPileProps) => {
   const { cards, flipped, setFlipped, splitCards, setCards } = props
   const [ showDefinition, setShowDefinition ] = useState<boolean>(false)
   const [ showOptions, setShowOptions ] = useState<boolean>(false)
 
-  const actions: CardGroupActions = {
-    cycleCardGroup: useCallback(() => {
+  const actions: CardPileActions = {
+    cycleCardPile: useCallback(() => {
       const newCards = cards.slice()
       const last = newCards.pop()
       if (last) {
@@ -93,7 +93,7 @@ export const CardGroup = (props: CardGroupProps) => {
         }) }
       </>
       { showOptions ? (
-        <CardGroupOptions
+        <CardPileOptions
           cards={cards}
           dataIdx={cards.length}
           actions={actions}

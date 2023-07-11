@@ -1,20 +1,20 @@
 import React, { CSSProperties } from 'react'
 import { useSecondaryClick, useSound } from '../utils'
 import { CardPropsBase } from './Card'
-import { CardGroupActions } from './CardGroup'
+import { CardPileActions } from './CardPile'
 import { useSettings } from '../hooks/useSettings'
 
-export interface CardGroupOptionsProps {
+export interface CardPileOptionsProps {
   cards: CardPropsBase[]
   dataIdx: number
-  actions: CardGroupActions
+  actions: CardPileActions
 }
 
-export const CardGroupOptions = ({
+export const CardPileOptions = ({
   cards,
   dataIdx,
   actions,
-}: CardGroupOptionsProps) => {
+}: CardPileOptionsProps) => {
   const [{ volume }] = useSettings()
   const [playSound] = useSound(volume)
   const hasMultipleCards = cards.length > 1

@@ -1,22 +1,22 @@
 import React, { useRef, useCallback, useState } from 'react'
 import { CardDefinitions } from '../CardDefinitions'
-import { CardGroupItem, PrettyFormatter } from '../formatters/PrettyFormatter'
+import { CardPileItem, PrettyFormatter } from '../formatters/PrettyFormatter'
 import { DraggableCardPile } from '../components/DraggableCardPile'
 import { doCardsOverlap } from '../utils'
 
-export interface CardBoardProps {
+export interface CardTableProps {
 }
 
-export const CardBoard = (props: CardBoardProps) => {
+export const CardTable = (props: CardTableProps) => {
   const zIndexRef = useRef(1)
-  const [cardGroups, setCardGroups] = useState<CardGroupItem[]>(
+  const [cardGroups, setCardPiles] = useState<CardPileItem[]>(
     PrettyFormatter(CardDefinitions)
   )
 
-  const hasOverlap = useCallback((cardGroup: CardGroupItem): boolean => {
+  const hasOverlap = useCallback((cardGroup: CardPileItem): boolean => {
     return cardGroups.reduce((
       memo: boolean,
-      cardGroupInner: CardGroupItem,
+      cardGroupInner: CardPileItem,
     ): boolean => {
       if (!memo && cardGroup.id !== cardGroupInner.id) {
         return doCardsOverlap(
@@ -30,33 +30,33 @@ export const CardBoard = (props: CardBoardProps) => {
 
   const mergeOverlappingGroups = useCallback((idx: number) => {
     return () => {
-      const newCardGroups = cardGroups.slice()
-      const mergeFrom = newCardGroups.splice(idx, 1)[0]
-      const mergeToIdx = newCardGroups.findIndex((cardGroup: CardGroupItem) => {
+      const newCardPiles = cardGroups.slice()
+      const mergeFrom = newCardPiles.splice(idx, 1)[0]
+      const mergeToIdx = newCardPiles.findIndex((cardGroup: CardPileItem) => {
         return doCardsOverlap(
           [mergeFrom.left, mergeFrom.top],
           [cardGroup.left, cardGroup.top],
         )
       })
       if (mergeFrom && mergeToIdx >= 0) {
-        const mergeTo = newCardGroups.splice(mergeToIdx, 1)[0]
+        const mergeTo = newCardPiles.splice(mergeToIdx, 1)[0]
         const newCardList = mergeTo.cards.slice()
         newCardList.push(...mergeFrom.cards)
-        newCardGroups.push({
+        newCardPiles.push({
           id: String(Math.random()),
           left: mergeTo.left,
           top: mergeTo.top,
           flipped: mergeTo.flipped,
           cards: newCardList,
         })
-        setCardGroups(newCardGroups)
+        setCardPiles(newCardPiles)
       }
     }
-  }, [cardGroups, setCardGroups])
+  }, [cardGroups, setCardPiles])
 
   return (
     <div className="card-board">
-      {cardGroups.map((cardGroup: CardGroupItem, idx: number) => {
+      {cardGroups.map((cardGroup: CardPileItem, idx: number) => {
         return (
           <DraggableCardPile
             key={cardGroup.id}
@@ -68,23 +68,23 @@ export const CardBoard = (props: CardBoardProps) => {
             hasOverlap={hasOverlap(cardGroup)}
             mergeOverlappingGroups={mergeOverlappingGroups(idx)}
             setFlipped={(value: boolean) => {
-              const newCardGroups = cardGroups.slice()
+              const newCardPiles = cardGroups.slice()
               // intentional mutation
-              newCardGroups[idx].flipped = value
-              setCardGroups(newCardGroups)
+              newCardPiles[idx].flipped = value
+              setCardPiles(newCardPiles)
             }}
             setPosition={(left: number, top: number) => {
-              const newCardGroups = cardGroups.slice()
+              const newCardPiles = cardGroups.slice()
               // intentional mutation
-              newCardGroups[idx].left = left
-              newCardGroups[idx].top = top
-              setCardGroups(newCardGroups)
+              newCardPiles[idx].left = left
+              newCardPiles[idx].top = top
+              setCardPiles(newCardPiles)
             }}
-            replaceCardGroup={(newGroups: CardGroupItem[]) => {
-              const newCardGroups = cardGroups.slice()
-              newCardGroups.splice(idx, 1)
-              newCardGroups.push(...newGroups)
-              setCardGroups(newCardGroups)
+            replaceCardPile={(newGroups: CardPileItem[]) => {
+              const newCardPiles = cardGroups.slice()
+              newCardPiles.splice(idx, 1)
+              newCardPiles.push(...newGroups)
+              setCardPiles(newCardPiles)
             }}
           />
         )

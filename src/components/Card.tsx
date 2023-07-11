@@ -1,6 +1,6 @@
 import React, { CSSProperties, useState, useCallback } from 'react'
 import { getDistance, useSecondaryClick, useSound } from '../utils'
-import { CardGroupActions } from './CardGroup'
+import { CardPileActions } from './CardPile'
 import { SourceLink } from './SourceLink'
 import { useSettings } from '../hooks/useSettings'
 import './css/Card.css'
@@ -26,7 +26,7 @@ export interface CardProps {
   showDefinition: boolean
   flipped: boolean
   dataIdx: number
-  actions: CardGroupActions
+  actions: CardPileActions
   card: CardPropsBase
 }
 
@@ -70,7 +70,7 @@ export const Card = (props: CardProps) => {
 
   const cycleCard = ignoreWhileDragging(
     wrapSound(() => {
-      actions.cycleCardGroup()
+      actions.cycleCardPile()
     })
   )
 

@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react'
-import { CardGroupItem } from '../formatters/PrettyFormatter'
-import { CardGroup } from '../components/CardGroup'
+import { CardPileItem } from '../formatters/PrettyFormatter'
+import { CardPile } from '../components/CardPile'
 import { CardPropsBase } from '../components/Card'
 import { Draggable } from './Draggable'
 
 export interface DraggableCardPileProps {
   zIndexRef?: React.MutableRefObject<number>
-  replaceCardGroup: (groups: CardGroupItem[]) => void
+  replaceCardPile: (groups: CardPileItem[]) => void
   cards: CardPropsBase[]
   left: number
   top: number
@@ -19,7 +19,7 @@ export interface DraggableCardPileProps {
 
 export const DraggableCardPile = ({
   zIndexRef,
-  replaceCardGroup,
+  replaceCardPile,
   cards,
   flipped,
   left,
@@ -30,7 +30,7 @@ export const DraggableCardPile = ({
   mergeOverlappingGroups,
 }: DraggableCardPileProps) => {
   const splitCards = useCallback((cardsOne: CardPropsBase[], cardsTwo: CardPropsBase[]) => {
-    replaceCardGroup([{
+    replaceCardPile([{
       id: String(Math.random()),
       flipped: flipped,
       top: top + 15,
@@ -43,17 +43,17 @@ export const DraggableCardPile = ({
       left: left - 15,
       cards: cardsTwo,
     }])
-  }, [left, top, flipped, replaceCardGroup])
+  }, [left, top, flipped, replaceCardPile])
 
   const setCards = useCallback((cards: CardPropsBase[]) => {
-    replaceCardGroup([{
+    replaceCardPile([{
       id: String(Math.random()),
       flipped: flipped,
       top: top,
       left: left,
       cards: cards,
     }])
-  }, [top, left, flipped, replaceCardGroup])
+  }, [top, left, flipped, replaceCardPile])
 
   const handleClick = useCallback(() => {
     if (hasOverlap) {
@@ -70,7 +70,7 @@ export const DraggableCardPile = ({
       top={top}
       setPosition={setPosition}
     >
-      <CardGroup
+      <CardPile
         flipped={flipped}
         cards={cards}
         setCards={setCards}

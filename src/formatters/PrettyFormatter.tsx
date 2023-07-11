@@ -1,6 +1,6 @@
 import { CardType, CardPropsBase } from '../components/Card'
 
-export type CardGroupItem = {
+export type CardPileItem = {
   id: string
   top: number
   left: number
@@ -12,8 +12,8 @@ const columnWidth = window.innerWidth / 2
 const cardWidth = 210
 const cardHeight = 294
 
-export const PrettyFormatter = (cards: CardPropsBase[]): CardGroupItem[] => {
-  return cards.reduce((memo: CardGroupItem[], card: CardPropsBase, idx: number): CardGroupItem[] => {
+export const PrettyFormatter = (cards: CardPropsBase[]): CardPileItem[] => {
+  return cards.reduce((memo: CardPileItem[], card: CardPropsBase, idx: number): CardPileItem[] => {
     if (card.type === CardType.Feeling) {
       if (memo[0].cards.length === 0) {
         memo[0].cards.push(card)
