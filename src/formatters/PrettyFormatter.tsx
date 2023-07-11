@@ -8,7 +8,7 @@ export type CardPileItem = {
   cards: CardPropsBase[]
 }
 
-const columnWidth = window.innerWidth / 2
+const centerLine = window.innerWidth / 2
 const cardWidth = 210
 const cardHeight = 294
 
@@ -31,25 +31,25 @@ export const PrettyFormatter = (cards: CardPropsBase[]): CardPileItem[] => {
   }, [ {
     id: 'Rainbow Feeling',
     top: 50,
-    left: columnWidth - (cardWidth / 2),
+    left: centerLine - cardWidth,
     flipped: true,
     cards: [],
   }, {
     id: 'Rainbow Need',
     top: 50,
-    left: columnWidth + (cardWidth / 2),
+    left: centerLine,
     flipped: true,
     cards: [],
   }, {
     id: 'Feelings',
     top: 50 + (cardHeight * 1.2),
-    left: columnWidth - cardWidth,
+    left: centerLine - (cardWidth * 1.3),
     flipped: false,
     cards: [],
   }, {
     id: 'Needs',
     top: 50 + (cardHeight * 1.2),
-    left: columnWidth + cardWidth,
+    left: centerLine + (cardWidth * 0.3),
     flipped: false,
     cards: [],
   } ])
