@@ -1,12 +1,5 @@
 import { CardType, CardCategory, CardPropsBase } from './components/Card'
 
-/*
- * TODO: Add new cards:
-*/
-/*
- * TODO: Add new cards:
-*/
-
 export const CardDefinitions: CardPropsBase[] = [
   {
     type: CardType.Feeling,

@@ -38,6 +38,20 @@
   list-style: none;
 }
 
+.card-board .neodrag {
+  border-radius: 1em;
+}
+
+.neodrag-dragging.has-overlap,
+.neodrag-dragging {
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.has-overlap {
+  box-shadow: 0 0 16px 0 rgba(255, 255, 255, 0.8);
+}
+
+
 .card-group .options ul li:hover {
   background-color: #91C7FF;
 }

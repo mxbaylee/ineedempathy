@@ -101,7 +101,7 @@ export const Card = (props: CardProps) => {
       onMouseDown={handleMouseDown}
       onTouchStart={onTouchStart}
       onDrag={handleDrag}
-      onClick={flipped || dataIdx === 0 ? flipCard : cycleCard}
+      onClick={flipped ? flipCard : cycleCard}
       style={{
         '--idx': String(dataIdx),
       } as CSSProperties}

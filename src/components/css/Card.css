@@ -19,7 +19,7 @@
   border-radius: 1em;
   padding: var(--card-border);
   background: linear-gradient(to top, var(--gold-three) 0%, var(--gold-two) 1%, var(--gold-two) 25%, var(--gold-one) 25%, var(--gold-one) 100%);
-  box-shadow: 0px 1px 0px rgba(0, 0, 0, 15%);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
 }
 
 .card.definition .title,

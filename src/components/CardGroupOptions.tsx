@@ -74,7 +74,7 @@ export const CardGroupOptions = ({
           { hasMultipleCards ? 'Define Top Card' : 'Define Card' }
         </li>
         <li onClick={wrapClose(wrapSound(actions.flipOver))}>
-          { hasMultipleCards ? 'Flip Group Over' : 'Flip Card Over' }
+          { hasMultipleCards ? 'Flip Top Card Over' : 'Flip Card Over' }
         </li>
       </ul>
       <hr />

@@ -1,5 +1,8 @@
 import { Howl } from 'howler';
 
+export const cardWidth = 210
+export const cardHeight = 294
+
 /**
  * Creates a throttled function that prevents execution when called too
  * frequently. The throttled function will only invoke the provided function
@@ -63,4 +66,16 @@ export const useSecondaryClick = (handleSecondaryClick: () => void): [(event: an
     handleMouseDown,
     handleDoubleTouch
   ]
+}
+
+export const doCardsOverlap = (
+  [leftOne, topOne]: [number, number],
+  [leftTwo, topTwo]: [number, number]
+): boolean => {
+  return (
+    leftOne < leftTwo + cardWidth &&
+    leftOne + cardWidth > leftTwo &&
+    topOne < topTwo + cardHeight &&
+    topOne + cardHeight > topTwo
+  )
 }

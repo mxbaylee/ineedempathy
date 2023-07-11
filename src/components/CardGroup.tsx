@@ -5,6 +5,7 @@ import { Card, CardType, CardPropsBase } from './Card'
 export interface CardGroupProps {
   setCards: (cards: CardPropsBase[]) => void
   splitCards: (cardsOne: CardPropsBase[], cardsTwo: CardPropsBase[]) => void
+  setFlipped: (value: boolean) => void
   flipped: boolean
   cards: CardPropsBase[]
 }
@@ -21,8 +22,7 @@ export interface CardGroupActions {
 }
 
 export const CardGroup = (props: CardGroupProps) => {
-  const { flipped: initialFlipped, cards, splitCards, setCards } = props
-  const [ flipped, setFlipped ] = useState<boolean>(initialFlipped || false)
+  const { cards, flipped, setFlipped, splitCards, setCards } = props
   const [ showDefinition, setShowDefinition ] = useState<boolean>(false)
   const [ showOptions, setShowOptions ] = useState<boolean>(false)
 
@@ -72,13 +72,17 @@ export const CardGroup = (props: CardGroupProps) => {
     }, [cards, splitCards]),
   }
 
+  const classNames: string[] = []
+  classNames.push('card-group')
+  showOptions && classNames.push('options')
+
   return (
-    <div className={showOptions ? 'card-group options' : 'card-group'}>
+    <div className={classNames.join(' ')}>
       <>
         { cards.map((card: CardPropsBase, idx: number) => {
           return (
             <Card
-              key={idx}
+              key={`${cards.length}|${idx}`}
               dataIdx={idx}
               actions={actions}
               showDefinition={showDefinition}
