@@ -55,7 +55,7 @@ export const DraggableCardPile = ({
     }])
   }, [top, left, flipped, replaceCardPile])
 
-  const handleClick = useCallback(() => {
+  const handleDrop = useCallback(() => {
     if (hasOverlap) {
       mergeOverlappingGroups()
     }
@@ -63,7 +63,7 @@ export const DraggableCardPile = ({
 
   return (
     <Draggable
-      handleClick={handleClick}
+      handleDrop={handleDrop}
       className={hasOverlap ? 'has-overlap' : ''}
       zIndexRef={zIndexRef}
       left={left}

@@ -9,7 +9,7 @@ export interface DraggableProps {
   left: number
   top: number
   setPosition: (left: number, top: number) => void
-  handleClick?: () => void
+  handleDrop?: () => void
   className?: string
   children: string | JSX.Element | JSX.Element[];
 }
@@ -21,7 +21,7 @@ export const Draggable = ({
   left,
   top,
   setPosition,
-  handleClick = () => {},
+  handleDrop = () => {},
 }: DraggableProps) => {
   const [zeeIndex, setZeeIndex] = useState(
     zIndex || (zIndexRef && zIndexRef.current) || 1
@@ -49,7 +49,8 @@ export const Draggable = ({
       ref={cardDragRef}
       onMouseDown={incrementIndex}
       onTouchStart={incrementIndex}
-      onClick={handleClick}
+      onTouchEnd={handleDrop}
+      onClick={handleDrop}
       className={
         [
           className,
