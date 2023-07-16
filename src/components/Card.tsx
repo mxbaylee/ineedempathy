@@ -74,7 +74,12 @@ export const Card = (props: CardProps) => {
     })
   )
 
-  const [onMouseDown, onTouchStart] = useSecondaryClick(
+
+  const {
+    onMouseDown,
+    onTouchStart,
+    onTouchEnd,
+  } = useSecondaryClick(
     actions.handleSecondaryClick
   )
 
@@ -82,10 +87,6 @@ export const Card = (props: CardProps) => {
     setLastPosition([event.clientX, event.clientY])
     return onMouseDown(event)
   }, [onMouseDown, setLastPosition])
-
-  const handleDrag = (event: any) => {
-    event.preventDefault()
-  }
 
   const cardClasses = ['card']
   cardClasses.push(flipped ? 'back' : 'front')
@@ -100,7 +101,8 @@ export const Card = (props: CardProps) => {
       className={cardClasses.join(' ')}
       onMouseDown={handleMouseDown}
       onTouchStart={onTouchStart}
-      onDrag={handleDrag}
+      onTouchEnd={onTouchEnd}
+      onTouchMove={onTouchEnd}
       onClick={flipped ? flipCard : cycleCard}
       style={{
         '--idx': String(dataIdx),

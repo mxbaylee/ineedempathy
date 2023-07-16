@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react'
+import React, { useCallback, CSSProperties } from 'react'
 import { useSecondaryClick, useSound } from '../utils'
 import { CardPropsBase } from './Card'
 import { CardPileActions } from './CardPile'
@@ -37,9 +37,21 @@ export const CardPileOptions = ({
       return fn()
     }
   }
-  const [onMouseDown, onTouchStart] = useSecondaryClick(
+  const {
+    onMouseDown,
+    onTouchStart,
+    onTouchEnd,
+  } = useSecondaryClick(
     actions.handleSecondaryClick
   )
+
+  // Disable secondary click, but don't trigger secondaryClick
+  // for touch events
+  const onTouch = useCallback((event: any) => {
+    onTouchStart(event)
+    onTouchEnd(event)
+  }, [onTouchStart, onTouchEnd])
+
   return (
     <div
       style={{
@@ -47,7 +59,8 @@ export const CardPileOptions = ({
       } as CSSProperties}
       className="options"
       onMouseDown={onMouseDown}
-      onTouchStart={onTouchStart}
+      onTouchStart={onTouch}
+      onTouchEnd={onTouch}
     >
       <h3>{ hasMultipleCards ? 'Group Options' : 'Card Options' }</h3>
       { hasMultipleCards ? (

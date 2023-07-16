@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { Howl } from 'howler';
 
 export const cardWidth = 210
@@ -42,30 +43,45 @@ export const useSound = (volume: number): [() => void] => {
   return [throttle(() => { sound.play() })]
 }
 
-export const useSecondaryClick = (handleSecondaryClick: () => void): [(event: any) => void, (event: any) => void]=> {
-  const handleMouseDown = (event: any) => {
+const handleDisableContextMenu = () => {
+  const preventRightClickMenu = (event: any) => {
+    event.preventDefault();
+  }
+  document.addEventListener('contextmenu', preventRightClickMenu);
+  setTimeout(() => {
+    // setImmediate(fn) is only in node 😔
+    // setTimeout(fn, 0) will execute after the current synchronous block
+    document.removeEventListener("contextmenu", preventRightClickMenu);
+  }, 0)
+}
+
+export const useSecondaryClick = (
+  handleSecondaryClick: () => void
+): Record<string,(event: any) => void> => {
+  const timerRef = useRef<number>(0);
+
+  const onMouseDown = (event: any) => {
     if (event.button === 2) {
-      const preventRightClickMenu = (event: any) => {
-        event.preventDefault();
-      }
-      document.addEventListener('contextmenu', preventRightClickMenu);
-      setTimeout(() => {
-        // setImmediate(fn) is only in node 😔
-        // setTimeout(fn, 0) will execute after the current synchronous block
-        document.removeEventListener("contextmenu", preventRightClickMenu);
-      }, 0)
+      handleDisableContextMenu()
       handleSecondaryClick()
     }
   }
-  const handleDoubleTouch = (event: any) => {
-    console.log('Double touch not yet implemented')
-    console.log(event)
-    debugger
+  const onTouchStart = (event: any) => {
+    handleDisableContextMenu()
+    clearTimeout(timerRef.current)
+    timerRef.current = setTimeout(() => {
+      handleSecondaryClick()
+    }, 500) as unknown as number
   }
-  return [
-    handleMouseDown,
-    handleDoubleTouch
-  ]
+  const onTouchEnd = (event: any) => {
+    handleDisableContextMenu()
+    clearTimeout(timerRef.current)
+  }
+  return {
+    onMouseDown: onMouseDown,
+    onTouchStart,
+    onTouchEnd,
+  }
 }
 
 export const doCardsOverlap = (

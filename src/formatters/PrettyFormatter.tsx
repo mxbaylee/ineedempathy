@@ -31,13 +31,13 @@ export const PrettyFormatter = (cards: CardPropsBase[]): CardPileItem[] => {
   }, [ {
     id: 'Rainbow Feeling',
     top: 50,
-    left: centerLine - cardWidth,
+    left: centerLine - (cardWidth * 1.02),
     flipped: true,
     cards: [],
   }, {
     id: 'Rainbow Need',
     top: 50,
-    left: centerLine,
+    left: centerLine + (cardWidth * 0.02),
     flipped: true,
     cards: [],
   }, {
