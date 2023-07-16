@@ -5,6 +5,7 @@ export interface SettingsItems {
   isTouchDevice: boolean
   helpVisible: boolean
   settingsVisible: boolean
+  infoVisible: boolean
 }
 
 export type SettingsHookReturn = [
@@ -22,6 +23,7 @@ export const useSettings = (): SettingsHookReturn => {
     ),
     settingsVisible: false,
     helpVisible: false,
+    infoVisible: false,
   })
 
   useEffect(() => {

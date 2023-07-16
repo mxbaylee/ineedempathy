@@ -14,9 +14,13 @@ export const Footer = (props: FooterProps) => {
     e.preventDefault()
     props.setSettings('settingsVisible', true)
   }
+  const openInfo = (e: any) => {
+    e.preventDefault()
+    props.setSettings('infoVisible', true)
+  }
   return (
     <footer className="footer">
-      <a href="https://github.com/mxbaylee/ineedempathy" className="nav-link text-muted" rel="noreferrer" target="_blank">GitHub</a>
+      <a onClick={openInfo} href="about:blank" className="nav-link text-muted" rel="noreferrer" target="_blank">Info</a>
       <a onClick={openSettings} href="about:blank" className="nav-link text-muted" rel="noreferrer" target="_blank">Settings</a>
       <a onClick={openHelp} href="about:blank" className="nav-link text-muted" rel="noreferrer" target="_blank">Help</a>
     </footer>

@@ -3,6 +3,7 @@ import { Footer } from './components/Footer'
 import { Help } from './components/Help'
 import { useSettings } from './hooks/useSettings'
 import { SettingsPanel } from './components/SettingsPanel'
+import { InfoPanel } from './components/InfoPanel'
 import { ContainedDraggable } from './components/ContainedDraggable'
 import { CardTable } from './components/CardTable'
 import './App.css'
@@ -13,6 +14,15 @@ function App() {
   return (
     <div className="App">
       <div className="card-table">
+        { settings.infoVisible && (
+          <ContainedDraggable zIndex={999999}>
+            <InfoPanel
+              hideInfo={() => {
+                setSettings('infoVisible', false)
+              }}
+            />
+          </ContainedDraggable>
+        )}
         { settings.settingsVisible && (
           <ContainedDraggable zIndex={999999}>
             <SettingsPanel
