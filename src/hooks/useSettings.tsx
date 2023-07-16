@@ -13,7 +13,7 @@ export type SettingsHookReturn = [
   (key: string, value: any) => void
 ]
 
-export const SETTINGS_KEY = 'empatySettings'
+export const SETTINGS_KEY = 'empatySettingsKey'
 
 export const useSettings = (): SettingsHookReturn => {
   let parsedSettings
@@ -26,7 +26,7 @@ export const useSettings = (): SettingsHookReturn => {
   } catch (e) {}
   const defaultSettings = parsedSettings || {
     volume: 2,
-    cardSize: 7,
+    cardSize: (window.innerWidth <= 900 || window.innerHeight <= 400) ? 3 : 7,
     settingsVisible: false,
     helpVisible: false,
     infoVisible: false,
