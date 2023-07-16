@@ -52,7 +52,7 @@ const handleDisableContextMenu = () => {
     // setImmediate(fn) is only in node 😔
     // setTimeout(fn, 0) will execute after the current synchronous block
     document.removeEventListener("contextmenu", preventRightClickMenu);
-  }, 0)
+  }, 500)
 }
 
 export const useSecondaryClick = (

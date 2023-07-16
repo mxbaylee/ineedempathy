@@ -56,7 +56,7 @@ export const CardTable = (props: CardTableProps) => {
 
   return (
     <div className="card-board">
-      {cardGroups.map((cardGroup: CardPileItem, idx: number) => {
+      {cardGroups.map(useCallback((cardGroup: CardPileItem, idx: number) => {
         return (
           <DraggableCardPile
             key={cardGroup.id}
@@ -88,7 +88,7 @@ export const CardTable = (props: CardTableProps) => {
             }}
           />
         )
-      })}
+      }, [cardGroups, hasOverlap, mergeOverlappingGroups]))}
     </div>
   )
 }

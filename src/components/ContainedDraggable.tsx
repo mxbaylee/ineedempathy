@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Draggable } from './Draggable'
 
 export interface ContainedDraggableProps {
@@ -9,14 +9,14 @@ export const ContainedDraggable = ({
   zIndex,
   children,
 }: ContainedDraggableProps) => {
-  const [[top, left], setPosition] = useState([0, 0])
+  const [[left, top], setPosition] = useState([0, 0])
   return (
     <Draggable
-      top={top}
       left={left}
-      setPosition={(left: number, top: number) => {
+      top={top}
+      setPosition={useCallback((left: number, top: number) => {
         setPosition([left, top])
-      }}
+      }, [setPosition])}
     >
       {children}
     </Draggable>
