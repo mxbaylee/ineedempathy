@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import { Footer } from './components/Footer'
 import { Help } from './components/Help'
 import { useSettings } from './hooks/useSettings'
@@ -12,7 +12,12 @@ function App() {
   const [settings, setSettings] = useSettings()
 
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{
+        '--card-ratio': String(settings.cardSize / 10),
+      } as CSSProperties}
+    >
       <div className="card-table">
         { settings.infoVisible && (
           <ContainedDraggable zIndex={999999}>
@@ -43,7 +48,7 @@ function App() {
             />
           </ContainedDraggable>
         )}
-        <CardTable />
+        <CardTable cardSize={settings.cardSize} />
       </div>
       <Footer setSettings={setSettings} />
     </div>

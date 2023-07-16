@@ -9,6 +9,7 @@
   border-radius: 0.5em;
   width: calc(var(--card-width) * 2 * var(--card-ratio));
   height: calc(var(--card-height) * 2 * var(--card-ratio));
+  overflow: auto;
 }
 .settings a {
   color: #000;
@@ -26,6 +27,12 @@
   text-align: left;
   padding: 5px 10px;
   position: relative;
+}
+.settings .content.info {
+  text-align: center;
+  margin: 0 20px;
+  border-radius: 1em;
+  background-color: rgba(254, 255, 222, 0.8);
 }
 .settings .flash {
   background-color: rgb(255, 231, 118);
@@ -45,8 +52,9 @@
   border-radius: 0.5em;
 }
 
-.settings .item.touch label + label {
-  margin-right: 30px;
+.settings .item.card-size span.value,
+.settings .item.volume span.value {
+  margin: 0 20px;
 }
 
 .settings .item label.item-label {
@@ -54,6 +62,7 @@
   width: 35%;
   text-align: left;
 }
+.settings .item.card-size span,
 .settings .item.volume span {
   font-size: 20px;
 }

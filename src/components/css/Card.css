@@ -22,6 +22,10 @@
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
 }
 
+.options {
+  font-size: calc(24px * var(--card-ratio));
+}
+
 .card.definition .title,
 .card.back .title {
   display: none;
@@ -43,7 +47,7 @@
 
 .card .definition dt {
   text-align: center;
-  font-size: 24px;
+  font-size: calc(30px * var(--card-ratio));
 }
 .card .definition dd {
   margin: 35px 0 25px;
@@ -85,7 +89,7 @@
 
 .card .title {
   display: block;
-  font-size: 24px;
+  font-size: calc(30px * var(--card-ratio));
   width: 100%;
   position: absolute;
   line-height: calc(0.22 * var(--card-ratio) * var(--card-height));
@@ -101,6 +105,7 @@
 
 .card.front img.card-back,
 .card.back img.card-front,
+.card:not(:last-child) span.title,
 .card:not(:last-child) img {
   display: none;
 }

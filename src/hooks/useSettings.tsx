@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useCallback, useState } from 'react'
 
 export interface SettingsItems {
   volume: number
-  isTouchDevice: boolean
+  cardSize: number
   helpVisible: boolean
   settingsVisible: boolean
   infoVisible: boolean
@@ -16,37 +16,32 @@ export type SettingsHookReturn = [
 export const SETTINGS_KEY = 'empatySettings'
 
 export const useSettings = (): SettingsHookReturn => {
-  const [settings, _setSettings] = useState<SettingsItems>({
+  let parsedSettings
+  try {
+    parsedSettings = {
+      ...JSON.parse(localStorage.getItem(SETTINGS_KEY) || ''),
+      settingsVisible: false,
+      helpVisible: false,
+    }
+  } catch (e) {}
+  const defaultSettings = parsedSettings || {
     volume: 2,
-    isTouchDevice: (
-      ('ontouchstart' in window) || (navigator.maxTouchPoints > 0)
-    ),
+    cardSize: 7,
     settingsVisible: false,
     helpVisible: false,
     infoVisible: false,
-  })
+  }
+  console.log('default card size', defaultSettings.cardSize)
+  const [settings, _setSettings] = useState<SettingsItems>(defaultSettings)
 
-  useEffect(() => {
-    const empathySettings = localStorage.getItem(SETTINGS_KEY);
-    if (empathySettings) {
-      try {
-        const parsedSettings = JSON.parse(empathySettings);
-        _setSettings({
-          ...parsedSettings,
-          settingsVisible: false,
-          helpVisible: false,
-        });
-      } catch (e) {}
-    }
-  }, []);
-
-  const setSettings = (key: string, value: any): void => {
-    _setSettings({
+  const setSettings = useCallback((key: string, value: any): void => {
+    const newSettings = {
       ...settings,
       [key]: value,
-    })
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
-  }
+    }
+    _setSettings(newSettings)
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(newSettings));
+  }, [settings, _setSettings])
 
   return [settings, setSettings]
 }

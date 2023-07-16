@@ -5,12 +5,13 @@ import { DraggableCardPile } from '../components/DraggableCardPile'
 import { doCardsOverlap } from '../utils'
 
 export interface CardTableProps {
+  cardSize: number
 }
 
-export const CardTable = (props: CardTableProps) => {
+export const CardTable = ({ cardSize }: CardTableProps) => {
   const zIndexRef = useRef(1)
   const [cardGroups, setCardPiles] = useState<CardPileItem[]>(
-    PrettyFormatter(CardDefinitions)
+    PrettyFormatter(CardDefinitions, cardSize)
   )
 
   const hasOverlap = useCallback((cardGroup: CardPileItem): boolean => {
@@ -20,13 +21,14 @@ export const CardTable = (props: CardTableProps) => {
     ): boolean => {
       if (!memo && cardGroup.id !== cardGroupInner.id) {
         return doCardsOverlap(
+          cardSize,
           [cardGroup.left, cardGroup.top],
           [cardGroupInner.left, cardGroupInner.top],
         )
       }
       return memo
     }, false)
-  }, [cardGroups])
+  }, [cardSize, cardGroups])
 
   const mergeOverlappingGroups = useCallback((idx: number) => {
     return () => {
@@ -34,6 +36,7 @@ export const CardTable = (props: CardTableProps) => {
       const mergeFrom = newCardPiles.splice(idx, 1)[0]
       const mergeToIdx = newCardPiles.findIndex((cardGroup: CardPileItem) => {
         return doCardsOverlap(
+          cardSize,
           [mergeFrom.left, mergeFrom.top],
           [cardGroup.left, cardGroup.top],
         )
@@ -52,7 +55,7 @@ export const CardTable = (props: CardTableProps) => {
         setCardPiles(newCardPiles)
       }
     }
-  }, [cardGroups, setCardPiles])
+  }, [cardSize, cardGroups, setCardPiles])
 
   return (
     <div className="card-board">

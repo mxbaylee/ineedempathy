@@ -7,7 +7,8 @@ import './css/Card.css'
 
 export enum CardCategory {
   Ruff,
-  Meow, }
+  Meow,
+}
 export enum CardType {
   Feeling,
   Need,

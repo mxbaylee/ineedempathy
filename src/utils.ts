@@ -1,8 +1,8 @@
 import { useRef } from 'react'
 import { Howl } from 'howler';
 
-export const cardWidth = 210
-export const cardHeight = 294
+export const defaultCardWidth = 300
+export const defaultCardHeight = 420
 
 /**
  * Creates a throttled function that prevents execution when called too
@@ -85,9 +85,12 @@ export const useSecondaryClick = (
 }
 
 export const doCardsOverlap = (
+  cardSize: number,
   [leftOne, topOne]: [number, number],
   [leftTwo, topTwo]: [number, number]
 ): boolean => {
+  const cardWidth = defaultCardWidth * (cardSize / 10)
+  const cardHeight = defaultCardHeight * (cardSize / 10)
   return (
     leftOne < leftTwo + cardWidth &&
     leftOne + cardWidth > leftTwo &&

@@ -13,17 +13,20 @@ export const SettingsPanel = ({ settings, setSettings, hideSettings }: SettingsP
   const [flash, setFlash] = useState<string|boolean>(false)
   const [playSound] = useSound(settings.volume)
 
-  const handleRadioChange = useCallback((e: any) => {
-    const { name, value } = e.target
-    playSound()
-    setSettings(name, !!parseInt(value, 10))
-    setFlash('Settings Saved 🧚🏼')
-  }, [playSound, setFlash, setSettings])
+  const handleCardSizeDelta = useCallback((delta: number) => {
+    return () => {
+      playSound()
+      const nextCardSize = Math.max(3, Math.min(10, settings.cardSize + delta))
+      setSettings('cardSize', nextCardSize)
+      setFlash('Settings Saved 🧚🏼')
+    }
+  }, [playSound, settings, setFlash, setSettings])
 
   const handleVolumeDelta = useCallback((delta: number) => {
     return () => {
       playSound()
-      setSettings('volume', settings.volume + delta)
+      const nextVolume = Math.max(0, Math.min(10, settings.volume + delta))
+      setSettings('volume', nextVolume)
       setFlash('Settings Saved 🧚🏼')
     }
   }, [playSound, settings, setFlash, setSettings])
@@ -40,49 +43,54 @@ export const SettingsPanel = ({ settings, setSettings, hideSettings }: SettingsP
     <div className="settings">
       <div className="title">
         <h3>Settings Panel 🎛️</h3>
+        <h4>Card Size {settings.cardSize}</h4>
       </div>
       <div onClick={hideSettings} className="close">
         ❌
       </div>
       <div className="content">
-        <div className="item touch">
-          <label className="item-label">Touch Screen</label>
-          <label>
+        <div className="item card-size">
+          <label className="item-label">Card Size</label>
+          <span onClick={handleCardSizeDelta(-1)}>
+            ⬇️
+          </span>
+          { settings.cardSize > 5 ? (
             <input
-              type="radio"
-              name="isTouchDevice"
-              value="1"
-              checked={settings.isTouchDevice}
-              onChange={handleRadioChange}
+              type="range"
+              min={0}
+              max={10}
+              readOnly={true}
+              value={settings.cardSize}
             />
-            Yes
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="isTouchDevice"
-              value="0"
-              checked={!settings.isTouchDevice}
-              onChange={handleRadioChange}
-            />
-            No
-          </label>
+          ) : (
+            <span className="value">{settings.cardSize}</span>
+          ) }
+          <span onClick={handleCardSizeDelta(1)}>
+            ⬆️
+          </span>
         </div>
         <div className="item volume">
           <label className="item-label">Volume</label>
           <span onClick={handleVolumeDelta(-1)}>
             ⬇️
           </span>
-          <input
-            type="range"
-            min={0}
-            max={10}
-            readOnly={true}
-            value={settings.volume}
-          />
+          { settings.cardSize > 5 ? (
+            <input
+              type="range"
+              min={0}
+              max={10}
+              readOnly={true}
+              value={settings.volume}
+            />
+          ) : (
+            <span className="value">{settings.volume}</span>
+          ) }
           <span onClick={handleVolumeDelta(1)}>
             ⬆️
           </span>
+        </div>
+        <div className="content info">
+          Hit the ⬇️  and ⬆️  buttons to change the settings
         </div>
         {flash && (
           <div className="flash">{flash}</div>

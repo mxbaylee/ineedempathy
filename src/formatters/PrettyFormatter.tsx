@@ -9,10 +9,12 @@ export type CardPileItem = {
 }
 
 const centerLine = window.innerWidth / 2
-const cardWidth = 210
-const cardHeight = 294
+const defaultCardWidth = 300
+const defaultCardHeight = 420
 
-export const PrettyFormatter = (cards: CardPropsBase[]): CardPileItem[] => {
+export const PrettyFormatter = (cards: CardPropsBase[], cardSize: number = 10): CardPileItem[] => {
+  const cardWidth = defaultCardWidth * (cardSize / 10)
+  const cardHeight = defaultCardHeight * (cardSize / 10)
   return cards.reduce((memo: CardPileItem[], card: CardPropsBase, idx: number): CardPileItem[] => {
     if (card.type === CardType.Feeling) {
       if (memo[0].cards.length === 0) {
