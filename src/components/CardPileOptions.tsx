@@ -107,7 +107,6 @@ export const CardPileOptions = ({
           Dismiss
         </li>
       </ul>
-      <hr />
     </div>
   )
 }

@@ -50,41 +50,21 @@ export const SettingsPanel = ({ settings, setSettings, hideSettings }: SettingsP
       <div className="content">
         <div className="item card-size">
           <label className="item-label">Card Size</label>
-          <span onClick={handleCardSizeDelta(-1)}>
+          <span className="option" onClick={handleCardSizeDelta(-1)}>
             ⬇️
           </span>
-          { settings.cardSize > 5 ? (
-            <input
-              type="range"
-              min={0}
-              max={10}
-              readOnly={true}
-              value={settings.cardSize}
-            />
-          ) : (
-            <span className="value">{settings.cardSize}</span>
-          ) }
-          <span onClick={handleCardSizeDelta(1)}>
+          <span className="value">{settings.cardSize}</span>
+          <span className="option" onClick={handleCardSizeDelta(1)}>
             ⬆️
           </span>
         </div>
         <div className="item volume">
           <label className="item-label">Volume</label>
-          <span onClick={handleVolumeDelta(-1)}>
+          <span className="option" onClick={handleVolumeDelta(-1)}>
             ⬇️
           </span>
-          { settings.cardSize > 5 ? (
-            <input
-              type="range"
-              min={0}
-              max={10}
-              readOnly={true}
-              value={settings.volume}
-            />
-          ) : (
-            <span className="value">{settings.volume}</span>
-          ) }
-          <span onClick={handleVolumeDelta(1)}>
+          <span className="value">{settings.volume}</span>
+          <span className="option" onClick={handleVolumeDelta(1)}>
             ⬆️
           </span>
         </div>
