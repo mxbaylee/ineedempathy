@@ -38,11 +38,11 @@
   list-style: none;
 }
 
-.card-board .neodrag {
+.neodrag,
+.neodrag-dragging {
   border-radius: 1em;
 }
 
-.neodrag-dragging.has-overlap,
 .neodrag-dragging {
   box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.2);
 }

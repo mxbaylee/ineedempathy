@@ -26,12 +26,11 @@ export const useSettings = (): SettingsHookReturn => {
   } catch (e) {}
   const defaultSettings = parsedSettings || {
     volume: 2,
-    cardSize: (window.innerWidth <= 900 || window.innerHeight <= 400) ? 3 : 7,
+    cardSize: (window.innerWidth <= 900 || window.innerHeight <= 400) ? 5 : 7,
     settingsVisible: false,
     helpVisible: false,
     infoVisible: false,
   }
-  console.log('default card size', defaultSettings.cardSize)
   const [settings, _setSettings] = useState<SettingsItems>(defaultSettings)
 
   const setSettings = useCallback((key: string, value: any): void => {

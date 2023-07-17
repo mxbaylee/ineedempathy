@@ -1,81 +1,57 @@
-import React, { useCallback } from 'react'
-import { CardPileItem } from '../formatters/PrettyFormatter'
+import React from 'react'
 import { CardPile } from '../components/CardPile'
-import { CardPropsBase } from '../components/Card'
+import { CardPropsBase } from './Card'
 import { Draggable } from './Draggable'
 
 export interface DraggableCardPileProps {
   zIndexRef?: React.MutableRefObject<number>
-  replaceCardPile: (groups: CardPileItem[]) => void
-  cards: CardPropsBase[]
   left: number
   top: number
   flipped: boolean
-  hasOverlap: boolean
+  cards: CardPropsBase[]
+  splitByType: () => void
+  splitBySize: () => void
+  splitTopCard: () => void
+  cycleCards: () => void
+  flipOver: () => void
+  hasOverlap: (left: number, top: number) => boolean
   setPosition: (left: number, top: number) => void
-  mergeOverlappingGroups: () => void
-  setFlipped: (value: boolean) => void
+  mergeOverlappingGroups: (left: number, top: number) => void
 }
 
+// TODO passthrough group can be axed
 export const DraggableCardPile = ({
   zIndexRef,
-  replaceCardPile,
-  cards,
-  flipped,
   left,
   top,
+  flipped,
+  cards,
+  splitByType,
+  splitBySize,
+  splitTopCard,
+  cycleCards,
+  flipOver,
   hasOverlap,
   setPosition,
-  setFlipped,
   mergeOverlappingGroups,
 }: DraggableCardPileProps) => {
-  const splitCards = useCallback((cardsOne: CardPropsBase[], cardsTwo: CardPropsBase[]) => {
-    replaceCardPile([{
-      id: String(Math.random()),
-      flipped: flipped,
-      top: top + 15,
-      left: left + 15,
-      cards: cardsOne,
-    }, {
-      id: String(Math.random()),
-      flipped: flipped,
-      top: top - 15,
-      left: left - 15,
-      cards: cardsTwo,
-    }])
-  }, [left, top, flipped, replaceCardPile])
-
-  const setCards = useCallback((cards: CardPropsBase[]) => {
-    replaceCardPile([{
-      id: String(Math.random()),
-      flipped: flipped,
-      top: top,
-      left: left,
-      cards: cards,
-    }])
-  }, [top, left, flipped, replaceCardPile])
-
-  const handleDrop = useCallback(() => {
-    if (hasOverlap) {
-      mergeOverlappingGroups()
-    }
-  }, [hasOverlap, mergeOverlappingGroups])
-
   return (
     <Draggable
-      handleDrop={handleDrop}
-      className={hasOverlap ? 'has-overlap' : ''}
       zIndexRef={zIndexRef}
       left={left}
       top={top}
       setPosition={setPosition}
+      hasOverlap={hasOverlap}
+      mergeOverlappingGroups={mergeOverlappingGroups}
     >
       <CardPile
         flipped={flipped}
         cards={cards}
-        setCards={setCards}
-        splitCards={splitCards}
-        setFlipped={setFlipped}
+        splitByType={splitByType}
+        splitBySize={splitBySize}
+        splitTopCard={splitTopCard}
+        cycleCards={cycleCards}
+        flipOver={flipOver}
       />
     </Draggable>
   )

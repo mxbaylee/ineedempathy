@@ -1,97 +1,169 @@
-import React, { useRef, useCallback, useState } from 'react'
-import { CardDefinitions } from '../CardDefinitions'
-import { CardPileItem, PrettyFormatter } from '../formatters/PrettyFormatter'
+import React, { useEffect, useRef, useCallback, useState } from 'react'
+import { newId, CardPileDef, PrettyFormatter, urlEncode, urlDecode } from '../formatters/PrettyFormatter'
+import { CardType, CardPropsBase } from './Card'
 import { DraggableCardPile } from '../components/DraggableCardPile'
 import { doCardsOverlap } from '../utils'
+import { CardDefinitions } from '../CardDefinitions'
 
 export interface CardTableProps {
   cardSize: number
 }
 
+export const cardsFromHash = (): CardPileDef[]|false => {
+  return urlDecode(
+    window.location.hash
+  )
+}
+
 export const CardTable = ({ cardSize }: CardTableProps) => {
   const zIndexRef = useRef(1)
-  const [cardGroups, setCardPiles] = useState<CardPileItem[]>(
-    PrettyFormatter(CardDefinitions, cardSize)
+  const [cardPiles, _setCardPiles] = useState<CardPileDef[]>(
+    cardsFromHash() || PrettyFormatter(cardSize)
   )
 
-  const hasOverlap = useCallback((cardGroup: CardPileItem): boolean => {
-    return cardGroups.reduce((
-      memo: boolean,
-      cardGroupInner: CardPileItem,
-    ): boolean => {
-      if (!memo && cardGroup.id !== cardGroupInner.id) {
-        return doCardsOverlap(
-          cardSize,
-          [cardGroup.left, cardGroup.top],
-          [cardGroupInner.left, cardGroupInner.top],
-        )
-      }
-      return memo
-    }, false)
-  }, [cardSize, cardGroups])
-
-  const mergeOverlappingGroups = useCallback((idx: number) => {
-    return () => {
-      const newCardPiles = cardGroups.slice()
-      const mergeFrom = newCardPiles.splice(idx, 1)[0]
-      const mergeToIdx = newCardPiles.findIndex((cardGroup: CardPileItem) => {
-        return doCardsOverlap(
-          cardSize,
-          [mergeFrom.left, mergeFrom.top],
-          [cardGroup.left, cardGroup.top],
-        )
-      })
-      if (mergeFrom && mergeToIdx >= 0) {
-        const mergeTo = newCardPiles.splice(mergeToIdx, 1)[0]
-        const newCardList = mergeTo.cards.slice()
-        newCardList.push(...mergeFrom.cards)
-        newCardPiles.push({
-          id: String(Math.random()),
-          left: mergeTo.left,
-          top: mergeTo.top,
-          flipped: mergeTo.flipped,
-          cards: newCardList,
-        })
-        setCardPiles(newCardPiles)
-      }
+  useEffect(() => {
+    const captureCardGroups = () => {
+      try {
+        const newCardPiles = cardsFromHash()
+        if (newCardPiles) {
+          _setCardPiles(newCardPiles)
+        }
+      } catch (e) {}
     }
-  }, [cardSize, cardGroups, setCardPiles])
+
+    window.addEventListener('hashchange', captureCardGroups)
+    return () => {
+      window.removeEventListener('hashchange', captureCardGroups)
+    }
+  }, [cardPiles, _setCardPiles])
+
+  const setCardPiles = useCallback((localCardPiles: CardPileDef[]) => {
+    const newCardPiles = localCardPiles.map((cardPile: number[]) => {
+      return [newId(), ...cardPile.slice(1)]
+    })
+    _setCardPiles(newCardPiles)
+    window.location.hash = urlEncode(newCardPiles)
+  }, [_setCardPiles])
 
   return (
-    <div className="card-board">
-      {cardGroups.map(useCallback((cardGroup: CardPileItem, idx: number) => {
+    <div className="card-table">
+      { cardPiles.map(([id, left, top, flipped, ...cardIds]: CardPileDef): any => {
+        const cards = cardIds.map((cardId: number): CardPropsBase => {
+          const cardIdx = cardId - 1
+          return CardDefinitions[cardIdx]
+        })
+        const findOverlappingGroup = (left: number, top: number): CardPileDef|undefined => {
+          return cardPiles.slice().filter(([innerId]: number[]): boolean => {
+            return innerId !== id
+          }).find(([_, innerLeft, innerTop]: number[]) => {
+            return doCardsOverlap(
+              cardSize,
+              [left, top],
+              [innerLeft, innerTop],
+            )
+          })
+        }
         return (
           <DraggableCardPile
-            key={cardGroup.id}
+            key={String(id)}
+            left={left}
+            top={top}
+            flipped={flipped === 1}
+            cards={cards}
             zIndexRef={zIndexRef}
-            cards={cardGroup.cards}
-            flipped={cardGroup.flipped}
-            left={cardGroup.left}
-            top={cardGroup.top}
-            hasOverlap={hasOverlap(cardGroup)}
-            mergeOverlappingGroups={mergeOverlappingGroups(idx)}
-            setFlipped={(value: boolean) => {
-              const newCardPiles = cardGroups.slice()
-              // intentional mutation
-              newCardPiles[idx].flipped = value
+            hasOverlap={(left: number, top: number): boolean => {
+              return findOverlappingGroup(left, top) !== undefined
+            }}
+            splitByType={() => {
+              const newCardPiles = cardPiles.slice().filter(([innerId]: number[]): boolean => {
+                return innerId !== id
+              })
+              const firstSet = cards.filter((card: CardPropsBase): boolean => {
+                return card.type === CardType.Feeling
+              }).map((card: CardPropsBase): number => {
+                return card.uid
+              })
+              const secondSet = cards.filter((card: CardPropsBase): boolean => {
+                return card.type === CardType.Need
+              }).map((card: CardPropsBase): number => {
+                return card.uid
+              })
+              newCardPiles.push(...[
+                [-1, left + 15, top + 15, flipped, ...firstSet],
+                [-1, left - 15, top - 15, flipped, ...secondSet],
+              ])
+              setCardPiles(newCardPiles)
+            }}
+            splitBySize={() => {
+              const newCardPiles = cardPiles.slice().filter(([innerId]: number[]): boolean => {
+                return innerId !== id
+              })
+              const firstSet = cardIds.slice(0, Math.floor(cards.length / 2))
+              const secondSet = cardIds.slice(Math.floor(cards.length / 2))
+              newCardPiles.push(...[
+                [-1, left + 15, top + 15, flipped, ...firstSet],
+                [-1, left - 15, top - 15, flipped, ...secondSet],
+              ])
+              setCardPiles(newCardPiles)
+            }}
+            splitTopCard={() => {
+              const newCardPiles = cardPiles.slice().filter(([innerId]: number[]): boolean => {
+                return innerId !== id
+              })
+              newCardPiles.push(...[
+                [-1, left - 15, top - 15, flipped, ...cardIds.slice(0, -1)],
+                [-1, left + 15, top + 15, flipped, ...cardIds.slice(-1)],
+              ])
+              setCardPiles(newCardPiles)
+            }}
+            cycleCards={() => {
+              const newCardPiles = cardPiles.slice().filter(([innerId]: number[]): boolean => {
+                return innerId !== id
+              })
+              newCardPiles.push([
+                -1, left, top, flipped,
+                ...cardIds.slice(-1), // top card, now bottom
+                ...cardIds.slice(0, -1) // new top cards
+              ])
+              setCardPiles(newCardPiles)
+            }}
+            flipOver={() => {
+              const newCardPiles = cardPiles.slice().filter(([innerId]: number[]): boolean => {
+                return innerId !== id
+              })
+              newCardPiles.push([
+                -1, left, top, flipped === 0 ? 1 : 0, ...cardIds
+              ])
+              setCardPiles(newCardPiles)
+            }}
+            mergeOverlappingGroups={(left: number, top: number) => {
+              const overlappingGroup = findOverlappingGroup(left, top)
+              if (!overlappingGroup) {
+                throw Error('No overlapping group found.')
+              }
+              const newCardPiles = cardPiles.slice().filter(([innerId]: number[]): boolean => {
+                return innerId !== id && innerId !== overlappingGroup[0]
+              })
+              newCardPiles.push([
+                ...overlappingGroup.slice(0, 3), // id, left, top
+                0, // flipped
+                ...overlappingGroup.slice(4), // bottom cards
+                ...cardIds // newCards
+              ])
               setCardPiles(newCardPiles)
             }}
             setPosition={(left: number, top: number) => {
-              const newCardPiles = cardGroups.slice()
-              // intentional mutation
-              newCardPiles[idx].left = left
-              newCardPiles[idx].top = top
-              setCardPiles(newCardPiles)
-            }}
-            replaceCardPile={(newGroups: CardPileItem[]) => {
-              const newCardPiles = cardGroups.slice()
-              newCardPiles.splice(idx, 1)
-              newCardPiles.push(...newGroups)
+              const newCardPiles = cardPiles.slice().filter(([innerId]: number[]): boolean => {
+                return innerId !== id
+              })
+              newCardPiles.push([
+                -1, left, top, flipped, ...cardIds
+              ])
               setCardPiles(newCardPiles)
             }}
           />
         )
-      }, [cardGroups, hasOverlap, mergeOverlappingGroups]))}
+      })}
     </div>
   )
 }

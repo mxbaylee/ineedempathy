@@ -18,15 +18,24 @@ export const Help = (props: HelpProps) => {
         <h4>How to use the virtual cards</h4>
         <p>
           To use the virtual cards, simply drag and arrange them to your
-          liking. You can also flip the cards over to see the other side.
+          liking.
         </p>
         <ul>
           <li>
-            To drag a card, simply click and hold on the card and then move your
-            mouse or finger.
+            To drag a card, simply click and hold on the card and then move your mouse or finger.
           </li>
-          <li>To arrange the cards, simply drag them to the desired location.</li>
-          <li>To flip a card over, simply click on the card.</li>
+          <li>
+            To merge groups, simply drag one pile over another. The pile will glow when it's ready to merge.
+          </li>
+          <li>
+            For additional actions either use the right click, or a long hold.
+            <ul>
+              <li>Separate Top Card</li>
+              <li>Split Cards</li>
+              <li>Define Cards</li>
+              <li>Flip Cards</li>
+            </ul>
+          </li>
         </ul>
         <h4>Identify 💖 Feelings and ☀️ Needs</h4>
         <p>

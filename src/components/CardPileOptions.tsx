@@ -1,19 +1,30 @@
 import React, { useCallback, CSSProperties } from 'react'
 import { useSecondaryClick, useSound } from '../utils'
 import { CardPropsBase } from './Card'
-import { CardPileActions } from './CardPile'
 import { useSettings } from '../hooks/useSettings'
 
 export interface CardPileOptionsProps {
   cards: CardPropsBase[]
   dataIdx: number
-  actions: CardPileActions
+  flipOver: () => void
+  toggleDefineCard: () => void
+  closeOptions: () => void
+  handleSecondaryClick: () => void
+  splitByType: () => void
+  splitBySize: () => void
+  splitTopCard: () => void
 }
 
 export const CardPileOptions = ({
   cards,
   dataIdx,
-  actions,
+  flipOver,
+  toggleDefineCard,
+  closeOptions,
+  handleSecondaryClick,
+  splitByType,
+  splitBySize,
+  splitTopCard,
 }: CardPileOptionsProps) => {
   const [{ volume }] = useSettings()
   const [playSound] = useSound(volume)
@@ -28,7 +39,7 @@ export const CardPileOptions = ({
   const wrapClose = (fn: () => void): () => void => {
     return () => {
       fn()
-      actions.closeOptions()
+      closeOptions()
     }
   }
   const wrapSound = (fn: () => void): () => void => {
@@ -42,7 +53,7 @@ export const CardPileOptions = ({
     onTouchStart,
     onTouchEnd,
   } = useSecondaryClick(
-    actions.handleSecondaryClick
+    handleSecondaryClick
   )
 
   // Disable secondary click, but don't trigger secondaryClick
@@ -67,14 +78,14 @@ export const CardPileOptions = ({
         <>
           <hr />
           <ul>
-            <li onClick={wrapClose(wrapSound(actions.splitTopCard))}>
-              Split top Card
+            <li onClick={wrapClose(wrapSound(splitTopCard))}>
+              Separate Top Card
             </li>
-            <li onClick={wrapClose(wrapSound(actions.splitBySize))}>
+            <li onClick={wrapClose(wrapSound(splitBySize))}>
               Split by Size
             </li>
             { hasMultipleTypes ? (
-              <li onClick={wrapClose(wrapSound(actions.splitByType))}>
+              <li onClick={wrapClose(wrapSound(splitByType))}>
                 Split by Type
               </li>
             ) : null }
@@ -83,16 +94,16 @@ export const CardPileOptions = ({
       ) : null }
       <hr />
       <ul>
-        <li onClick={wrapClose(wrapSound(actions.toggleDefineCard))}>
+        <li onClick={wrapClose(wrapSound(toggleDefineCard))}>
           { hasMultipleCards ? 'Define Top Card' : 'Define Card' }
         </li>
-        <li onClick={wrapClose(wrapSound(actions.flipOver))}>
+        <li onClick={wrapClose(wrapSound(flipOver))}>
           { hasMultipleCards ? 'Flip Top Card Over' : 'Flip Card Over' }
         </li>
       </ul>
       <hr />
       <ul>
-        <li onClick={wrapClose(wrapSound(actions.handleSecondaryClick))}>
+        <li onClick={wrapClose(wrapSound(handleSecondaryClick))}>
           Dismiss
         </li>
       </ul>

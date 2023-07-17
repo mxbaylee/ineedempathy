@@ -1,6 +1,5 @@
 import React, { CSSProperties, useState, useCallback } from 'react'
 import { getDistance, useSecondaryClick, useSound } from '../utils'
-import { CardPileActions } from './CardPile'
 import { SourceLink } from './SourceLink'
 import { useSettings } from '../hooks/useSettings'
 import './css/Card.css'
@@ -15,6 +14,7 @@ export enum CardType {
 }
 
 export interface CardPropsBase {
+  uid: number
   type: CardType
   name: string
   display?: string
@@ -24,11 +24,15 @@ export interface CardPropsBase {
 }
 
 export interface CardProps {
-  showDefinition: boolean
-  flipped: boolean
-  dataIdx: number
-  actions: CardPileActions
   card: CardPropsBase
+  flipped: boolean
+  showDefinition: boolean
+  dataIdx: number
+  onlyCard: boolean
+  flipOver: () => void
+  cycleCardPile: () => void
+  handleSecondaryClick: () => void
+  toggleDefineCard: () => void
 }
 
 export const Card = (props: CardProps) => {
@@ -37,12 +41,18 @@ export const Card = (props: CardProps) => {
     flipped,
     showDefinition,
     dataIdx,
-    actions
+    onlyCard,
+    flipOver,
+    cycleCardPile,
+    handleSecondaryClick,
+    toggleDefineCard,
   } = props
   const [lastPosition, setLastPosition] = useState<[number, number]>([0,0])
   const [{volume}] = useSettings()
   const [playSound] = useSound(volume)
 
+  // TODO maybe put in useSound
+  // Generic function to wrap other fn's
   const wrapSound = useCallback((fn: () => void): () => void => {
     return () => {
       playSound()
@@ -65,13 +75,13 @@ export const Card = (props: CardProps) => {
 
   const flipCard = ignoreWhileDragging(
     wrapSound(() => {
-      actions.flipOver()
+      flipOver()
     })
   )
 
   const cycleCard = ignoreWhileDragging(
     wrapSound(() => {
-      actions.cycleCardPile()
+      cycleCardPile()
     })
   )
 
@@ -81,7 +91,7 @@ export const Card = (props: CardProps) => {
     onTouchStart,
     onTouchEnd,
   } = useSecondaryClick(
-    actions.handleSecondaryClick
+    handleSecondaryClick
   )
 
   const handleMouseDown = useCallback((event: any) => {
@@ -104,7 +114,11 @@ export const Card = (props: CardProps) => {
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       onTouchMove={onTouchEnd}
-      onClick={flipped ? flipCard : cycleCard}
+      onClick={flipped ? (
+        flipCard
+      ) : (
+        onlyCard ? () => {} : cycleCard
+      )}
       style={{
         '--idx': String(dataIdx),
       } as CSSProperties}
@@ -134,7 +148,7 @@ export const Card = (props: CardProps) => {
           <dd><SourceLink url={card.source} /></dd>
         </dl>
         <ul>
-          <li onClick={actions.toggleDefineCard}>Dismiss</li>
+          <li onClick={toggleDefineCard}>Dismiss</li>
         </ul>
       </div>
     </div>

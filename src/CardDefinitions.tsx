@@ -2,6 +2,7 @@ import { CardType, CardCategory, CardPropsBase } from './components/Card'
 
 export const CardDefinitions: CardPropsBase[] = [
   {
+    uid: 1,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'puzzled',
@@ -9,6 +10,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/puzzled',
   },
   {
+    uid: 2,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'angry',
@@ -16,6 +18,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/angry',
   },
   {
+    uid: 3,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'happy',
@@ -23,6 +26,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/happy',
   },
   {
+    uid: 4,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'sad',
@@ -30,6 +34,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/sad',
   },
   {
+    uid: 5,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'scared',
@@ -37,6 +42,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/scared',
   },
   {
+    uid: 6,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'cold',
@@ -44,6 +50,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/cold',
   },
   {
+    uid: 7,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'compersion',
@@ -51,6 +58,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.definitions.net/definition/compersion',
   },
   {
+    uid: 8,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'confused',
@@ -58,6 +66,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/confused',
   },
   {
+    uid: 9,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'embarrassed',
@@ -65,6 +74,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/embarrassed',
   },
   {
+    uid: 10,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'jealous',
@@ -72,6 +82,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/jealous',
   },
   {
+    uid: 11,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'lonely',
@@ -79,6 +90,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.dictionary.com/browse/affected',
   },
   {
+    uid: 12,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'tired',
@@ -86,6 +98,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.merriam-webster.com/dictionary/tired',
   },
   {
+    uid: 13,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'affectionate',
@@ -93,6 +106,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/affectionate',
   },
   {
+    uid: 14,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'anxious',
@@ -100,6 +114,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/anxious',
   },
   {
+    uid: 15,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'empowered',
@@ -107,6 +122,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://en.wiktionary.org/wiki/empowered',
   },
   {
+    uid: 16,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'encouraged',
@@ -114,6 +130,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.dictionary.com/browse/encouraged',
   },
   {
+    uid: 17,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'excited',
@@ -121,6 +138,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/excited',
   },
   {
+    uid: 18,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'frustrated',
@@ -128,6 +146,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/frustrated',
   },
   {
+    uid: 19,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'hurt',
@@ -135,6 +154,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.dictionary.com/browse/hurt',
   },
   {
+    uid: 20,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'hopeless',
@@ -142,6 +162,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.merriam-webster.com/dictionary/hopeless',
   },
   {
+    uid: 21,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'irritable',
@@ -149,6 +170,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://en.wiktionary.org/wiki/irritable',
   },
   {
+    uid: 22,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'overwhelmed',
@@ -156,6 +178,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.dictionary.com/browse/overwhelmed',
   },
   {
+    uid: 23,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'annoyed',
@@ -163,6 +186,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.merriam-webster.com/dictionary/annoyed',
   },
   {
+    uid: 24,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'centered',
@@ -170,6 +194,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.merriam-webster.com/dictionary/centered',
   },
   {
+    uid: 25,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'depressed',
@@ -177,6 +202,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.merriam-webster.com/dictionary/depressed',
   },
   {
+    uid: 26,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'disappointed',
@@ -184,6 +210,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.dictionary.com/browse/disappointed',
   },
   {
+    uid: 27,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'discouraged',
@@ -191,6 +218,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/discouraged',
   },
   {
+    uid: 28,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'engaged',
@@ -198,6 +226,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.merriam-webster.com/dictionary/engaged',
   },
   {
+    uid: 29,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'fidgety',
@@ -205,6 +234,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/fidgety',
   },
   {
+    uid: 30,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'fulfilled',
@@ -212,6 +242,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/fulfilled',
   },
   {
+    uid: 31,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'grateful',
@@ -219,6 +250,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.dictionary.com/browse/grateful',
   },
   {
+    uid: 32,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'impatient',
@@ -226,6 +258,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.dictionary.com/browse/impatient',
   },
   {
+    uid: 33,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'insecure',
@@ -233,6 +266,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.dictionary.com/browse/insecure',
   },
   {
+    uid: 34,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'inspired',
@@ -240,6 +274,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.dictionary.com/browse/inspired',
   },
   {
+    uid: 35,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'joyful',
@@ -247,6 +282,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/joyful',
   },
   {
+    uid: 36,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'peaceful',
@@ -254,6 +290,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/peaceful',
   },
   {
+    uid: 37,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'secure',
@@ -261,6 +298,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/secure',
   },
   {
+    uid: 38,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'startled',
@@ -268,6 +306,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/startled',
   },
   {
+    uid: 39,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'uncomfortable',
@@ -275,6 +314,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/uncomfortable',
   },
   {
+    uid: 40,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'upset',
@@ -282,6 +322,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/upset',
   },
   {
+    uid: 41,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'vulnerable',
@@ -289,6 +330,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://en.wiktionary.org/wiki/vulnerable',
   },
   {
+    uid: 42,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'hopeful',
@@ -296,6 +338,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.dictionary.com/browse/hopeful',
   },
   {
+    uid: 43,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'defensive',
@@ -303,6 +346,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.encyclopedia.com/literature-and-arts/language-linguistics-and-literary-terms/english-vocabulary-d/defensive',
   },
   {
+    uid: 44,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'energetic',
@@ -310,6 +354,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.vocabulary.com/dictionary/energetic',
   },
   {
+    uid: 45,
     type: CardType.Feeling,
     category: CardCategory.Meow,
     name: 'friendly',
@@ -317,6 +362,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.thefreedictionary.com/friendly',
   },
   {
+    uid: 46,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'empathy',
@@ -324,6 +370,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/empathy',
   },
   {
+    uid: 47,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'connection',
@@ -331,6 +378,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://en.wiktionary.org/wiki/connection',
   },
   {
+    uid: 48,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'harmony',
@@ -338,6 +386,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.dictionary.com/browse/harmony',
   },
   {
+    uid: 49,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'reassurance',
@@ -345,6 +394,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/reassurance',
   },
   {
+    uid: 50,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'support',
@@ -352,6 +402,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://en.wiktionary.org/wiki/support',
   },
   {
+    uid: 51,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'appreciation',
@@ -359,6 +410,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/appreciation',
   },
   {
+    uid: 52,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'autonomy',
@@ -366,6 +418,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://en.wiktionary.org/wiki/autonomy',
   },
   {
+    uid: 53,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'celebration',
@@ -373,6 +426,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://en.wiktionary.org/wiki/celebration',
   },
   {
+    uid: 54,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'honesty',
@@ -380,6 +434,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.merriam-webster.com/dictionary/honesty',
   },
   {
+    uid: 55,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'space',
@@ -387,6 +442,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.merriam-webster.com/dictionary/privacy',
   },
   {
+    uid: 56,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'advice',
@@ -394,6 +450,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.dictionary.com/browse/advice',
   },
   {
+    uid: 57,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'affection',
@@ -401,6 +458,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.merriam-webster.com/dictionary/affection',
   },
   {
+    uid: 58,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'care',
@@ -408,6 +466,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/care',
   },
   {
+    uid: 59,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'community',
@@ -415,6 +474,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/community',
   },
   {
+    uid: 60,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'cooperation',
@@ -422,6 +482,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/cooperation',
   },
   {
+    uid: 61,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'hope',
@@ -429,6 +490,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/hope',
   },
   {
+    uid: 62,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'mourning',
@@ -436,6 +498,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.dictionary.com/browse/mourn',
   },
   {
+    uid: 63,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'play',
@@ -443,6 +506,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/play',
   },
   {
+    uid: 64,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'safety',
@@ -450,6 +514,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/safety',
   },
   {
+    uid: 65,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'selfexpression',
@@ -458,6 +523,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/self-expression',
   },
   {
+    uid: 66,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'understanding',
@@ -465,6 +531,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/understanding',
   },
   {
+    uid: 67,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'acceptance',
@@ -472,6 +539,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/acceptance',
   },
   {
+    uid: 68,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'beauty',
@@ -479,6 +547,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/beauty',
   },
   {
+    uid: 69,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'belonging',
@@ -486,6 +555,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/belonging',
   },
   {
+    uid: 70,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'challenge',
@@ -493,6 +563,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://en.wiktionary.org/wiki/challenge',
   },
   {
+    uid: 71,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'compassion',
@@ -500,6 +571,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://en.wiktionary.org/wiki/compassion',
   },
   {
+    uid: 72,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'competence',
@@ -507,6 +579,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/Competence',
   },
   {
+    uid: 73,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'consideration',
@@ -514,6 +587,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/consideration',
   },
   {
+    uid: 74,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'contribution',
@@ -521,6 +595,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://en.wiktionary.org/wiki/contribution',
   },
   {
+    uid: 75,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'creativity',
@@ -528,6 +603,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://en.wiktionary.org/wiki/creativity',
   },
   {
+    uid: 76,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'ease',
@@ -535,6 +611,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/Absence',
   },
   {
+    uid: 77,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'exercise',
@@ -542,6 +619,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/exercise',
   },
   {
+    uid: 78,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'freedom',
@@ -549,6 +627,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/freedom',
   },
   {
+    uid: 79,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'learning',
@@ -556,6 +635,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/learning',
   },
   {
+    uid: 80,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'mutuality',
@@ -563,6 +643,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/mutuality',
   },
   {
+    uid: 81,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'order',
@@ -570,6 +651,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/order',
   },
   {
+    uid: 82,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'peace',
@@ -577,6 +659,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/Freedom',
   },
   {
+    uid: 83,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'respect',
@@ -584,6 +667,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/respect',
   },
   {
+    uid: 84,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'rest',
@@ -591,6 +675,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.merriam-webster.com/dictionary/rest',
   },
   {
+    uid: 85,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'tobeknown',
@@ -599,6 +684,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: '',
   },
   {
+    uid: 86,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'tobeseen',
@@ -607,6 +693,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: '',
   },
   {
+    uid: 87,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'trust',
@@ -614,6 +701,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.lexico.com/en/definition/trust',
   },
   {
+    uid: 88,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'authenticity',
@@ -621,6 +709,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://dictionary.cambridge.org/us/dictionary/english/authenticity',
   },
   {
+    uid: 89,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'companionship',
@@ -628,6 +717,7 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://www.vocabulary.com/dictionary/companionship',
   },
   {
+    uid: 90,
     type: CardType.Need,
     category: CardCategory.Meow,
     name: 'shared-reality',
@@ -635,3 +725,57 @@ export const CardDefinitions: CardPropsBase[] = [
     source: 'https://pubmed.ncbi.nlm.nih.gov/26162223/',
   },
 ]
+
+/*
+ * Simplified version for testing:
+export const CardDefinitions: CardPropsBase[] = [
+  {
+    uid: 1,
+    type: CardType.Feeling,
+    category: CardCategory.Meow,
+    name: 'puzzled',
+    definition: 'Unable to understand; perplexed.',
+    source: 'https://www.lexico.com/en/definition/puzzled',
+  },
+  {
+    uid: 2,
+    type: CardType.Feeling,
+    category: CardCategory.Meow,
+    name: 'angry',
+    definition: 'Feeling or showing strong annoyance, displeasure, or hostility; full of anger.',
+    source: 'https://www.lexico.com/en/definition/angry',
+  },
+  {
+    uid: 3,
+    type: CardType.Feeling,
+    category: CardCategory.Meow,
+    name: 'happy',
+    definition: 'Having a sense of confidence in or satisfaction with (a person, arrangement, or situation).',
+    source: 'https://www.lexico.com/en/definition/happy',
+  },
+  {
+    uid: 4,
+    type: CardType.Need,
+    category: CardCategory.Meow,
+    name: 'empathy',
+    definition: 'The ability to understand and share the feelings (and needs) of another.',
+    source: 'https://www.lexico.com/en/definition/empathy',
+  },
+  {
+    uid: 5,
+    type: CardType.Need,
+    category: CardCategory.Meow,
+    name: 'connection',
+    definition: 'A feeling of understanding and ease of communication between two or more people.',
+    source: 'https://en.wiktionary.org/wiki/connection',
+  },
+  {
+    uid: 6,
+    type: CardType.Need,
+    category: CardCategory.Meow,
+    name: 'harmony',
+    definition: 'A consistent, orderly, or pleasing arrangement of parts; congruity.',
+    source: 'https://www.dictionary.com/browse/harmony',
+  },
+]
+*/

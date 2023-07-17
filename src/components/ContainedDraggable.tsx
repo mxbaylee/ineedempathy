@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react'
-import { Draggable } from './Draggable'
+import React, { useRef, useState } from 'react'
+import { useDraggable } from '@neodrag/react';
 
 export interface ContainedDraggableProps {
   zIndex?: number
@@ -10,15 +10,20 @@ export const ContainedDraggable = ({
   children,
 }: ContainedDraggableProps) => {
   const [[left, top], setPosition] = useState([0, 0])
+  const cardDragRef = useRef(null)
+  useDraggable(cardDragRef, {
+    handle: '.title',
+    position: { x: left, y: top },
+    onDrag: ({ offsetX, offsetY }) => {
+      setPosition([offsetX, offsetY])
+    },
+  })
   return (
-    <Draggable
-      left={left}
-      top={top}
-      setPosition={useCallback((left: number, top: number) => {
-        setPosition([left, top])
-      }, [setPosition])}
+    <div
+      ref={cardDragRef}
+      className={'draggable-item'}
     >
       {children}
-    </Draggable>
+    </div>
   )
 }

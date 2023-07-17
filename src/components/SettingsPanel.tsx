@@ -16,7 +16,7 @@ export const SettingsPanel = ({ settings, setSettings, hideSettings }: SettingsP
   const handleCardSizeDelta = useCallback((delta: number) => {
     return () => {
       playSound()
-      const nextCardSize = Math.max(3, Math.min(10, settings.cardSize + delta))
+      const nextCardSize = Math.max(5, Math.min(10, settings.cardSize + delta))
       setSettings('cardSize', nextCardSize)
       setFlash('Settings Saved 🧚🏼')
     }
@@ -43,7 +43,6 @@ export const SettingsPanel = ({ settings, setSettings, hideSettings }: SettingsP
     <div className="settings">
       <div className="title">
         <h3>Settings Panel 🎛️</h3>
-        <h4>Card Size {settings.cardSize}</h4>
       </div>
       <div onClick={hideSettings} className="close">
         ❌

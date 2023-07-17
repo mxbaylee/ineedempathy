@@ -9,28 +9,39 @@ export interface DraggableProps {
   left: number
   top: number
   setPosition: (left: number, top: number) => void
-  handleDrop?: () => void
-  className?: string
-  children: string | JSX.Element | JSX.Element[];
+  hasOverlap: (left: number, top: number) => boolean
+  mergeOverlappingGroups: (left: number, top: number) => void
+  children: string | JSX.Element | JSX.Element[]
 }
 export const Draggable = ({
   zIndex,
   zIndexRef,
-  children,
-  className,
   left,
   top,
   setPosition,
-  handleDrop = () => {},
+  hasOverlap,
+  mergeOverlappingGroups,
+  children,
 }: DraggableProps) => {
+  const [[localLeft, localTop], setLocalPosition] = useState<[number, number]>([ left, top ])
   const [zeeIndex, setZeeIndex] = useState(
     zIndex || (zIndexRef && zIndexRef.current) || 1
   )
   const cardDragRef = useRef(null)
   useDraggable(cardDragRef, {
-    position: { x: left, y: top },
+    position: { x: localLeft, y: localTop },
     onDrag: ({ offsetX, offsetY }) => {
-      setPosition(offsetX, offsetY)
+      setLocalPosition([offsetX, offsetY])
+    },
+    onDragEnd: ({ offsetX, offsetY }) => {
+      // If we moved at all
+      if (left !== offsetX || top !== offsetY) {
+        if (hasOverlap(offsetX, offsetY)) {
+          mergeOverlappingGroups(offsetX, offsetY)
+        } else {
+          setPosition(offsetX, offsetY)
+        }
+      }
     },
   })
 
@@ -49,12 +60,10 @@ export const Draggable = ({
       ref={cardDragRef}
       onMouseDown={incrementIndex}
       onTouchStart={incrementIndex}
-      onTouchEnd={handleDrop}
-      onClick={handleDrop}
       className={
         [
-          className,
-          "draggable-item"
+          hasOverlap(localLeft, localTop) ? 'has-overlap' : 'no-overlap',
+          'draggable-item'
         ].join(' ')
       }
     >
