@@ -20,7 +20,7 @@ function App() {
     >
       <div className="card-table">
         { settings.infoVisible && (
-          <ContainedDraggable zIndex={999999}>
+          <ContainedDraggable>
             <InfoPanel
               hideInfo={() => {
                 setSettings('infoVisible', false)
@@ -29,7 +29,7 @@ function App() {
           </ContainedDraggable>
         )}
         { settings.settingsVisible && (
-          <ContainedDraggable zIndex={999999}>
+          <ContainedDraggable>
             <SettingsPanel
               settings={settings}
               setSettings={setSettings}
@@ -40,7 +40,7 @@ function App() {
           </ContainedDraggable>
         )}
         { settings.helpVisible && (
-          <ContainedDraggable zIndex={999999}>
+          <ContainedDraggable>
             <Help
               hideHelp={() => {
                 setSettings('helpVisible', false)

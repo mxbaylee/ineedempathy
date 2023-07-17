@@ -15,23 +15,26 @@ export type SettingsHookReturn = [
 
 export const SETTINGS_KEY = 'empatySettingsKey'
 
-export const useSettings = (): SettingsHookReturn => {
-  let parsedSettings
+const parseSettings = () => {
   try {
-    parsedSettings = {
+    return {
       ...JSON.parse(localStorage.getItem(SETTINGS_KEY) || ''),
       settingsVisible: false,
       helpVisible: false,
     }
-  } catch (e) {}
-  const defaultSettings = parsedSettings || {
+  } catch (e) {
+    return false
+  }
+}
+
+export const useSettings = (): SettingsHookReturn => {
+  const [settings, _setSettings] = useState<SettingsItems>(parseSettings() || {
     volume: 2,
     cardSize: (window.innerWidth <= 900 || window.innerHeight <= 400) ? 5 : 7,
     settingsVisible: false,
     helpVisible: false,
     infoVisible: false,
-  }
-  const [settings, _setSettings] = useState<SettingsItems>(defaultSettings)
+  })
 
   const setSettings = useCallback((key: string, value: any): void => {
     const newSettings = {

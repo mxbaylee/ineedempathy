@@ -2,11 +2,9 @@ import React, { useRef, useState } from 'react'
 import { useDraggable } from '@neodrag/react';
 
 export interface ContainedDraggableProps {
-  zIndex?: number
   children: string | JSX.Element | JSX.Element[];
 }
 export const ContainedDraggable = ({
-  zIndex,
   children,
 }: ContainedDraggableProps) => {
   const [[left, top], setPosition] = useState([0, 0])
@@ -20,6 +18,9 @@ export const ContainedDraggable = ({
   })
   return (
     <div
+      style={{
+        'zIndex': 9999999,
+      }}
       ref={cardDragRef}
       className={'draggable-item'}
     >
