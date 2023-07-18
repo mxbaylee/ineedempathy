@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 
 export interface SettingsItems {
   volume: number
@@ -27,6 +27,16 @@ const parseSettings = () => {
   }
 }
 
+const areSettingsDifferent = (settingsOne: SettingsItems, settingsTwo: SettingsItems): boolean => {
+  if (settingsOne.volume !== settingsTwo.volume) {
+    return true
+  }
+  if (settingsOne.cardSize !== settingsTwo.cardSize) {
+    return true
+  }
+  return false
+}
+
 export const useSettings = (): SettingsHookReturn => {
   const [settings, _setSettings] = useState<SettingsItems>(parseSettings() || {
     volume: 2,
@@ -35,6 +45,19 @@ export const useSettings = (): SettingsHookReturn => {
     helpVisible: false,
     infoVisible: false,
   })
+
+  useEffect(() => {
+    const callback = () => {
+      const newSettings = parseSettings()
+      if (areSettingsDifferent(newSettings, settings)) {
+        _setSettings(newSettings)
+      }
+    }
+    const id = setInterval(callback, 1000)
+    return () => {
+      clearInterval(id)
+    }
+  }, [settings, _setSettings])
 
   const setSettings = useCallback((key: string, value: any): void => {
     const newSettings = {
