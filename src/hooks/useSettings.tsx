@@ -21,10 +21,9 @@ const parseSettings = () => {
       ...JSON.parse(localStorage.getItem(SETTINGS_KEY) || ''),
       settingsVisible: false,
       helpVisible: false,
+      infoVisible: false,
     }
-  } catch (e) {
-    return false
-  }
+  } catch (e) {}
 }
 
 const areSettingsDifferent = (settingsOne: SettingsItems, settingsTwo: SettingsItems): boolean => {
@@ -49,7 +48,7 @@ export const useSettings = (): SettingsHookReturn => {
   useEffect(() => {
     const callback = () => {
       const newSettings = parseSettings()
-      if (areSettingsDifferent(newSettings, settings)) {
+      if (newSettings && areSettingsDifferent(newSettings, settings)) {
         _setSettings(newSettings)
       }
     }

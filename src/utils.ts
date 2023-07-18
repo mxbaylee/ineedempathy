@@ -36,7 +36,6 @@ export const getDistance = (x1: number, y1: number, x2: number, y2: number): num
 }
 
 export const useSound = (volume: number): [() => void] => {
-  console.log('real volume', volume, volume / 10)
   const sound = new Howl({
     volume: volume / 10,
     src: ['/assets/audio/toggle-card.mp3'],
