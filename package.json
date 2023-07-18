@@ -9,6 +9,7 @@
     "reroll-port": "sed -i '' \"s/PORT=[0-9]\\{4\\}/PORT=3$(date '+%s' | rev | cut -c -3)/g\" package.json",
     "start": "PORT=3780 react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "cp ./build/index.html ./build/404.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
