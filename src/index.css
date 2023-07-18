@@ -1,18 +1,14 @@
+@import url('https://fonts.cdnfonts.com/css/gill-sans-mt-2');
+
 :root {
   --teal: #008080;
   --white: #e6f1ff;
-  --font-family: 'Gill Sans', sans-serif;
+  --font-family: 'Gill Sans MT', 'Gill Sans', sans-serif;
 }
 
 #root {
   width: 100%;
   display: block;
-}
-
-
-@font-face {
-  font-family: 'Gill Sans';
-  src: url('https://fonts.googleapis.com/css2?family=Gill+Sans:wght@400;700&display=swap');
 }
 
 body {
@@ -27,14 +23,13 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+
 a {
   color: var(--white);
   font-weight: bold;
   text-decoration: none;
 }
 
-
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
