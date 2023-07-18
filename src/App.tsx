@@ -12,6 +12,7 @@ function App() {
   const [settings, setSettings] = useSettings()
 
   return (
+    <>
     <div
       className="App"
       style={{
@@ -50,8 +51,9 @@ function App() {
         )}
         <CardTable cardSize={settings.cardSize} />
       </div>
-      <Footer setSettings={setSettings} />
     </div>
+    <Footer setSettings={setSettings} />
+    </>
   )
 }
 

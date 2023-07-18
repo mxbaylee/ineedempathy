@@ -7,6 +7,3 @@ Secondary Board Click
   Arrange by Default
   Arrange by Type
   Arrange by Category
-
-Mobile
-  Footer doesn't always show up

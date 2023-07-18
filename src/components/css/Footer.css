@@ -4,16 +4,10 @@
   --footer-height: 50px;
 }
 
-.App {
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
-
 footer {
-  width: 100%;
+  width: 100vw;
   text-align: right;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   height: var(--footer-height);
 
