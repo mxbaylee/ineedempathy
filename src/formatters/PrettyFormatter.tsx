@@ -11,12 +11,17 @@ export type CardPileDef = number[]
 /**
  * This function decodes a card pile from a URL hash.
  *
- * @param cardPileHash: string The URL hash containing the card pile data.
+ * @param cardPileSegment: string The URL hash containing the card pile data.
  * @returns CardPile[]|false A list of CardPile arrays, or `false` if the hash could not be decoded.
  **/
-export const urlDecode = (cardPileHash: string): CardPileDef[]|false => {
+export const urlDecode = (cardPileSegment: string): CardPileDef[]|false => {
   try {
-    return JSON.parse(cardPileHash.slice(1))
+    const cardPileHash: string = cardPileSegment.slice(1) // Trim the '#'
+    const isJson = cardPileHash.startsWith('[')
+    if (!isJson) {
+      return JSON.parse(decodeURIComponent(cardPileHash))
+    }
+    return JSON.parse(cardPileHash)
   } catch (e) {
     return false
   }
@@ -29,7 +34,7 @@ export const urlDecode = (cardPileHash: string): CardPileDef[]|false => {
  * @returns string The URL hash containing the card pile data.
  **/
 export const urlEncode = (cardPile: CardPileDef[]): string => {
-  return JSON.stringify(cardPile)
+  return encodeURIComponent(JSON.stringify(cardPile))
 }
 
 /**
