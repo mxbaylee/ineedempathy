@@ -1,4 +1,4 @@
-![I Need Empathy](./public/logo.png)
+![I Need Empathy](./public/assets/img/logo.png)
 
 # 🌈 I Need Empathy
 
