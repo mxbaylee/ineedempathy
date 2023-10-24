@@ -2,7 +2,7 @@ import { CardPileDef, urlDecode, urlEncode } from './PrettyFormatter'
 
 describe('PrettyFormatter', () => {
   it('urlEncode', () => {
-    const items: CardPileDef[][] = [[1,2,3],[4,5,6]]
+    const items: CardPileDef[] = [[1,2,3],[4,5,6]]
     expect(decodeURIComponent(urlEncode(items))).toEqual("[[1,2,3],[4,5,6]]")
   })
 
@@ -13,7 +13,7 @@ describe('PrettyFormatter', () => {
     })
 
     it('decodes encoded json', () => {
-      const items: CardPileDef[][] = [[1,2,3],[4,5,6]]
+      const items: CardPileDef[] = [[1,2,3],[4,5,6]]
       expect(urlDecode('#' + urlEncode(items))).toEqual([[1,2,3],[4,5,6]])
     })
 
