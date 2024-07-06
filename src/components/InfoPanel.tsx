@@ -1,4 +1,5 @@
 import React from 'react'
+import './css/InfoPanel.css'
 
 export interface InfoPanelProps {
   hideInfo: () => void

@@ -51,7 +51,6 @@ export const Card = (props: CardProps) => {
   const [{volume}] = useSettings()
   const [playSound] = useSound(volume)
 
-  // TODO maybe put in useSound
   // Generic function to wrap other fn's
   const wrapSound = useCallback((fn: () => void): () => void => {
     return () => {

@@ -2,15 +2,28 @@
   background: rgba(255, 255, 255, 0.9);
   color: black; border-radius: 0.5em;
   width: calc(var(--card-width) * 1.2 * var(--card-ratio));
-  height: calc(var(--card-height) * 1.2 * var(--card-ratio));
+  height: calc((var(--card-height) * 1.2 * var(--card-ratio)) * 0.88);
   overflow: auto;
   cursor: default;
+  padding-top: calc(0.12 * (var(--card-height) * 1.2 * var(--card-ratio)));
 }
 .help .title {
   border-radius: 0.5em 0.5em 0 0;
   background: rgba(255, 255, 255, 0.8);
   padding: 3px;
   cursor: grab;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc((var(--card-width) * 1.2 * var(--card-ratio)) - (3px * 2));
+  height: calc(0.12 * (var(--card-height) * 1.2 * var(--card-ratio)));
+  line-height: calc(0.12 * (var(--card-height) * 1.2 * var(--card-ratio)));
+}
+.help .title h3 {
+  line-height: calc(0.12 * (var(--card-height) * 1.2 * var(--card-ratio)));
+  height: calc(0.12 * (var(--card-height) * 1.2 * var(--card-ratio)));
+  margin: 0;
+  padding: 0;
 }
 .help .content {
   text-align: left;
@@ -27,6 +40,7 @@
   font-weight: normal;
 }
 .help .close {
+  z-index: 2;
   cursor: pointer;
   position: absolute;
   top: 0;

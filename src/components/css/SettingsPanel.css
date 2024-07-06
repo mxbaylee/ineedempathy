@@ -77,6 +77,7 @@
   text-shadow: 0 1px 10px #FFD700, 0 2px 10px #FFAB00;
 }
 .settings .close {
+  z-index: 2;
   cursor: pointer;
   position: absolute;
   top: 0;
