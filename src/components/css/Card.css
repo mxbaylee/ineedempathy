@@ -98,13 +98,15 @@
   text-align: center;
 }
 
-.card img {
+.card .card-img {
   border-radius: 1em;
   width: calc(var(--card-ratio) * var(--card-width));
+  height: calc(var(--card-ratio) * var(--card-height));
+  background-size: 100%;
 }
 
-.card.front img.card-back,
-.card.back img.card-front,
+.card.front .card-back,
+.card.back .card-front,
 .card:not(:last-child) span.title,
 .card:not(:last-child) img {
   display: none;

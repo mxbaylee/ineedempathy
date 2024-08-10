@@ -122,17 +122,21 @@ export const Card = (props: CardProps) => {
         '--idx': String(dataIdx),
       } as CSSProperties}
     >
-      <img
+      <div
         onMouseDown={handleMouseDown}
-        className="card-back"
-        alt={card.name}
-        src={`/assets/cards/${CardType[card.type].toLowerCase()}_back.jpg`}
+        className="card-img card-back"
+        title={card.name}
+        style={{
+          backgroundImage: `url(/assets/cards/${CardType[card.type].toLowerCase()}_back.jpg)`
+        }}
       />
-      <img
+      <div
         onMouseDown={handleMouseDown}
-        className="card-front"
-        alt={card.name}
-        src={`/assets/cards/md/${card.name}.jpg`}
+        className="card-img card-front"
+        title={card.name}
+        style={{
+          backgroundImage: `url(/assets/cards/md/${card.name}.jpg)`
+        }}
       />
       <span className="title">{(card.display || card.name).toUpperCase()}</span>
       <div
