@@ -4,10 +4,6 @@ import { SourceLink } from './SourceLink'
 import { useSettings } from '../hooks/useSettings'
 import './css/Card.css'
 
-export enum CardCategory {
-  Ruff,
-  Meow,
-}
 export enum CardType {
   Feeling,
   Need,
@@ -18,7 +14,6 @@ export interface CardPropsBase {
   type: CardType
   name: string
   display?: string
-  category: CardCategory
   definition: string
   source: string
 }

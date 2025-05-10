@@ -1,10 +1,9 @@
-import { CardType, CardCategory, CardPropsBase } from './components/Card'
+import { CardType, CardPropsBase } from './components/Card'
 
 export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 1,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'puzzled',
     definition: 'Unable to understand; perplexed.',
     source: 'https://www.lexico.com/en/definition/puzzled',
@@ -12,7 +11,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 2,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'angry',
     definition: 'Feeling or showing strong annoyance, displeasure, or hostility; full of anger.',
     source: 'https://www.lexico.com/en/definition/angry',
@@ -20,7 +18,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 3,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'happy',
     definition: 'Having a sense of confidence in or satisfaction with (a person, arrangement, or situation).',
     source: 'https://www.lexico.com/en/definition/happy',
@@ -28,7 +25,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 4,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'sad',
     definition: 'Feeling or showing sorrow; unhappy.',
     source: 'https://www.lexico.com/en/definition/sad',
@@ -36,7 +32,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 5,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'scared',
     definition: 'Fearful; frightened.',
     source: 'https://www.lexico.com/en/definition/scared',
@@ -44,7 +39,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 6,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'cold',
     definition: 'Lacking affection or warmth of feeling; unemotional.',
     source: 'https://www.lexico.com/en/definition/cold',
@@ -52,7 +46,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 7,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'compersion',
     definition: 'Compersion is an empathetic state of happiness and joy experienced when another individual experiences happiness and joy.',
     source: 'https://www.definitions.net/definition/compersion',
@@ -60,7 +53,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 8,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'confused',
     definition: 'Unable to think clearly; bewildered.',
     source: 'https://www.lexico.com/en/definition/confused',
@@ -68,7 +60,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 9,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'embarrassed',
     definition: 'Feeling or showing embarrassment.',
     source: 'https://www.lexico.com/en/definition/embarrassed',
@@ -76,7 +67,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 10,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'jealous',
     definition: 'Feeling or showing envy of someone or their achievements and advantages.',
     source: 'https://www.lexico.com/en/definition/jealous',
@@ -84,7 +74,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 11,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'lonely',
     definition: 'Affected with, characterized by, or causing a depressing feeling of being alone; lonesome.',
     source: 'https://www.dictionary.com/browse/affected',
@@ -92,7 +81,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 12,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'tired',
     definition: 'Drained of strength and energy; fatigued often to the point of exhaustion.',
     source: 'https://www.merriam-webster.com/dictionary/tired',
@@ -100,7 +88,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 13,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'affectionate',
     definition: 'Readily feeling or showing fondness or tenderness.',
     source: 'https://www.lexico.com/en/definition/affectionate',
@@ -108,7 +95,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 14,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'anxious',
     definition: 'Experiencing worry, unease, or nervousness, typically about an imminent event or something with an uncertain outcome.',
     source: 'https://www.lexico.com/en/definition/anxious',
@@ -116,7 +102,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 15,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'empowered',
     definition: 'Having been given the power to make choices relevant to one\'s situation.',
     source: 'https://en.wiktionary.org/wiki/empowered',
@@ -124,7 +109,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 16,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'encouraged',
     definition: 'To stimulate by assistance, approval, etc.',
     source: 'https://www.dictionary.com/browse/encouraged',
@@ -132,7 +116,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 17,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'excited',
     definition: 'Very enthusiastic and eager.',
     source: 'https://www.lexico.com/en/definition/excited',
@@ -140,7 +123,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 18,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'frustrated',
     definition: 'Prevented from progressing, succeeding, or being fulfilled.',
     source: 'https://www.lexico.com/en/definition/frustrated',
@@ -148,7 +130,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 19,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'hurt',
     definition: 'To feel or suffer bodily or mental pain or distress.',
     source: 'https://www.dictionary.com/browse/hurt',
@@ -156,7 +137,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 20,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'hopeless',
     definition: 'Having no expectation of good or success.',
     source: 'https://www.merriam-webster.com/dictionary/hopeless',
@@ -164,7 +144,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 21,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'irritable',
     definition: 'Easily exasperated or excited.',
     source: 'https://en.wiktionary.org/wiki/irritable',
@@ -172,7 +151,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 22,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'overwhelmed',
     definition: 'Completely overcome in mind or feeling.',
     source: 'https://www.dictionary.com/browse/overwhelmed',
@@ -180,7 +158,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 23,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'annoyed',
     definition: 'Feeling or showing angry irritation.',
     source: 'https://www.merriam-webster.com/dictionary/annoyed',
@@ -188,7 +165,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 24,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'centered',
     definition: 'Emotionally stable and secure.',
     source: 'https://www.merriam-webster.com/dictionary/centered',
@@ -196,7 +172,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 25,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'depressed',
     definition: 'Low in spirits.',
     source: 'https://www.merriam-webster.com/dictionary/depressed',
@@ -204,7 +179,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 26,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'disappointed',
     definition: 'Depressed or discouraged by the failure of one\'s hopes or expectations.',
     source: 'https://www.dictionary.com/browse/disappointed',
@@ -212,7 +186,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 27,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'discouraged',
     definition: 'Having lost confidence or enthusiasm; disheartened.',
     source: 'https://www.lexico.com/en/definition/discouraged',
@@ -220,7 +193,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 28,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'engaged',
     definition: 'Involved in an activity.',
     source: 'https://www.merriam-webster.com/dictionary/engaged',
@@ -228,7 +200,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 29,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'fidgety',
     definition: 'Inclined to fidget; restless or uneasy.',
     source: 'https://www.lexico.com/en/definition/fidgety',
@@ -236,7 +207,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 30,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'fulfilled',
     definition: 'Satisfied or happy because of fully developing one\'s abilities or character.',
     source: 'https://www.lexico.com/en/definition/fulfilled',
@@ -244,7 +214,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 31,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'grateful',
     definition: 'Warmly or deeply appreciative of kindness or benefits received; thankful.',
     source: 'https://www.dictionary.com/browse/grateful',
@@ -252,7 +221,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 32,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'impatient',
     definition: 'Restless in desire or expectation; eagerly desirous.',
     source: 'https://www.dictionary.com/browse/impatient',
@@ -260,7 +228,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 33,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'insecure',
     definition: 'Not confident or certain; uneasy; anxious.',
     source: 'https://www.dictionary.com/browse/insecure',
@@ -268,7 +235,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 34,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'inspired',
     definition: 'Aroused, animated, or imbued with the spirit to do something.',
     source: 'https://www.dictionary.com/browse/inspired',
@@ -276,7 +242,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 35,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'joyful',
     definition: 'Feeling, expressing, or causing great pleasure and happiness.',
     source: 'https://www.lexico.com/en/definition/joyful',
@@ -284,7 +249,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 36,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'peaceful',
     definition: 'Free from disturbance; tranquil.',
     source: 'https://www.lexico.com/en/definition/peaceful',
@@ -292,7 +256,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 37,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'secure',
     definition: 'Fixed or fastened so as not to give way, become loose, or be lost.',
     source: 'https://www.lexico.com/en/definition/secure',
@@ -300,7 +263,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 38,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'startled',
     definition: 'Feeling or showing sudden shock or alarm.',
     source: 'https://www.lexico.com/en/definition/startled',
@@ -308,7 +270,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 39,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'uncomfortable',
     definition: 'Causing or feeling slight pain or physical discomfort.',
     source: 'https://www.lexico.com/en/definition/uncomfortable',
@@ -316,7 +277,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 40,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'upset',
     definition: 'Unhappy, disappointed, or worried.',
     source: 'https://www.lexico.com/en/definition/upset',
@@ -324,7 +284,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 41,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'vulnerable',
     definition: 'More or most likely to be exposed to the chance of being attacked or harmed, either physically or emotionally.',
     source: 'https://en.wiktionary.org/wiki/vulnerable',
@@ -332,7 +291,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 42,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'hopeful',
     definition: 'Promising advantage or success.',
     source: 'https://www.dictionary.com/browse/hopeful',
@@ -340,7 +298,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 43,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'defensive',
     definition: 'Very anxious to challenge or avoid criticism.',
     source: 'https://www.encyclopedia.com/literature-and-arts/language-linguistics-and-literary-terms/english-vocabulary-d/defensive',
@@ -348,7 +305,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 44,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'energetic',
     definition: 'Possessing or exerting or displaying energy.',
     source: 'https://www.vocabulary.com/dictionary/energetic',
@@ -356,7 +312,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 45,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'friendly',
     definition: 'Outgoing and pleasant in social relations.',
     source: 'https://www.thefreedictionary.com/friendly',
@@ -364,7 +319,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 46,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'empathy',
     definition: 'The ability to understand and share the feelings (and needs) of another.',
     source: 'https://www.lexico.com/en/definition/empathy',
@@ -372,7 +326,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 47,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'connection',
     definition: 'A feeling of understanding and ease of communication between two or more people.',
     source: 'https://en.wiktionary.org/wiki/connection',
@@ -380,7 +333,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 48,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'harmony',
     definition: 'A consistent, orderly, or pleasing arrangement of parts; congruity.',
     source: 'https://www.dictionary.com/browse/harmony',
@@ -388,7 +340,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 49,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'reassurance',
     definition: 'The action of removing someone\'s doubts or fears.',
     source: 'https://www.lexico.com/en/definition/reassurance',
@@ -396,7 +347,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 50,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'support',
     definition: 'To verify; to make good; to substantiate; to establish; to sustain.',
     source: 'https://en.wiktionary.org/wiki/support',
@@ -404,7 +354,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 51,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'appreciation',
     definition: 'Recognition and enjoyment of the good qualities of someone or something.',
     source: 'https://www.lexico.com/en/definition/appreciation',
@@ -412,7 +361,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 52,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'autonomy',
     definition: 'The capacity to make an informed, uncoerced decision.',
     source: 'https://en.wiktionary.org/wiki/autonomy',
@@ -420,7 +368,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 53,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'celebration',
     definition: 'The act, process of showing appreciation, gratitude and/or remembrance, notably as a social event.',
     source: 'https://en.wiktionary.org/wiki/celebration',
@@ -428,7 +375,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 54,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'honesty',
     definition: 'Fairness and straightforwardness of conduct.',
     source: 'https://www.merriam-webster.com/dictionary/honesty',
@@ -436,7 +382,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 55,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'space',
     definition: 'The quality or state of being apart from company or observation.',
     source: 'https://www.merriam-webster.com/dictionary/privacy',
@@ -444,7 +389,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 56,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'advice',
     definition: 'An opinion or recommendation offered as a guide to action, conduct, etc.',
     source: 'https://www.dictionary.com/browse/advice',
@@ -452,7 +396,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 57,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'affection',
     definition: 'A feeling of liking and caring for someone or something.',
     source: 'https://www.merriam-webster.com/dictionary/affection',
@@ -460,7 +403,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 58,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'care',
     definition: 'The provision of what is necessary for the health, welfare, maintenance, and protection of someone or something.',
     source: 'https://www.lexico.com/en/definition/care',
@@ -468,7 +410,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 59,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'community',
     definition: 'A feeling of fellowship with others, as a result of sharing common attitudes, interests, and goals.',
     source: 'https://www.lexico.com/en/definition/community',
@@ -476,7 +417,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 60,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'cooperation',
     definition: 'The process of working together to the same end.',
     source: 'https://www.lexico.com/en/definition/cooperation',
@@ -484,7 +424,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 61,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'hope',
     definition: 'Expectation and desire for a certain thing to happen.',
     source: 'https://www.lexico.com/en/definition/hope',
@@ -492,7 +431,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 62,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'mourning',
     definition: 'To feel or express sorrow or grief.',
     source: 'https://www.dictionary.com/browse/mourn',
@@ -500,7 +438,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 63,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'play',
     definition: 'Engage in activity for enjoyment and recreation rather than a serious or practical purpose.',
     source: 'https://www.lexico.com/en/definition/play',
@@ -508,7 +445,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 64,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'safety',
     definition: 'The condition of being protected from or unlikely to cause danger, risk, or injury.',
     source: 'https://www.lexico.com/en/definition/safety',
@@ -516,7 +452,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 65,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'selfexpression',
     display: 'Self Expression',
     definition: 'The expression of one\'s feelings, thoughts, or ideas, especially in writing, art, music, or dance.',
@@ -525,7 +460,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 66,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'understanding',
     definition: 'Sympathetically aware of other people\'s feelings; tolerant and forgiving.',
     source: 'https://www.lexico.com/en/definition/understanding',
@@ -533,7 +467,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 67,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'acceptance',
     definition: 'The action or process of being received as adequate or suitable, typically to be admitted into a group.',
     source: 'https://www.lexico.com/en/definition/acceptance',
@@ -541,7 +474,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 68,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'beauty',
     definition: 'A combination of qualities, such as shape, color, or form, that pleases the aesthetic senses, especially the sight.',
     source: 'https://www.lexico.com/en/definition/beauty',
@@ -549,7 +481,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 69,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'belonging',
     definition: 'An affinity for a place or situation.',
     source: 'https://www.lexico.com/en/definition/belonging',
@@ -557,7 +488,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 70,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'challenge',
     definition: 'A difficult task, especially one that the person making the attempt finds more enjoyable because of that difficulty.',
     source: 'https://en.wiktionary.org/wiki/challenge',
@@ -565,7 +495,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 71,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'compassion',
     definition: 'Deep awareness of the suffering of another, coupled with the wish to relieve it.',
     source: 'https://en.wiktionary.org/wiki/compassion',
@@ -573,7 +502,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 72,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'competence',
     definition: 'The ability to do something successfully or efficiently.',
     source: 'https://www.lexico.com/en/definition/Competence',
@@ -581,7 +509,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 73,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'consideration',
     definition: 'A fact or a motive taken into account in deciding or judging something.',
     source: 'https://www.lexico.com/en/definition/consideration',
@@ -589,7 +516,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 74,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'contribution',
     definition: 'Something given or offered that adds to a larger whole.',
     source: 'https://en.wiktionary.org/wiki/contribution',
@@ -597,7 +523,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 75,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'creativity',
     definition: 'The ability to use imagination to produce a novel idea or product.',
     source: 'https://en.wiktionary.org/wiki/creativity',
@@ -605,7 +530,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 76,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'ease',
     definition: 'Absence of difficulty or effort.',
     source: 'https://www.lexico.com/en/definition/Absence',
@@ -613,7 +537,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 77,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'exercise',
     definition: 'A process or activity carried out for a specific purpose, especially one concerned with a specified area or skill.',
     source: 'https://www.lexico.com/en/definition/exercise',
@@ -621,7 +544,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 78,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'freedom',
     definition: 'The power or right to act, speak, or think as one wants without hindrance or restraint.',
     source: 'https://www.lexico.com/en/definition/freedom',
@@ -629,7 +551,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 79,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'learning',
     definition: 'The acquisition of knowledge or skills through experience, study, or by being taught.',
     source: 'https://www.lexico.com/en/definition/learning',
@@ -637,7 +558,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 80,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'mutuality',
     definition: 'The sharing of a feeling, action, or relationship between two or more parties.',
     source: 'https://www.lexico.com/en/definition/mutuality',
@@ -645,7 +565,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 81,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'order',
     definition: 'The arrangement or disposition of people or things in relation to each other according to a particular sequence, pattern, or method.',
     source: 'https://www.lexico.com/en/definition/order',
@@ -653,7 +572,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 82,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'peace',
     definition: 'Freedom from disturbance; tranquility.',
     source: 'https://www.lexico.com/en/definition/Freedom',
@@ -661,7 +579,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 83,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'respect',
     definition: 'Due regard for the feelings, wishes, rights, or traditions of others.',
     source: 'https://www.lexico.com/en/definition/respect',
@@ -669,7 +586,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 84,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'rest',
     definition: 'Freedom from activity or labor.',
     source: 'https://www.merriam-webster.com/dictionary/rest',
@@ -677,7 +593,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 85,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'tobeknown',
     display: 'To Be Known',
     definition: 'To Know and Be Known',
@@ -686,7 +601,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 86,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'tobeseen',
     display: 'To Be Seen',
     definition: 'To See and Be Seen',
@@ -695,7 +609,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 87,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'trust',
     definition: 'Confident expectation of something.',
     source: 'https://www.lexico.com/en/definition/trust',
@@ -703,7 +616,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 88,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'authenticity',
     definition: 'The quality of being real or true.',
     source: 'https://dictionary.cambridge.org/us/dictionary/english/authenticity',
@@ -711,7 +623,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 89,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'companionship',
     definition: 'Closeness with another person.',
     source: 'https://www.vocabulary.com/dictionary/companionship',
@@ -719,7 +630,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 90,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'shared-reality',
     definition: 'Experiencing commonality with others\' inner states about the world.',
     source: 'https://pubmed.ncbi.nlm.nih.gov/26162223/',
@@ -732,7 +642,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 1,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'puzzled',
     definition: 'Unable to understand; perplexed.',
     source: 'https://www.lexico.com/en/definition/puzzled',
@@ -740,7 +649,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 2,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'angry',
     definition: 'Feeling or showing strong annoyance, displeasure, or hostility; full of anger.',
     source: 'https://www.lexico.com/en/definition/angry',
@@ -748,7 +656,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 3,
     type: CardType.Feeling,
-    category: CardCategory.Meow,
     name: 'happy',
     definition: 'Having a sense of confidence in or satisfaction with (a person, arrangement, or situation).',
     source: 'https://www.lexico.com/en/definition/happy',
@@ -756,7 +663,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 4,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'empathy',
     definition: 'The ability to understand and share the feelings (and needs) of another.',
     source: 'https://www.lexico.com/en/definition/empathy',
@@ -764,7 +670,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 5,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'connection',
     definition: 'A feeling of understanding and ease of communication between two or more people.',
     source: 'https://en.wiktionary.org/wiki/connection',
@@ -772,7 +677,6 @@ export const CardDefinitions: CardPropsBase[] = [
   {
     uid: 6,
     type: CardType.Need,
-    category: CardCategory.Meow,
     name: 'harmony',
     definition: 'A consistent, orderly, or pleasing arrangement of parts; congruity.',
     source: 'https://www.dictionary.com/browse/harmony',
