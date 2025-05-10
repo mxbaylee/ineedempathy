@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useCallback, useState } from 'react'
-import { newId, CardPileDef, PrettyFormatter, urlEncode, urlDecode } from '../formatters/PrettyFormatter'
+import { newId, PrettyFormatter } from '../formatters/PrettyFormatter'
 import { CardType, CardPropsBase } from './Card'
 import { DraggableCardPile } from '../components/DraggableCardPile'
 import { doCardsOverlap } from '../utils'
 import { CardDefinitions } from '../CardDefinitions'
+import { CardPileDef } from '../formatters/types'
+import { urlDecode, urlEncode } from '../formatters/encoders'
 
 export interface CardTableProps {
   cardSize: number
@@ -41,9 +43,8 @@ export const CardTable = ({ cardSize }: CardTableProps) => {
     const newCardPiles = localCardPiles.map((cardPile: number[]) => {
       return [newId(), ...cardPile.slice(1)]
     })
-    _setCardPiles(newCardPiles)
     window.location.hash = urlEncode(newCardPiles)
-  }, [_setCardPiles])
+  }, [])
 
   return (
     <div className="card-table">

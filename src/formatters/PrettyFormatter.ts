@@ -1,41 +1,6 @@
 import { CardType, CardPropsBase } from '../components/Card'
 import { CardDefinitions } from '../CardDefinitions'
-
-
-/**
- * [id, left, top, flipped, ...cardId]
- **/
-export type CardPileDef = number[]
-
-
-/**
- * This function decodes a card pile from a URL hash.
- *
- * @param cardPileSegment: string The URL hash containing the card pile data.
- * @returns CardPile[]|false A list of CardPile arrays, or `false` if the hash could not be decoded.
- **/
-export const urlDecode = (cardPileSegment: string): CardPileDef[]|false => {
-  try {
-    const cardPileHash: string = cardPileSegment.slice(1) // Trim the '#'
-    const isJson = cardPileHash.startsWith('[')
-    if (!isJson) {
-      return JSON.parse(decodeURIComponent(cardPileHash))
-    }
-    return JSON.parse(cardPileHash)
-  } catch (e) {
-    return false
-  }
-}
-
-/**
- * This function encodes a card pile to a URL hash.
- *
- * @param cardPile CardPile[] The list of CardPile arrays to encode.
- * @returns string The URL hash containing the card pile data.
- **/
-export const urlEncode = (cardPile: CardPileDef[]): string => {
-  return encodeURIComponent(JSON.stringify(cardPile))
-}
+import { CardPileDef } from './types'
 
 /**
  * Returns a unique ID.
