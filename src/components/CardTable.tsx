@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useCallback, useState } from 'react'
-import { newId, PrettyFormatter } from '../formatters/PrettyFormatter'
+import { hasFallenPiles, newId, pickupFallenPiles, PrettyFormatter } from '../formatters/PrettyFormatter'
 import { CardType, CardPropsBase } from './Card'
 import { DraggableCardPile } from '../components/DraggableCardPile'
-import { doCardsOverlap } from '../utils'
+import { debounce, doCardsOverlap } from '../utils'
 import { CardDefinitions } from '../CardDefinitions'
 import { CardPileDef } from '../formatters/types'
 import { urlDecode, urlEncode } from '../formatters/encoders'
@@ -19,12 +19,20 @@ export const cardsFromHash = (): CardPileDef[]|false => {
 }
 
 export const CardTable = ({ cardSize }: CardTableProps) => {
-  const zIndexRef = useRef(1)
+  const zIndexRef = useRef(1);
   const [cardPiles, _setCardPiles] = useState<CardPileDef[]>(
-    cardsFromHash() || PrettyFormatter(cardSize)
-  )
+    pickupFallenPiles(cardsFromHash() || PrettyFormatter(cardSize), cardSize)
+  );
 
   useEffect(() => {
+    // If no cards have been moved, and the user changes the card size, reset the cards
+    if (!cardsFromHash()) {
+      _setCardPiles(PrettyFormatter(cardSize))
+    }
+  }, [cardSize, _setCardPiles])
+
+  useEffect(() => {
+    // Capture card groups from the hash change event
     const captureCardGroups = () => {
       try {
         const newCardPiles = cardsFromHash()
@@ -41,11 +49,24 @@ export const CardTable = ({ cardSize }: CardTableProps) => {
   }, [cardPiles, _setCardPiles])
 
   const setCardPiles = useCallback((localCardPiles: CardPileDef[]) => {
+    // Update the card piles and save them to the hash
     const newCardPiles = localCardPiles.map((cardPile: number[]) => {
       return [newId(), ...cardPile.slice(1)]
     })
     window.location.hash = urlEncode(newCardPiles)
   }, [])
+
+  useEffect(() => {
+    const handleFallenCards = debounce(() => {
+      if (hasFallenPiles(cardPiles, cardSize)) {
+        setCardPiles(pickupFallenPiles(cardPiles, cardSize))
+      }
+    }, 1000);
+
+    handleFallenCards();
+    window.addEventListener('resize', handleFallenCards);
+    return () => window.removeEventListener('resize', handleFallenCards);
+  }, [cardPiles, cardSize, setCardPiles]);
 
   return (
     <div className="card-table">

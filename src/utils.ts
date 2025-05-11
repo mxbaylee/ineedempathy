@@ -30,6 +30,20 @@ export const throttle = (fn: () => void, delay: number = 200): () => void => {
   return throttled
 }
 
+export const debounce = <T extends (...args: any[]) => any>(
+  fn: T,
+  delay: number = 200
+): ((...args: Parameters<T>) => void) => {
+  let timeout: NodeJS.Timeout;
+
+  return function(this: any, ...args: Parameters<T>): void {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+};
+
 export const getDistance = (x1: number, y1: number, x2: number, y2: number): number => {
   const xDiff = x2 - x1
   const yDiff = y2 - y1
@@ -90,8 +104,7 @@ export const doCardsOverlap = (
   [leftOne, topOne]: [number, number],
   [leftTwo, topTwo]: [number, number]
 ): boolean => {
-  const cardWidth = defaultCardWidth * getCardSizeScale(cardSize)
-  const cardHeight = defaultCardHeight * getCardSizeScale(cardSize)
+  const { cardWidth, cardHeight } = getCardDimensions(cardSize)
   return (
     leftOne < leftTwo + cardWidth &&
     leftOne + cardWidth > leftTwo &&
@@ -99,3 +112,10 @@ export const doCardsOverlap = (
     topOne + cardHeight > topTwo
   )
 }
+
+export const getCardDimensions = (cardSize: CardSize): { cardWidth: number; cardHeight: number } => {
+  return {
+    cardWidth: defaultCardWidth * getCardSizeScale(cardSize),
+    cardHeight: defaultCardHeight * getCardSizeScale(cardSize)
+  };
+};

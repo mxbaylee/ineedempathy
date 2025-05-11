@@ -4,8 +4,7 @@ import { throttle } from '../utils'
 import './css/Draggable.css'
 
 export interface DraggableProps {
-  zIndex?: number
-  zIndexRef?: React.MutableRefObject<number>
+  zIndexRef: React.MutableRefObject<number>
   left: number
   top: number
   setPosition: (left: number, top: number) => void
@@ -14,7 +13,6 @@ export interface DraggableProps {
   children: string | JSX.Element | JSX.Element[]
 }
 export const Draggable = ({
-  zIndex,
   zIndexRef,
   left,
   top,
@@ -25,7 +23,7 @@ export const Draggable = ({
 }: DraggableProps) => {
   const [[localLeft, localTop], setLocalPosition] = useState<[number, number]>([ left, top ])
   const [zeeIndex, setZeeIndex] = useState(
-    zIndex || (zIndexRef && zIndexRef.current) || 1
+    (zIndexRef && zIndexRef.current) || 1
   )
   const cardDragRef = useRef(null)
   useDraggable(cardDragRef, {
@@ -46,12 +44,8 @@ export const Draggable = ({
   })
 
   const incrementIndex = throttle(() => {
-    if (zIndex) {
-      setZeeIndex(zeeIndex + 1)
-    } else if (zIndexRef) {
-      zIndexRef.current += 1
-      setZeeIndex(zIndexRef.current)
-    }
+    zIndexRef.current += 1
+    setZeeIndex(zIndexRef.current)
   })
 
   return (

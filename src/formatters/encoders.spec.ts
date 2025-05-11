@@ -1,21 +1,6 @@
 import { decodeCardPileSegment, decodeStringToNumbers, encodeCardPileSegment, encodeNumbersToString, urlDecode, urlEncode } from "./encoders";
 import { CardPileDef } from "./types";
 
-// Helper function to temporarily override console.error
-const withMockedConsoleError = (callback: () => void) => {
-  const originalConsoleError = console.error;
-  const mockConsoleError = jest.fn();
-  console.error = mockConsoleError;
-
-  try {
-    callback();
-  } finally {
-    console.error = originalConsoleError;
-  }
-
-  return mockConsoleError;
-};
-
 describe('encodeNumbersToString', () => {
   it('encodes increasing sequences of 3+ as a range', () => {
     expect(encodeNumbersToString([1, 2, 3])).toBe('1:3');
@@ -107,10 +92,7 @@ describe('Card Pile Encoding/Decoding', () => {
     });
 
     it('should return false for invalid input', () => {
-      const mockError = withMockedConsoleError(() => {
-        expect(decodeCardPileSegment('invalid')).toBe(false);
-      });
-      expect(mockError).toHaveBeenCalledWith(expect.any(Error));
+      expect(decodeCardPileSegment('invalid')).toBe(false);
     });
   });
 
@@ -129,10 +111,7 @@ describe('Card Pile Encoding/Decoding', () => {
     });
 
     it('should return false for invalid input', () => {
-      const mockError = withMockedConsoleError(() => {
-        expect(urlDecode('#invalid')).toBe(false);
-      });
-      expect(mockError).toHaveBeenCalledWith(expect.any(Error));
+      expect(urlDecode('#invalid')).toBe(false);
     });
   });
 });

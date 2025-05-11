@@ -4,7 +4,7 @@ import { CardPropsBase } from './Card'
 import { Draggable } from './Draggable'
 
 export interface DraggableCardPileProps {
-  zIndexRef?: React.MutableRefObject<number>
+  zIndexRef: React.MutableRefObject<number>
   left: number
   top: number
   flipped: boolean
