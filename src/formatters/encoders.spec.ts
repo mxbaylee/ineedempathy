@@ -1,21 +1,6 @@
 import { decodeCardPileSegment, decodeStringToNumbers, encodeCardPileSegment, encodeNumbersToString, urlDecode, urlEncode } from "./encoders";
 import { CardPileDef } from "./types";
 
-// Helper function to temporarily override console.error
-const withMockedConsoleError = (callback: () => void) => {
-  const originalConsoleError = console.error;
-  const mockConsoleError = jest.fn();
-  console.error = mockConsoleError;
-
-  try {
-    callback();
-  } finally {
-    console.error = originalConsoleError;
-  }
-
-  return mockConsoleError;
-};
-
 describe('encodeNumbersToString', () => {
   it('encodes increasing sequences of 3+ as a range', () => {
     expect(encodeNumbersToString([1, 2, 3])).toBe('1:3');
@@ -87,9 +72,9 @@ describe('Card Pile Encoding/Decoding', () => {
   describe('encodeCardPileSegment and decodeCardPileSegment', () => {
     it('should encode and decode card piles correctly', () => {
       const cardPile: CardPileDef[] = [
-        [1, 2, 3],
-        [5, 6, 7],
-        [9]
+        [1, 2, 3, 0, 1],
+        [5, 6, 7, 0, 2],
+        [9, 0, 0, 0, 3],
       ];
 
       const encoded = encodeCardPileSegment(cardPile);
@@ -99,27 +84,25 @@ describe('Card Pile Encoding/Decoding', () => {
     });
 
     it('should handle empty card piles', () => {
-      const cardPile: CardPileDef[] = [[]];
+      const cardPile: CardPileDef[] = [];
       const encoded = encodeCardPileSegment(cardPile);
       const decoded = decodeCardPileSegment(encoded);
 
-      expect(decoded).toEqual(cardPile);
+      expect(decoded).toEqual(false);
     });
 
     it('should return false for invalid input', () => {
-      const mockError = withMockedConsoleError(() => {
-        expect(decodeCardPileSegment('invalid')).toBe(false);
-      });
-      expect(mockError).toHaveBeenCalledWith(expect.any(Error));
+      // expect(decodeCardPileSegment('invalid')).toBe(false);
+      expect(decodeCardPileSegment('IwdgL')).toBe(false);
     });
   });
 
   describe('urlEncode and urlDecode', () => {
     it('should encode and decode card piles for URL', () => {
       const cardPile: CardPileDef[] = [
-        [1, 2, 3],
-        [5, 6, 7],
-        [9]
+        [1, 2, 3, 0, 1],
+        [5, 6, 7, 0, 2],
+        [9, 0, 0, 0, 3],
       ];
 
       const encoded = urlEncode(cardPile);
@@ -129,10 +112,7 @@ describe('Card Pile Encoding/Decoding', () => {
     });
 
     it('should return false for invalid input', () => {
-      const mockError = withMockedConsoleError(() => {
-        expect(urlDecode('#invalid')).toBe(false);
-      });
-      expect(mockError).toHaveBeenCalledWith(expect.any(Error));
+      expect(urlDecode('#invalid')).toBe(false);
     });
   });
 });

@@ -94,11 +94,11 @@ export const decodeStringToNumbers = (s: string): number[] => {
 export const decodeCardPileSegment = (cardPileSegment: string): CardPileDef[]|false => {
   try {
     const decompressed = decompressFromEncodedURIComponent(cardPileSegment).split(CARD_PILE_SEPARATOR);
-    return decompressed.map((cardPile: string): CardPileDef => {
-      return decodeStringToNumbers(cardPile);
+    const items = decompressed.filter(Boolean).map((cardPile: string): CardPileDef => {
+      return decodeStringToNumbers(cardPile) as CardPileDef;
     });
+    return items.length > 0 ? items : false;
   } catch (err) {
-    console.error(err);
     return false;
   }
 };
@@ -132,12 +132,12 @@ export const urlDecode = (cardPileSegment: string): CardPileDef[]|false => {
     } else if (isJson) {
       // Format Timeline: May 2023 - October 2023
       return JSON.parse(cardPileHash);
-    } else {
+    } else if (cardPileHash.length > 0) {
       // Format Timeline: May 2025 - Present
       return decodeCardPileSegment(cardPileHash);
     }
+    return false;
   } catch (err) {
-    console.error(err);
     return false;
   }
 };

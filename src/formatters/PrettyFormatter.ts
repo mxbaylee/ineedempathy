@@ -1,23 +1,23 @@
-import { CardType, CardPropsBase } from '../components/Card'
-import { CardDefinitions } from '../CardDefinitions'
-import { CardPileDef } from './types'
-import { CardSize, getCardSizeScale } from '../hooks/useSettings'
+import { CardType, CardPropsBase } from '../components/Card';
+import { CardDefinitions } from '../CardDefinitions';
+import type { CardPileDef } from './types';
+import { CardSize } from '../hooks/useSettings';
+import { getCardDimensions } from '../utils';
+import { doCardsOverlap, gatherFallenPiles, isOffBoard, newCardPile } from './utils';
 
-/**
- * Returns a unique ID.
- *
- * @param {number} [id] The initial ID. If not specified, a new ID will be generated.
- * @returns {number} The unique ID.
- */
-const idSet = new Set()
-export const newId = (): number => {
-  let id = new Date().valueOf()
-  while (idSet.has(id)) {
-    id -= 1
-  }
-  idSet.add(id)
-  return id
-}
+export const pickupUnorderedPiles = (cardPiles: CardPileDef[], cardSize: CardSize): CardPileDef[] => {
+  if (!detectUnorderedPiles(cardPiles, cardSize)) return cardPiles;
+  return gatherFallenPiles(cardPiles, cardSize);
+};
+
+export const detectUnorderedPiles = (cardPiles: CardPileDef[], cardSize: CardSize): boolean => {
+  return cardPiles.some((pile) => {
+    return isOffBoard(pile, cardSize) || cardPiles.some((otherPile) => {
+      if (otherPile === pile) return false;
+      return doCardsOverlap(cardSize, pile, otherPile);
+    });
+  });
+};
 
 /**
  * This function turns a list of `cards` into groups for presentation.
@@ -25,31 +25,65 @@ export const newId = (): number => {
  * @param cardSize number Configured in settings.
  * @returns CardPile[] The result of the presentation layer
  **/
-const centerLine = window.innerWidth / 2
-const defaultCardWidth = 300
-const defaultCardHeight = 420
 export const PrettyFormatter = (cardSize: CardSize): CardPileDef[] => {
-  const cardWidth = defaultCardWidth * getCardSizeScale(cardSize)
-  const cardHeight = defaultCardHeight * getCardSizeScale(cardSize)
-  return CardDefinitions.reduce((memo: CardPileDef[], card: CardPropsBase, idx: number): CardPileDef[] => {
+  const centerLine = window.innerWidth / 2;
+  const boardWidth = window.innerWidth;
+  const { cardWidth, cardHeight } = getCardDimensions(cardSize);
+  const topFeeling = newCardPile({
+    x: centerLine - (cardWidth * 1.02),
+    y: 50,
+    isFlipped: 1
+  });
+  const topNeed = newCardPile({
+    x: centerLine + (cardWidth * 0.02),
+    y: 50,
+    isFlipped: 1
+  });
+
+  // Check if larger spacing would fit on the board
+  const remainingFeelingsX = centerLine - (cardWidth * 1.3);
+  const remainingNeedsX = centerLine + (cardWidth * 0.3);
+  const totalRemainingWidth = (remainingNeedsX + cardWidth) - remainingFeelingsX;
+  const useLargerSpacing = totalRemainingWidth <= boardWidth * 0.9;
+
+  const remainingNeeds = newCardPile({
+    x: centerLine + (cardWidth * (
+      useLargerSpacing ? 0.3 : 0.02
+    )),
+    y: 50 + (cardHeight * 1.2),
+    isFlipped: 0,
+  });
+  const remainingFeelings = newCardPile({
+    x: centerLine - (cardWidth * (
+      useLargerSpacing ? 1.3 : 1.02
+    )),
+    y: 50 + (cardHeight * 1.2),
+    isFlipped: 0,
+  });
+
+  // Add cards to the various piles
+  CardDefinitions.forEach((card: CardPropsBase, idx: number) => {
+    const needsTopFeeling = topFeeling.length === 4;
+    const needsTopNeed = topNeed.length === 4;
     if (card.type === CardType.Feeling) {
-      if (memo[0].length === 4) {
-        memo[0].push(card.uid)
+      if (needsTopFeeling) {
+        topFeeling.push(card.uid)
       } else {
-        memo[2].push(card.uid)
+        remainingFeelings.push(card.uid)
       }
     } else {
-      if (memo[1].length === 4) {
-        memo[1].push(card.uid)
+      if (needsTopNeed) {
+        topNeed.push(card.uid)
       } else {
-        memo[3].push(card.uid)
+        remainingNeeds.push(card.uid)
       }
     }
-    return memo
-  }, [
-    [newId(), centerLine - (cardWidth * 1.02), 50,  1],
-    [newId(), centerLine + (cardWidth * 0.02), 50, 1],
-    [newId(), centerLine - (cardWidth * 1.3), 50 + (cardHeight * 1.2), 0],
-    [newId(), centerLine + (cardWidth * 0.3), 50 + (cardHeight * 1.2), 0],
-  ])
-}
+  });
+
+  return [
+    topFeeling,
+    topNeed,
+    remainingNeeds,
+    remainingFeelings, // Goes last to get later z-index
+  ];
+};

@@ -4,7 +4,6 @@ import { CardPropsBase } from './Card'
 import { Draggable } from './Draggable'
 
 export interface DraggableCardPileProps {
-  zIndexRef?: React.MutableRefObject<number>
   left: number
   top: number
   flipped: boolean
@@ -21,7 +20,6 @@ export interface DraggableCardPileProps {
 
 // TODO passthrough group can be axed
 export const DraggableCardPile = ({
-  zIndexRef,
   left,
   top,
   flipped,
@@ -37,7 +35,6 @@ export const DraggableCardPile = ({
 }: DraggableCardPileProps) => {
   return (
     <Draggable
-      zIndexRef={zIndexRef}
       left={left}
       top={top}
       setPosition={setPosition}
