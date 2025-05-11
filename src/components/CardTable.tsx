@@ -6,9 +6,10 @@ import { doCardsOverlap } from '../utils'
 import { CardDefinitions } from '../CardDefinitions'
 import { CardPileDef } from '../formatters/types'
 import { urlDecode, urlEncode } from '../formatters/encoders'
+import { CardSize } from '../hooks/useSettings'
 
 export interface CardTableProps {
-  cardSize: number
+  cardSize: CardSize;
 }
 
 export const cardsFromHash = (): CardPileDef[]|false => {

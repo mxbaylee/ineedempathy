@@ -1,6 +1,7 @@
 import { CardType, CardPropsBase } from '../components/Card'
 import { CardDefinitions } from '../CardDefinitions'
 import { CardPileDef } from './types'
+import { CardSize, getCardSizeScale } from '../hooks/useSettings'
 
 /**
  * Returns a unique ID.
@@ -27,9 +28,9 @@ export const newId = (): number => {
 const centerLine = window.innerWidth / 2
 const defaultCardWidth = 300
 const defaultCardHeight = 420
-export const PrettyFormatter = (cardSize: number = 10): CardPileDef[] => {
-  const cardWidth = defaultCardWidth * (cardSize / 10)
-  const cardHeight = defaultCardHeight * (cardSize / 10)
+export const PrettyFormatter = (cardSize: CardSize): CardPileDef[] => {
+  const cardWidth = defaultCardWidth * getCardSizeScale(cardSize)
+  const cardHeight = defaultCardHeight * getCardSizeScale(cardSize)
   return CardDefinitions.reduce((memo: CardPileDef[], card: CardPropsBase, idx: number): CardPileDef[] => {
     if (card.type === CardType.Feeling) {
       if (memo[0].length === 4) {

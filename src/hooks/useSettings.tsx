@@ -1,29 +1,62 @@
 import { useEffect, useCallback, useState } from 'react'
 
 export interface SettingsItems {
-  volume: number
-  cardSize: number
-  helpVisible: boolean
-  settingsVisible: boolean
-  infoVisible: boolean
+  volume: number;
+  cardSize: CardSize;
+};
+
+export enum Breakpoint {
+  SMALL = 640,
+  MEDIUM = 769,
+  LARGE = 1024,
 }
+
+export enum CardSize {
+  SMALL = 'Small',
+  MEDIUM = 'Medium',
+  LARGE = 'Large',
+}
+
+export const getSizeLabel = (size: number) => {
+  switch (size) {
+    case 5: return 'Small'
+    case 7: return 'Medium'
+    case 9: return 'Large'
+    default: return size.toString()
+  }
+}
+
+const calculateDefaultCardSize = (): CardSize => {
+  const width = window.innerWidth;
+  if (width <= Breakpoint.SMALL) {
+    return CardSize.SMALL;
+  }
+  return CardSize.MEDIUM;
+};
+
+export const getCardSizeScale = (cardSize: CardSize): number => {
+  return (
+    cardSize === CardSize.SMALL ? 5 : cardSize === CardSize.MEDIUM ? 7 : 9
+  ) / 10;
+};
 
 export type SettingsHookReturn = [
   SettingsItems,
   (key: string, value: any) => void
-]
+];
 
-export const SETTINGS_KEY = 'empatySettingsKey'
+export const SETTINGS_KEY = 'empathySettings';
 
-const parseSettings = () => {
+const parseSettings = (): SettingsItems | false => {
   try {
+    const parsed = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '');
     return {
-      ...JSON.parse(localStorage.getItem(SETTINGS_KEY) || ''),
-      settingsVisible: false,
-      helpVisible: false,
-      infoVisible: false,
+      ...parsed,
+      cardSize: parsed.cardSize as CardSize
     }
-  } catch (e) {}
+  } catch (e) {
+    return false;
+  }
 }
 
 const areSettingsDifferent = (settingsOne: SettingsItems, settingsTwo: SettingsItems): boolean => {
@@ -39,10 +72,7 @@ const areSettingsDifferent = (settingsOne: SettingsItems, settingsTwo: SettingsI
 export const useSettings = (): SettingsHookReturn => {
   const [settings, _setSettings] = useState<SettingsItems>(parseSettings() || {
     volume: 2,
-    cardSize: (window.innerWidth <= 900 || window.innerHeight <= 400) ? 5 : 7,
-    settingsVisible: false,
-    helpVisible: false,
-    infoVisible: false,
+    cardSize: calculateDefaultCardSize(),
   })
 
   useEffect(() => {

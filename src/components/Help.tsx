@@ -1,5 +1,5 @@
 import React from 'react'
-import './css/Help.css'
+import './css/Panel.css'
 
 export interface HelpProps {
   hideHelp: () => void
@@ -7,12 +7,14 @@ export interface HelpProps {
 
 export const Help = (props: HelpProps) => {
   return (
-    <div className="help">
-      <div className="title">
-        <h3>I Need HELP 😢</h3>
-      </div>
-      <div onClick={props.hideHelp} className="close">
-        ❌
+    <div className="help panel">
+      <div className="banner">
+        <div onClick={props.hideHelp} className="close">
+          ❌
+        </div>
+        <div className="title">
+          <h3>I Need HELP 😢</h3>
+        </div>
       </div>
       <div className="content">
         <h4>How to use the virtual cards</h4>

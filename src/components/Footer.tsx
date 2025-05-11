@@ -2,27 +2,29 @@ import React from 'react';
 import './css/Footer.css';
 
 export interface FooterProps {
-  setSettings: (key: string, value: any) => void
-}
+  openHelp: () => void;
+  openSettings: () => void;
+  openInfo: () => void;
+};
 
 export const Footer = (props: FooterProps) => {
   const openHelp = (e: any) => {
-    e.preventDefault()
-    props.setSettings('helpVisible', true)
-  }
+    e.preventDefault();
+    props.openHelp();
+  };
   const openSettings = (e: any) => {
-    e.preventDefault()
-    props.setSettings('settingsVisible', true)
-  }
+    e.preventDefault();
+    props.openSettings();
+  };
   const openInfo = (e: any) => {
-    e.preventDefault()
-    props.setSettings('infoVisible', true)
-  }
+    e.preventDefault();
+    props.openInfo();
+  };
   return (
     <footer className="footer">
-      <a onClick={openInfo} href="about:blank" className="nav-link text-muted" rel="noreferrer" target="_blank">Info</a>
-      <a onClick={openSettings} href="about:blank" className="nav-link text-muted" rel="noreferrer" target="_blank">Settings</a>
-      <a onClick={openHelp} href="about:blank" className="nav-link text-muted" rel="noreferrer" target="_blank">Help</a>
+      <a onClick={openInfo} href="about:blank" className="nav-link text-muted">Info</a>
+      <a onClick={openSettings} href="about:blank" className="nav-link text-muted">Settings</a>
+      <a onClick={openHelp} href="about:blank" className="nav-link text-muted">Help</a>
     </footer>
-  )
-}
+  );
+};

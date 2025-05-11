@@ -1,7 +1,7 @@
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useState } from 'react'
 import { Footer } from './components/Footer'
 import { Help } from './components/Help'
-import { useSettings } from './hooks/useSettings'
+import { getCardSizeScale, useSettings } from './hooks/useSettings'
 import { SettingsPanel } from './components/SettingsPanel'
 import { InfoPanel } from './components/InfoPanel'
 import { ContainedDraggable } from './components/ContainedDraggable'
@@ -9,42 +9,46 @@ import { CardTable } from './components/CardTable'
 import './App.css'
 
 function App() {
-  const [settings, setSettings] = useSettings()
+  const [settings, setSettings] = useSettings();
+
+  const [settingsVisible, setSettingsVisible] = useState(false);
+  const [helpVisible, setHelpVisible] = useState(false);
+  const [infoVisible, setInfoVisible] = useState(false);
 
   return (
     <>
     <div
       className="App"
       style={{
-        '--card-ratio': String(settings.cardSize / 10),
+        '--card-ratio': getCardSizeScale(settings.cardSize),
       } as CSSProperties}
     >
       <div className="card-table">
-        { settings.infoVisible && (
+        { infoVisible && (
           <ContainedDraggable>
             <InfoPanel
               hideInfo={() => {
-                setSettings('infoVisible', false)
+                setInfoVisible(false);
               }}
             />
           </ContainedDraggable>
         )}
-        { settings.settingsVisible && (
+        { settingsVisible && (
           <ContainedDraggable>
             <SettingsPanel
               settings={settings}
               setSettings={setSettings}
               hideSettings={() => {
-                setSettings('settingsVisible', false)
+                setSettingsVisible(false);
               }}
             />
           </ContainedDraggable>
         )}
-        { settings.helpVisible && (
+        { helpVisible && (
           <ContainedDraggable>
             <Help
               hideHelp={() => {
-                setSettings('helpVisible', false)
+                setHelpVisible(false);
               }}
             />
           </ContainedDraggable>
@@ -52,7 +56,17 @@ function App() {
         <CardTable cardSize={settings.cardSize} />
       </div>
     </div>
-    <Footer setSettings={setSettings} />
+    <Footer
+      openHelp={() => {
+        setHelpVisible(true);
+      }}
+      openSettings={() => {
+        setSettingsVisible(true);
+      }}
+      openInfo={() => {
+        setInfoVisible(true);
+      }}
+    />
     </>
   )
 }

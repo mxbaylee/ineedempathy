@@ -1,0 +1,164 @@
+:root {
+  --teal: #008080;
+  --white: #e6f1ff;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.9);
+  color: black;
+  border-radius: 0.5em;
+  overflow: hidden;
+  cursor: default;
+  width: calc(var(--card-width) * 1.2 * var(--card-ratio));
+  height: calc((var(--card-height) * 1.2 * var(--card-ratio)) * 0.88);
+  display: flex;
+  flex-direction: column;
+  --scale-factor: min(1, max(0.4, var(--card-ratio) * 1.5));
+}
+
+.panel a {
+  color: #000;
+}
+.panel a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+.panel .content {
+  text-align: left;
+  padding: 5px 10px;
+  position: relative;
+  overflow-y: scroll;
+  flex: 1;
+}
+.panel .content.info {
+  text-align: center;
+  margin: 0 20px;
+  border-radius: 1em;
+  background-color: rgba(254, 255, 222, 0.8);
+}
+.panel .content p {
+  font-family: var(--font-family);
+  font-weight: normal;
+}
+.panel .item {
+  margin: 20px auto;
+  background-color: #ffffff;
+  padding: 15px 5px;
+  border-radius: 0.5em;
+}
+
+.panel .item .option {
+  cursor: pointer;
+}
+
+.panel .item.card-size span.value,
+.panel .item.volume span.value {
+  margin: 0 20px;
+}
+
+.panel .item label.item-label {
+  display: block;
+  text-align: center;
+  padding: calc(10px * var(--scale-factor));
+  font-size: calc(24px * var(--scale-factor));
+  font-weight: bold;
+}
+.panel .item.card-size span,
+.panel .item.volume span {
+  font-size: 20px;
+}
+.panel .item .option:hover {
+  text-shadow: 0 1px 10px #FFD700, 0 2px 10px #FFAB00;
+}
+
+.panel .banner {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: grab;
+}
+
+.panel .banner .close {
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 1.2em;
+}
+
+.panel .banner .close:hover {
+  text-shadow: 0 1px 10px #FFD700, 0 2px 10px #FFAB00;
+}
+
+.panel .banner .title {
+  flex: 1;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.panel .banner .title h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2em;
+}
+
+.panel .item .size-options {
+  display: flex;
+  gap: 10px;
+  margin-left: 10px;
+}
+
+.panel .item .size-options .option {
+  padding: 5px 10px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.panel .item .size-options .option.selected {
+  background: var(--teal);
+  color: white;
+}
+
+.panel .item .size-options .option:hover {
+  background: rgba(0, 128, 128, 0.1);
+  text-shadow: none;
+}
+
+.panel .item .size-options .option.selected:hover {
+  background: var(--teal);
+  opacity: 0.9;
+}
+
+.panel .item .size-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(15px * var(--scale-factor));
+  margin: calc(10px * var(--scale-factor)) 0;
+}
+
+.panel .item .size-control .size-value {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.panel .item .size-control .size-buttons {
+  display: flex;
+  gap: calc(20px * var(--scale-factor));
+}
+
+.panel .item .size-control .size-buttons .option {
+  padding: calc(8px * var(--scale-factor)) calc(16px * var(--scale-factor));
+  border-radius: calc(8px * var(--scale-factor));
+  background: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: calc(20px * var(--scale-factor));
+}
+
+.panel .item .size-control .size-buttons .option:hover {
+  background: rgba(0, 128, 128, 0.1);
+  transform: scale(1.1);
+  text-shadow: none;
+}

@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { Howl } from 'howler';
+import { CardSize, getCardSizeScale } from './hooks/useSettings';
 
 export const defaultCardWidth = 300
 export const defaultCardHeight = 420
@@ -85,12 +86,12 @@ export const useSecondaryClick = (
 }
 
 export const doCardsOverlap = (
-  cardSize: number,
+  cardSize: CardSize,
   [leftOne, topOne]: [number, number],
   [leftTwo, topTwo]: [number, number]
 ): boolean => {
-  const cardWidth = defaultCardWidth * (cardSize / 10)
-  const cardHeight = defaultCardHeight * (cardSize / 10)
+  const cardWidth = defaultCardWidth * getCardSizeScale(cardSize)
+  const cardHeight = defaultCardHeight * getCardSizeScale(cardSize)
   return (
     leftOne < leftTwo + cardWidth &&
     leftOne + cardWidth > leftTwo &&
