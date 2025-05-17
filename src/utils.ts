@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { Howl } from 'howler';
 import { CardSize, getCardSizeScale } from './hooks/useSettings';
+import { CardPileDef } from './formatters/types';
 
 export const defaultCardWidth = 300
 export const defaultCardHeight = 420
@@ -28,6 +29,36 @@ export const throttle = (fn: () => void, delay: number = 200): () => void => {
   }
 
   return throttled
+}
+
+/**
+ * Sorts card piles from top-right to bottom-left.
+ * This sorting order is used because card stacks visually extend towards the top and right,
+ * making this arrangement more intuitive for users to read and interact with.
+ */
+export const sortTopRightToBottomLeftWrapper = (cardSize: CardSize): (a: CardPileDef, b: CardPileDef) => number => {
+  const { cardWidth, cardHeight } = getCardDimensions(cardSize);
+  return (a: CardPileDef, b: CardPileDef): number => {
+    const [, ax, ay] = a;
+    const [, bx, by] = b;
+
+    // If a is fully to the left of b, a should be last (comes after)
+    if (ax + cardWidth <= bx) return 1;
+
+    // If a is fully to the right of b, b should be last (a comes before)
+    if (bx + cardWidth <= ax) return -1;
+
+    // If a is fully above b, b should be last (a comes before)
+    if (ay + cardHeight <= by) return -1;
+
+    // If a is fully below b, a should be last (b comes before)
+    if (by + cardHeight <= ay) return 1;
+
+    // Overlapping or ambiguous: preserve order
+    const aScore = ay * 10000 + ax;
+    const bScore = by * 10000 + bx;
+    return bScore - aScore;
+  }
 }
 
 export const debounce = <T extends (...args: any[]) => any>(
@@ -99,17 +130,18 @@ export const useSecondaryClick = (
   }
 }
 
+/** @deprecated use formatters/utils.doCardsOverlap instead */
 export const doCardsOverlap = (
   cardSize: CardSize,
-  [leftOne, topOne]: [number, number],
-  [leftTwo, topTwo]: [number, number]
+  [cardOneX, cardOneY]: [number, number],
+  [cardTwoX, cardTwoY]: [number, number]
 ): boolean => {
   const { cardWidth, cardHeight } = getCardDimensions(cardSize)
   return (
-    leftOne < leftTwo + cardWidth &&
-    leftOne + cardWidth > leftTwo &&
-    topOne < topTwo + cardHeight &&
-    topOne + cardHeight > topTwo
+    cardOneX < cardTwoX + cardWidth &&
+    cardOneX + cardWidth > cardTwoX &&
+    cardOneY < cardTwoY + cardHeight &&
+    cardOneY + cardHeight > cardTwoY
   )
 }
 
@@ -119,3 +151,16 @@ export const getCardDimensions = (cardSize: CardSize): { cardWidth: number; card
     cardHeight: defaultCardHeight * getCardSizeScale(cardSize)
   };
 };
+
+/**
+ * Generate a unique ID for a card, keeps track of all IDs in the set to avoid collisions.
+ */
+const idSet = new Set();
+export const newId = (): number => {
+  let id = new Date().valueOf();
+  while (idSet.has(id)) {
+    id += 1;
+  }
+  idSet.add(id);
+  return id;
+}

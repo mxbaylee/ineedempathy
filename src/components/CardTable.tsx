@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useCallback, useState } from 'react'
-import { hasFallenPiles, newId, pickupFallenPiles, PrettyFormatter } from '../formatters/PrettyFormatter'
+import { detectUnorderedPiles, pickupUnorderedPiles, PrettyFormatter } from '../formatters/PrettyFormatter'
 import { CardType, CardPropsBase } from './Card'
 import { DraggableCardPile } from '../components/DraggableCardPile'
-import { debounce, doCardsOverlap } from '../utils'
+import { doCardsOverlap, newId, sortTopRightToBottomLeftWrapper } from '../utils'
 import { CardDefinitions } from '../CardDefinitions'
 import { CardPileDef } from '../formatters/types'
 import { urlDecode, urlEncode } from '../formatters/encoders'
 import { CardSize } from '../hooks/useSettings'
+import './css/CardTable.css'
 
 export interface CardTableProps {
   cardSize: CardSize;
@@ -19,17 +20,18 @@ export const cardsFromHash = (): CardPileDef[]|false => {
 }
 
 export const CardTable = ({ cardSize }: CardTableProps) => {
-  const zIndexRef = useRef(1);
-  const [cardPiles, _setCardPiles] = useState<CardPileDef[]>(
-    pickupFallenPiles(cardsFromHash() || PrettyFormatter(cardSize), cardSize)
-  );
+  const [cardPiles, setCardPiles] = useState<CardPileDef[]>(() => {
+    return cardsFromHash() || PrettyFormatter(cardSize);
+  });
+  const [unorderedPiles, setUnorderedPiles] = useState<boolean>(detectUnorderedPiles(cardPiles, cardSize));
+  const sortTopRightToBottomLeft = useCallback(sortTopRightToBottomLeftWrapper(cardSize), [cardSize]);
 
   useEffect(() => {
     // If no cards have been moved, and the user changes the card size, reset the cards
     if (!cardsFromHash()) {
-      _setCardPiles(PrettyFormatter(cardSize))
+      setCardPiles(PrettyFormatter(cardSize))
     }
-  }, [cardSize, _setCardPiles])
+  }, [cardSize, setCardPiles])
 
   useEffect(() => {
     // Capture card groups from the hash change event
@@ -37,7 +39,7 @@ export const CardTable = ({ cardSize }: CardTableProps) => {
       try {
         const newCardPiles = cardsFromHash()
         if (newCardPiles) {
-          _setCardPiles(newCardPiles)
+          setCardPiles(newCardPiles.sort(sortTopRightToBottomLeft));
         }
       } catch (e) {}
     }
@@ -46,30 +48,41 @@ export const CardTable = ({ cardSize }: CardTableProps) => {
     return () => {
       window.removeEventListener('hashchange', captureCardGroups)
     }
-  }, [cardPiles, _setCardPiles])
+  }, [cardPiles, setCardPiles])
 
-  const setCardPiles = useCallback((localCardPiles: CardPileDef[]) => {
+  const handleCardPileUpdate = useCallback((localCardPiles: CardPileDef[]) => {
     // Update the card piles and save them to the hash
-    const newCardPiles = localCardPiles.map((cardPile: number[]) => {
-      return [newId(), ...cardPile.slice(1)]
-    })
+    const newCardPiles = localCardPiles.map((cardPile: CardPileDef): CardPileDef => {
+      return [newId(), ...cardPile.slice(1)] as CardPileDef;
+    }).sort(sortTopRightToBottomLeft);
     window.location.hash = urlEncode(newCardPiles)
   }, [])
 
-  useEffect(() => {
-    const handleFallenCards = debounce(() => {
-      if (hasFallenPiles(cardPiles, cardSize)) {
-        setCardPiles(pickupFallenPiles(cardPiles, cardSize))
-      }
-    }, 1000);
+  const orderCards = useCallback(() => {
+    handleCardPileUpdate(pickupUnorderedPiles(cardPiles, cardSize))
+  }, [cardPiles, cardSize, handleCardPileUpdate])
 
-    handleFallenCards();
-    window.addEventListener('resize', handleFallenCards);
-    return () => window.removeEventListener('resize', handleFallenCards);
-  }, [cardPiles, cardSize, setCardPiles]);
+  useEffect(() => {
+    const checkForMessyPiles = () => {
+      setUnorderedPiles(detectUnorderedPiles(cardPiles, cardSize));
+    };
+
+    checkForMessyPiles();
+    window.addEventListener('resize', checkForMessyPiles);
+    return () => window.removeEventListener('resize', checkForMessyPiles);
+  }, [cardPiles, cardSize]);
 
   return (
-    <div className="card-table">
+    <>
+      { unorderedPiles && (
+        <button
+          className="floating-button"
+          onClick={orderCards}
+          title="Click to order cards on the table"
+        >
+          I Need Order
+        </button>
+      )}
       { cardPiles.map(([id, left, top, flipped, ...cardIds]: CardPileDef): any => {
         const cards = cardIds.map((cardId: number): CardPropsBase => {
           const cardIdx = cardId - 1
@@ -93,7 +106,6 @@ export const CardTable = ({ cardSize }: CardTableProps) => {
             top={top}
             flipped={flipped === 1}
             cards={cards}
-            zIndexRef={zIndexRef}
             hasOverlap={(left: number, top: number): boolean => {
               return findOverlappingGroup(left, top) !== undefined
             }}
@@ -114,8 +126,8 @@ export const CardTable = ({ cardSize }: CardTableProps) => {
               newCardPiles.push(...[
                 [-1, left + 15, top + 15, flipped, ...firstSet],
                 [-1, left - 15, top - 15, flipped, ...secondSet],
-              ])
-              setCardPiles(newCardPiles)
+              ] as CardPileDef[])
+              handleCardPileUpdate(newCardPiles)
             }}
             splitBySize={() => {
               const newCardPiles = cardPiles.slice().filter(([innerId]: number[]): boolean => {
@@ -126,8 +138,8 @@ export const CardTable = ({ cardSize }: CardTableProps) => {
               newCardPiles.push(...[
                 [-1, left + 15, top + 15, flipped, ...firstSet],
                 [-1, left - 15, top - 15, flipped, ...secondSet],
-              ])
-              setCardPiles(newCardPiles)
+              ] as CardPileDef[])
+              handleCardPileUpdate(newCardPiles)
             }}
             splitTopCard={() => {
               const newCardPiles = cardPiles.slice().filter(([innerId]: number[]): boolean => {
@@ -136,8 +148,8 @@ export const CardTable = ({ cardSize }: CardTableProps) => {
               newCardPiles.push(...[
                 [-1, left - 15, top - 15, flipped, ...cardIds.slice(0, -1)],
                 [-1, left + 15, top + 15, flipped, ...cardIds.slice(-1)],
-              ])
-              setCardPiles(newCardPiles)
+              ] as CardPileDef[])
+              handleCardPileUpdate(newCardPiles)
             }}
             cycleCards={() => {
               const newCardPiles = cardPiles.slice().filter(([innerId]: number[]): boolean => {
@@ -147,8 +159,8 @@ export const CardTable = ({ cardSize }: CardTableProps) => {
                 -1, left, top, flipped,
                 ...cardIds.slice(-1), // top card, now bottom
                 ...cardIds.slice(0, -1) // new top cards
-              ])
-              setCardPiles(newCardPiles)
+              ] as CardPileDef)
+              handleCardPileUpdate(newCardPiles)
             }}
             flipOver={() => {
               const newCardPiles = cardPiles.slice().filter(([innerId]: number[]): boolean => {
@@ -156,8 +168,8 @@ export const CardTable = ({ cardSize }: CardTableProps) => {
               })
               newCardPiles.push([
                 -1, left, top, flipped === 0 ? 1 : 0, ...cardIds
-              ])
-              setCardPiles(newCardPiles)
+              ] as CardPileDef)
+              handleCardPileUpdate(newCardPiles)
             }}
             mergeOverlappingGroups={(left: number, top: number) => {
               const overlappingGroup = findOverlappingGroup(left, top)
@@ -172,8 +184,8 @@ export const CardTable = ({ cardSize }: CardTableProps) => {
                 0, // flipped
                 ...overlappingGroup.slice(4), // bottom cards
                 ...cardIds // newCards
-              ])
-              setCardPiles(newCardPiles)
+              ] as CardPileDef)
+              handleCardPileUpdate(newCardPiles)
             }}
             setPosition={(left: number, top: number) => {
               const newCardPiles = cardPiles.slice().filter(([innerId]: number[]): boolean => {
@@ -181,12 +193,12 @@ export const CardTable = ({ cardSize }: CardTableProps) => {
               })
               newCardPiles.push([
                 -1, left, top, flipped, ...cardIds
-              ])
-              setCardPiles(newCardPiles)
+              ] as CardPileDef)
+              handleCardPileUpdate(newCardPiles)
             }}
           />
         )
       })}
-    </div>
+    </>
   )
 }

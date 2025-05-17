@@ -94,9 +94,10 @@ export const decodeStringToNumbers = (s: string): number[] => {
 export const decodeCardPileSegment = (cardPileSegment: string): CardPileDef[]|false => {
   try {
     const decompressed = decompressFromEncodedURIComponent(cardPileSegment).split(CARD_PILE_SEPARATOR);
-    return decompressed.map((cardPile: string): CardPileDef => {
-      return decodeStringToNumbers(cardPile);
+    const items = decompressed.filter(Boolean).map((cardPile: string): CardPileDef => {
+      return decodeStringToNumbers(cardPile) as CardPileDef;
     });
+    return items.length > 0 ? items : false;
   } catch (err) {
     return false;
   }

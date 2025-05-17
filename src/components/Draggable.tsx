@@ -4,7 +4,6 @@ import { throttle } from '../utils'
 import './css/Draggable.css'
 
 export interface DraggableProps {
-  zIndexRef: React.MutableRefObject<number>
   left: number
   top: number
   setPosition: (left: number, top: number) => void
@@ -13,7 +12,6 @@ export interface DraggableProps {
   children: string | JSX.Element | JSX.Element[]
 }
 export const Draggable = ({
-  zIndexRef,
   left,
   top,
   setPosition,
@@ -22,13 +20,18 @@ export const Draggable = ({
   children,
 }: DraggableProps) => {
   const [[localLeft, localTop], setLocalPosition] = useState<[number, number]>([ left, top ])
-  const [zeeIndex, setZeeIndex] = useState(
-    (zIndexRef && zIndexRef.current) || 1
-  )
+  const [zIndex, setZIndex] = useState(1);
+  const incrementZIndex = () => {
+    setZIndex(2);
+  };
+  const decrementZIndex = () => {
+    setZIndex(1);
+  };
   const cardDragRef = useRef(null)
   useDraggable(cardDragRef, {
     position: { x: localLeft, y: localTop },
     onDrag: ({ offsetX, offsetY }) => {
+      incrementZIndex();
       setLocalPosition([offsetX, offsetY])
     },
     onDragEnd: ({ offsetX, offsetY }) => {
@@ -40,20 +43,14 @@ export const Draggable = ({
           setPosition(offsetX, offsetY)
         }
       }
+      decrementZIndex();
     },
-  })
-
-  const incrementIndex = throttle(() => {
-    zIndexRef.current += 1
-    setZeeIndex(zIndexRef.current)
   })
 
   return (
     <div
-      style={{zIndex: zeeIndex}}
       ref={cardDragRef}
-      onMouseDown={incrementIndex}
-      onTouchStart={incrementIndex}
+      style={{zIndex: zIndex}}
       className={
         [
           hasOverlap(localLeft, localTop) ? 'has-overlap' : 'no-overlap',
